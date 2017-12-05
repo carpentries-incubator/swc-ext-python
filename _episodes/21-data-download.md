@@ -1,26 +1,14 @@
 ---
-title: "Introductory Exercises"
+title: "Wrap-Up Exercise"
 teaching: 0
 exercises: 20
 questions:
-- "What questions do you have from yesterday?"
+- "How can we put together all of today's material?"
 objectives:
-- "Download the data needed for the next part of the lesson." 
-- "Review ideas from yesterday, including functions, conditionals, and loops." 
+- "Apply use of functions, conditionals and loops to solve a problem." 
 keypoints:
-- "Today's topics will build on skills we used yesterday."
+- "Use skills together."
 ---
-
-As we get started, please complete the following two exercises.  
-
-> ## Getting the Data
-> 
-> The data we will be using is taken from the [gapminder][gapminder] dataset.
-> Create a directory called `python-novice-gapminder`, and download the zip file
-> [python-novice-gapminder-data.zip]({{page.root}}/files/python-novice-gapminder-data.zip)
-> into it.  Then unzip the file (it should create a `data` folder.  Then start a Jupyter 
-> notebook from inside this directory.    
-{: .challenge}
 
 > ## Review From Yesterday
 > 
