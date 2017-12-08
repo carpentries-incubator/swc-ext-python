@@ -93,8 +93,6 @@ print_date(1871, 3, 19)
 
 ~~~
 def average(values):
-    if len(values) == 0:
-        return None
     return sum(values) / len(values)
 ~~~
 {: .python}
@@ -131,6 +129,21 @@ print('result of call is:', result)
 result of call is: None
 ~~~
 {: .output}
+
+## Our data analysis
+
+~~~
+def plot_gdp(country_file): 
+	data = pandas.read_csv(country_file, index_col='country')
+	data.T.plot()
+	plt.ylabel('GDP per capita')
+	plt.xticks(rotation=90)
+~~~
+{: .python}
+~~~
+plot_gdp('data/'data/gapminder_gdp_oceania.csv')
+~~~
+{: .python}
 
 > ## Identifying Syntax Errors
 >

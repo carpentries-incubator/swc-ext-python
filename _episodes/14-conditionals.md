@@ -56,6 +56,29 @@ for m in masses:
 ~~~
 {: .output}
 
+## Conditionals *also* useful inside functions.  
+
+Remember our "average" function from earlier?  Now we can 
+add a conditional to test the length of the function.  
+
+~~~
+def average(values):
+    if len(values) == 0:
+        return None
+    return sum(values) / len(values)
+~~~
+{: .python}
+
+~~~
+a = average([1, 3, 4])
+print('average of actual values:', a)
+~~~
+{: .python}
+~~~
+2.6666666666666665
+~~~
+{: .output}
+
 ## Use `else` to execute a block of code when an `if` condition is *not* true.
 
 *   `else` can be used following an `if`.

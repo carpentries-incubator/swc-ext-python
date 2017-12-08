@@ -225,6 +225,68 @@ max      23424.766830    26997.936570    30687.754730    34435.367440
 *   Not particularly useful with just two records,
     but very helpful when there are thousands.
 
+
+## Use `DataFrame.loc[..., ...]` to select values by names.
+
+*   Can specify location by row name analogously to 2D version of dictionary keys.
+
+~~~
+data = pandas.read_csv('data/gapminder_gdp_europe.csv', index_col='country')
+print(data.loc["Albania", "gdpPercap_1952"])
+~~~
+{: .python}
+~~~
+1601.056136
+~~~
+{: .output}
+## Use `:` on its own to mean all columns or all rows.
+
+*   Just like Python's usual slicing notation.
+
+~~~
+print(data.loc["Albania", :])
+~~~
+{: .python}
+~~~
+gdpPercap_1952    1601.056136
+gdpPercap_1957    1942.284244
+gdpPercap_1962    2312.888958
+gdpPercap_1967    2760.196931
+gdpPercap_1972    3313.422188
+gdpPercap_1977    3533.003910
+gdpPercap_1982    3630.880722
+gdpPercap_1987    3738.932735
+gdpPercap_1992    2497.437901
+gdpPercap_1997    3193.054604
+gdpPercap_2002    4604.211737
+gdpPercap_2007    5937.029526
+Name: Albania, dtype: float64
+~~~
+{: .output}
+
+*   Would get the same result printing `data.loc["Albania"]` (without a second index).
+
+~~~
+print(data.loc[:, "gdpPercap_1952"])
+~~~
+{: .python}
+~~~
+country
+Albania                    1601.056136
+Austria                    6137.076492
+Belgium                    8343.105127
+⋮ ⋮ ⋮
+Switzerland               14734.232750
+Turkey                     1969.100980
+United Kingdom             9979.508487
+Name: gdpPercap_1952, dtype: float64
+~~~
+{: .output}
+
+*   Would get the same result printing `data["gdpPercap_1952"]`
+*   Also get the same result printing `data.gdpPercap_1952` (since it's a column name)
+
+
 > ## Analyzing Europe
 >
 > Read the data in `gapminder_gdp_europe.csv`

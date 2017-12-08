@@ -18,6 +18,7 @@ keypoints:
 - "Use `range` to iterate over a sequence of numbers."
 - "The Accumulator pattern turns many values into one."
 ---
+
 ## A *for loop* executes commands once for each value in a collection.
 
 *   Doing calculations on the values in a list one by one
@@ -27,6 +28,7 @@ keypoints:
     or some other collection.
 *   "for each thing in this group, do these operations"
 *   **Best Practice: Don't repeat yourself**
+
 ~~~
 for number in [2, 3, 5]:
     print(number)
