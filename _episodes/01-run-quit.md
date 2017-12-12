@@ -88,6 +88,13 @@ keypoints:
 *   Notice that the "return" and "shift" keys on the 
     right of the keyboard are right next to each other.
 
+## Use comments to add documentation to programs.
+
+~~~
+# This sentence isn't executed by Python.
+adjustment = 0.5   # Neither is this - anything after '#' is ignored.
+~~~
+{: .python}
 
 > ## More Math
 >
