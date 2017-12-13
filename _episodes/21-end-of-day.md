@@ -15,6 +15,22 @@ keypoints:
 > In your notebook, write a function that determines whether a year between 1901 and 2000 is a leap year, 
 > where it prints a message like "1904 is a leap year" or "1905 is not a leap year" as 
 > output.  Use this function to evaluate the years 1928, 1950, 1959, 1972 and 1990.    
+> Essentially, given this list of years: 
+> ~~~~
+> years = [1928, 1950, 1959, 1972, 1990]
+> ~~~~
+> {: .python}
+>
+> Produce something like: 
+> 
+> ~~~
+> 1928 is a leap year
+> 1950 is not a leap year.
+> 1959 is not a leap year.
+> 1972 is a leap year
+> 1990 is not a leap year.
+> ~~~
+> {: .output
 > 
 > Hint: the percent symbol '%' is the modular operator in Python.  So: 
 >

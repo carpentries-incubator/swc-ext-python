@@ -1,7 +1,7 @@
 ---
 title: "Plotting"
 teaching: 5
-exercises: 10
+exercises: 5
 questions:
 - "How can I plot my data?"
 objectives:
