@@ -27,6 +27,21 @@ keypoints:
 ---
 
 
+## Use the built-in function `len` to find the length of a string.
+
+~~~
+len(first_name)
+~~~
+{: .python}
+~~~
+5
+~~~
+{: .output}
+
+*   Nested functions are evaluated from the inside out,
+    just like in mathematics.
+
+
 ## A function may take zero or more arguments.
 
 *   We have seen some functions already --- now let's take a closer look.
@@ -62,13 +77,20 @@ after
     *   "Larger" and "smaller" use (0-9, A-Z, a-z) to compare letters.
 
 ~~~
-print(max(1, 2, 3))
-print(min('a', 'A', '0'))
+max(1,2,3)
 ~~~
 {: .python}
 ~~~
 3
-0
+~~~
+{: .output}
+
+~~~
+min(20,4,-2)
+~~~
+{: .python}
+~~~
+-2
 ~~~
 {: .output}
 
@@ -79,11 +101,11 @@ print(min('a', 'A', '0'))
 *   And they must be given things that can meaningfully be compared.
 
 ~~~
-print(max(1, 'a'))
+min('moon',5)
 ~~~
 {: .python}
 ~~~
-TypeError: unorderable types: str() > int()
+TypeError: unorderable types: int() < str()
 ~~~
 {: .error}
 
@@ -132,67 +154,6 @@ round(...)
 ~~~
 {: .output}
 
-## Python reports a syntax error when it can't understand the source of a program.
-
-*   Won't even try to run the program if it can't be parsed.
-
-~~~
-# Forgot to close the quotation marks around the string.
-name = 'Feng
-~~~
-{: .python}
-~~~
-SyntaxError: EOL while scanning string literal
-~~~
-{: .error}
-
-~~~
-# An extra '=' in the assignment.
-age = = 52
-~~~
-{: .python}
-~~~
-SyntaxError: invalid syntax
-~~~
-{: .error}
-
-*   Look more closely at the error message:
-
-~~~
-print("hello world"
-~~~
-{: .python}
-~~~
-  File "<ipython-input-6-d1cc229bf815>", line 1
-    print ("hello world"
-                        ^
-SyntaxError: unexpected EOF while parsing
-~~~
-{: .error}
-
-*   The message indicates a problem on first line of the input ("line 1").
-    *   In this case the "ipython-input" section of the file name tells us that
-        we are working with input into IPython,
-        the Python interpreter used by the Jupyter Notebook.
-*   The `-6-` part of the filename indicates that
-    the error occurred in cell 6 of our Notebook.
-*   Next is the problematic line of code,
-    indicating the problem with a `^` pointer.
-
-## Python reports a runtime error when something goes wrong while a program is executing.
-
-~~~
-age = 53
-remaining = 100 - aege # mis-spelled 'age'
-~~~
-{: .python}
-~~~
-NameError: name 'aege' is not defined
-~~~
-{: .error}
-
-*   Fix syntax errors by reading the source and runtime errors by tracing execution.
-
 ## The Jupyter Notebook has two ways to get help.
 
 *   Place the cursor inside the parenthesis of the function,
@@ -216,6 +177,35 @@ example
 result of print is None
 ~~~
 {: .output}
+
+## Methods are functions for specific types
+
+~~~
+gene = 'ATGTTCTGGAT'
+~~~
+{: .python}
+~~~
+~~~
+{: .output}
+
+~~~
+gene.count('AT')
+~~~
+{: .python}
+~~~
+2
+~~~
+{: .output}
+
+~~~
+gene.lower()
+~~~
+{: .python}
+~~~
+'atgttctggat'
+~~~
+{: .output}
+
 
 > ## What Happens When
 >

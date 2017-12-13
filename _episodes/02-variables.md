@@ -60,21 +60,16 @@ Ahmed is 42 years old
 *   `print` automatically puts a single space between items to separate them.
 *   And wraps around to a new line at the end.
 
-## Use meaningful variable names.
 
-*   **Best Practice: Write programs for people and not for computers!**
-*   Python doesn't care what you call variables as long as they obey the rules
-    (alphanumeric characters and the underscore).
+> ## Variables Persist Between Cells
+> Variables defined in one cell exist in all other cells once executed,
+> so the relative location of cells in the notebook do not matter
+> (i.e., cells lower down can still affect those above).
+> Remember: Notebook cells are just a way to organize a program:
+> as far as Python is concerned,
+> all of the source code is one long set of instructions.
+{: .callout}
 
-~~~
-flabadab = 42
-ewr_422_yY = 'Ahmed'
-print(ewr_422_yY, 'is', flabadab, 'years old')
-~~~
-{: .python}
-
-*   Use meaningful variable names to help other people understand what the program does.
-*   The most important "other person" is your future self.
 
 ## Variables must be created before they are used.
 
@@ -99,29 +94,37 @@ NameError: name 'last_name' is not defined
 *   The last line of an error message is usually the most informative.
 *   We will look at error messages in detail [later]({{ page.root }}/05-error-messages/).
 
-> ## Variables Persist Between Cells
-> Variables defined in one cell exist in all other cells once executed,
-> so the relative location of cells in the notebook do not matter
-> (i.e., cells lower down can still affect those above).
-> Remember: Notebook cells are just a way to organize a program:
-> as far as Python is concerned,
-> all of the source code is one long set of instructions.
-{: .callout}
-
 ## Variables can be used in calculations.
 
 *   We can use variables in calculations just as if they were values.
     *   Remember, we assigned 42 to `age` a few lines ago.
 
 ~~~
-age = age + 3
-print('Age in three years:', age)
+age_in_dog_years = age / 7
+print(age_in_dog_years)
 ~~~
 {: .python}
 ~~~
-Age in three years: 45
+6
 ~~~
 {: .output}
+
+## Use meaningful variable names.
+
+*   **Best Practice: Write programs for people and not for computers!**
+*   Python doesn't care what you call variables as long as they obey the rules
+    (alphanumeric characters and the underscore).
+
+~~~
+flabadab = 42
+ewr_422_yY = 'Ahmed'
+print(ewr_422_yY, 'is', flabadab, 'years old')
+~~~
+{: .python}
+
+*   Use meaningful variable names to help other people understand what the program does.
+*   The most important "other person" is your future self.
+
 
 ## Avoid 'magic numbers'.
 
@@ -174,12 +177,11 @@ num_governors = governors_per_state * num_states
     position.
 
 ~~~
-atom_name = 'helium'
-print(atom_name[0])
+print(first_name[0])
 ~~~
 {: .python}
 ~~~
-h
+A
 ~~~
 {: .output}
 
@@ -199,28 +201,13 @@ h
     the slice is a copy of part of the original string.
 
 ~~~
-atom_name = 'sodium'
-print(atom_name[0:3])
+print(first_name[0:2])
 ~~~
 {: .python}
 ~~~
-sod
+Ah
 ~~~
 {: .output}
-
-## Use the built-in function `len` to find the length of a string.
-
-~~~
-print(len('helium'))
-~~~
-{: .python}
-~~~
-6
-~~~
-{: .output}
-
-*   Nested functions are evaluated from the inside out,
-    just like in mathematics.
 
 ## Python is case-sensitive.
 

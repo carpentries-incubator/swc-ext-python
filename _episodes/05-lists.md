@@ -29,29 +29,24 @@ keypoints:
 *   Use `len` to find out how many values are in a list.
 
 ~~~
-pressures = [0.273, 0.275, 0.277, 0.275, 0.276]
-print('pressures:', pressures)
-print('length:', len(pressures))
+teen_primes = [11, 13, 17, 23]
 ~~~
 {: .python}
-~~~
-pressures: [0.273, 0.275, 0.277, 0.275, 0.276]
-length: 5
-~~~
-{: .output}
 
 ## Use an item's index to fetch it from a list.
 
 *   Just like strings.
 
 ~~~
-print('zeroth item of pressures:', pressures[0])
-print('fourth item of pressures:', pressures[4])
+print(len(teen_primes))
+print(teen_primes[1])
+print(teen_primes[1:3])
 ~~~
 {: .python}
 ~~~
-zeroth item of pressures: 0.273
-fourth item of pressures: 0.276
+4
+13
+[13, 17]
 ~~~
 {: .output}
 
