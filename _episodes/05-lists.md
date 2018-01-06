@@ -29,7 +29,7 @@ keypoints:
 *   Use `len` to find out how many values are in a list.
 
 ~~~
-teen_primes = [11, 13, 17, 23]
+teen_primes = [12, 13, 17, 23]
 ~~~
 {: .python}
 
@@ -50,17 +50,37 @@ print(teen_primes[1:3])
 ~~~
 {: .output}
 
+## Strings vs Lists: Character strings are immutable.
+
+*   Cannot change the characters in a string after it has been created.
+    *   *Immutable*: can't be changed after creation.
+    *   In contrast, lists are *mutable*: they can be modified in place.
+*   Python considers the string to be a single value with parts,
+    not a collection of values.
+
+~~~
+element = 'carbon'
+element[0] = 'C'
+~~~
+{: .python}
+~~~
+TypeError: 'str' object does not support item assignment
+~~~
+{: .error}
+
+*   Lists and character strings are both *collections*.
+
 ## Lists' values can be replaced by assigning to them.
 
 *   Use an index expression on the left of assignment to replace a value.
 
 ~~~
-pressures[0] = 0.265
-print('pressures is now:', pressures)
+teen_primes[0] = 12
+print('teen_primes is now:', teen_primes)
 ~~~
 {: .python}
 ~~~
-pressures is now: [0.265, 0.275, 0.277, 0.275, 0.276]
+teen_primes is now: [11, 13, 17, 23]
 ~~~
 {: .output}
 
@@ -141,41 +161,6 @@ primes after removing last item: [2, 3, 5, 7]
 goals = [1, 'Create lists.', 2, 'Extract items from lists.', 3, 'Modify lists.']
 ~~~
 {: .python}
-
-## Character strings can be indexed like lists.
-
-*   Get single characters from a character string using indexes in square brackets.
-
-~~~
-element = 'carbon'
-print('zeroth character:', element[0])
-print('third character:', element[3])
-~~~
-{: .python}
-~~~
-zeroth character: c
-third character: b
-~~~
-{: .output}
-
-## Character strings are immutable.
-
-*   Cannot change the characters in a string after it has been created.
-    *   *Immutable*: can't be changed after creation.
-    *   In contrast, lists are *mutable*: they can be modified in place.
-*   Python considers the string to be a single value with parts,
-    not a collection of values.
-
-~~~
-element[0] = 'C'
-~~~
-{: .python}
-~~~
-TypeError: 'str' object does not support item assignment
-~~~
-{: .error}
-
-*   Lists and character strings are both *collections*.
 
 ## Indexing beyond the end of the collection is an error.
 

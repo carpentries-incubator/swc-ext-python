@@ -1,6 +1,6 @@
 ---
 title: "Writing Functions"
-teaching: 10
+teaching: 15
 exercises: 10
 questions:
 - "How can I create my own functions?"
@@ -133,9 +133,9 @@ result of call is: None
 ## Our data analysis
 
 ~~~
-def plot_gdp(country_file): 
+def plot_gdp(country_file, country): 
 	data = pandas.read_csv(country_file, index_col='country')
-	data.T.plot()
+	data.loc[country,:].plot()
 	plt.ylabel('GDP per capita')
 	plt.xticks(rotation=90)
 ~~~

@@ -1,7 +1,7 @@
 ---
 title: "Variables and Assignment"
 teaching: 10
-exercises: 5
+exercises: 10
 questions:
 - "How can I store data in programs?"
 objectives:
@@ -40,6 +40,22 @@ first_name = 'Ahmed'
 *   Underscores at the start like `__alistairs_real_age` have a special meaning
     so we won't do that until we understand the convention.
 
+## Use meaningful variable names.
+
+*   **Best Practice: Write programs for people and not for computers!**
+*   Python doesn't care what you call variables as long as they obey the rules
+    (alphanumeric characters and the underscore).
+
+~~~
+flabadab = 42
+ewr_422_yY = 'Ahmed'
+print(ewr_422_yY, 'is', flabadab, 'years old')
+~~~
+{: .python}
+
+*   Use meaningful variable names to help other people understand what the program does.
+*   The most important "other person" is your future self.
+
 ## Use `print` to display values.
 
 *   Python has a built-in function called `print` that prints things as text.
@@ -71,6 +87,22 @@ Ahmed is 42 years old
 {: .callout}
 
 
+## Variables can be used in calculations.
+
+*   We can use variables in calculations just as if they were values.
+    *   Remember, we assigned 42 to `age` a few lines ago.
+
+~~~
+age_in_dog_years = age / 7
+print(age_in_dog_years)
+~~~
+{: .python}
+~~~
+6
+~~~
+{: .output}
+
+
 ## Variables must be created before they are used.
 
 *   If a variable doesn't exist yet, or if the name has been mis-spelled,
@@ -93,37 +125,6 @@ NameError: name 'last_name' is not defined
 
 *   The last line of an error message is usually the most informative.
 *   We will look at error messages in detail [later]({{ page.root }}/05-error-messages/).
-
-## Variables can be used in calculations.
-
-*   We can use variables in calculations just as if they were values.
-    *   Remember, we assigned 42 to `age` a few lines ago.
-
-~~~
-age_in_dog_years = age / 7
-print(age_in_dog_years)
-~~~
-{: .python}
-~~~
-6
-~~~
-{: .output}
-
-## Use meaningful variable names.
-
-*   **Best Practice: Write programs for people and not for computers!**
-*   Python doesn't care what you call variables as long as they obey the rules
-    (alphanumeric characters and the underscore).
-
-~~~
-flabadab = 42
-ewr_422_yY = 'Ahmed'
-print(ewr_422_yY, 'is', flabadab, 'years old')
-~~~
-{: .python}
-
-*   Use meaningful variable names to help other people understand what the program does.
-*   The most important "other person" is your future self.
 
 
 ## Avoid 'magic numbers'.

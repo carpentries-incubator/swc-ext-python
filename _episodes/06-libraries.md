@@ -1,7 +1,7 @@
 ---
 title: "Libraries"
 teaching: 5
-exercises: 0
+exercises: 5
 questions:
 - "How can I use software that other people have written?"
 - "How can I find out what that software does?"
@@ -25,7 +25,6 @@ keypoints:
 *   The Python [standard library][stdlib] is an extensive suite of modules that comes
     with Python itself.
 *   Many additional libraries are available from [PyPI][pypi] (the Python Package Index).
-*   We will see later how to write new libraries.
 
 > ## Libraries and modules
 >
