@@ -16,14 +16,12 @@ keypoints:
 - "The pseudo-file `sys.stdout` connects to a program's standard output."
 ---
 
-The Jupyter Notebook and other interactive tools are great for prototyping code and exploring data,
-but sooner or later we will want to use our program in a pipeline
-or run it in a shell script to process thousands of data files.
-In order to do that,
-we need to make our programs work like other Unix command-line tools.
-For example,
-we may want a program that reads a dataset
-and prints the average inflammation per patient.
+The Jupyter Notebook and other interactive tools are great for
+prototyping code and exploring data, but sooner or later one will
+want to use that code in a program we can run from the command line. 
+In order to do that, we need to make our programs work like other
+Unix command-line tools. For example, we may want a program that
+reads a dataset and prints the average inflammation per patient.
 
 > ## Switching to Shell Commands
 >
@@ -32,8 +30,102 @@ and prints the average inflammation per patient.
 > command that tells you to run that command in the shell rather than the Python interpreter.
 {: .callout}
 
-This program does exactly what we want - it prints the average inflammation per patient
-for a given file.
+> ## Converting Notebooks
+>
+> The Jupyter Notebook has the ability to convert all of the cells of a
+> current Notebook into a python program. To do this, 
+> 
+{: .callout}
+
+To ensure that we're all starting with the same set of code. Please
+copy the text below into a file called `pandas_analysis.py` and move
+it into our working directory with the gapminder data (`~/data`).
+
+~~~
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+data = pandas.read_csv('data/gapminder_gdp_oceania.csv', index_col = 'country').T
+print(data)
+# create a plot the transposed data
+ax = data.plot()
+# display the plot
+plt.show()
+~~~
+{: .python}
+
+This program imports the `pandas` and `matplotlib` Python modules, reads
+some of the gapminder data into a `pandas` dataframe, and plots that
+data using `matplotlib` with some default settings.
+
+We can run this program from the command line using `python pandas_analysis.py`.
+This is much easier than starting a notebook, going to the browser, and running each cell in the notebook to get the same result.
+
+This program currently only workd for one set of data. How might we modify
+the program to work for any of the gapminder gdp datasets? We could go into the
+script and change the `.csv` filename to generate the same plot for different
+sets of data, but there is an even better way.
+
+## Command-Line Arguments
+
+Python programs can use additional arguments provided in the following manner.
+
+~~~
+$ python <program> <argument1> <argument2> <other_arguments>
+~~~
+{: .bash}
+
+The program can then use these arguments to alter its behavior based on those arguments.
+In this case, we'll be using arguments to tell our program to operate on a specific file.
+
+But before we modify our `pandas_analysis.py` program, we are going to put it under
+version control so that we can track its changes.
+
+~~~
+$ git init
+$ git add pandas_analysis.sh
+$ git commit -m "First commit of analysis script"
+~~~
+{: .bash}
+
+Because we're only concerned with changes to our analysis script, we are going to
+create a .gitignore file for all of the gapminder `.csv` files.
+
+~~~
+$ echo "*.csv" > .gitignore
+$ git add .gitignore
+$ git commit -m "Adding igore file"
+~~~
+
+Now that we have a clean repository, let's get back to work on adding command line
+arguments to our program.
+
+We'll be using the `sys` module to do so. `sys` is a standard Python module used to
+store information about the program and its running environment, including what arguments were passed to the program when the command was executed. These arguments are stored as a list in `sys.argv`.
+
+These arguments can be accessed in our program by importing the `sys` module. The first argument in `sys.argv` is always the name of the program (in our case: `pandas_analysis.py`), so we'll find any additional arguments right after that in the list.
+
+~~~
+import sys
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+data = pandas.read_csv(sys.argv[1], index_col = 'country').T
+print(data)
+# create a plot the transposed data
+ax = data.plot()
+# display the plot
+plt.show()
+~~~
+{: .python}
 
 ~~~
 $ python ../code/readings_04.py --mean inflammation-01.csv
