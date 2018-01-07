@@ -38,7 +38,7 @@ reads a dataset and prints the average inflammation per patient.
 {: .callout}
 
 To ensure that we're all starting with the same set of code. Please
-copy the text below into a file called `pandas_analysis.py` and move
+copy the text below into a file called `pandas_plots.py` and move
 it into our working directory with the gapminder data (`~/data`).
 
 ~~~
@@ -62,7 +62,7 @@ This program imports the `pandas` and `matplotlib` Python modules, reads
 some of the gapminder data into a `pandas` dataframe, and plots that
 data using `matplotlib` with some default settings.
 
-We can run this program from the command line using `python pandas_analysis.py`.
+We can run this program from the command line using `python pandas_plots.py`.
 This is much easier than starting a notebook, going to the browser, and running each cell in the notebook to get the same result.
 
 This program currently only workd for one set of data. How might we modify
@@ -82,12 +82,12 @@ $ python <program> <argument1> <argument2> <other_arguments>
 The program can then use these arguments to alter its behavior based on those arguments.
 In this case, we'll be using arguments to tell our program to operate on a specific file.
 
-But before we modify our `pandas_analysis.py` program, we are going to put it under
+But before we modify our `pandas_plots.py` program, we are going to put it under
 version control so that we can track its changes.
 
 ~~~
 $ git init
-$ git add pandas_analysis.sh
+$ git add pandas_plots.sh
 $ git commit -m "First commit of analysis script"
 ~~~
 {: .bash}
@@ -107,7 +107,9 @@ arguments to our program.
 We'll be using the `sys` module to do so. `sys` is a standard Python module used to
 store information about the program and its running environment, including what arguments were passed to the program when the command was executed. These arguments are stored as a list in `sys.argv`.
 
-These arguments can be accessed in our program by importing the `sys` module. The first argument in `sys.argv` is always the name of the program (in our case: `pandas_analysis.py`), so we'll find any additional arguments right after that in the list.
+These arguments can be accessed in our program by importing the `sys` module. The first argument in `sys.argv` is always the name of the program (in our case: `pandas_plots.py`), so we'll find any additional arguments right after that in the list.
+
+To do this we'll make two changes, one is to add the import of the sys module at the beginning of the program. The other is to replace the filename ("gapminder_gdp_oceania.csv") with the the second entry in the `sys.argv` list. 
 
 ~~~
 import sys
@@ -127,7 +129,103 @@ plt.show()
 ~~~
 {: .python}
 
+Now let's take a look at what happens when we provide a gapminder filename
+to the program.
+
 ~~~
+$ python pandas_plots.py ./data/gapminder_gdp_oceania.csv
+~~~
+{: .bash}
+
+And the same plots as before were displayed, but this file is now being read
+from an agrument we've provided on the command line. We can now do this for files
+with similar information and get the same set of plots for that data *without
+any changes to our program's code*. Try this our for yourself now.
+
+### Updating our Repository
+
+Now that we've made this change to our program and see that it works. Let's update our
+repository with these changes.
+
+~~~
+$ git add pandas_plots.py
+$ git commit -m "Adding command line arguments"
+~~~
+{: .bash}
+
+### Returning Error Information
+
+Having the ability to run our program on any of the gapminder gdp data sets
+is great, but what happens if we run the code as we did before the addition of
+arguments?
+
+~~~
+$ python pandas_plots.py
+Traceback (most recent call last):
+  File "pandas_analysis1.py", line 9, in <module>
+    data = pandas.read_csv(sys.argv[1], index_col = 'country').T
+IndexError: list index out of range
+~~~
+{: .bash}
+
+Python returns an error when trying to find the command line argument in
+`sys.argv`. It cannot find that argument because we haven't provided it to the command and there is no entry in `sys.argv` where we're telling it to look for this value. We may know all of this because we're the ones who wrote the program, but another user
+of the program without this experience will not.
+
+It is important to employ "defensive programming" in this scenario so that our program indicates to the user **a)** what is going wrong and **b)** how to fix this problem when running the program.
+
+Let's add a section to the code which checks the number of incoming arguments to the program and returns some information to the user.
+
+~~~
+import sys
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# make sure that a filename argument has been provided
+if len(sys.argv) <= 1:
+    # why the program will not continue
+    print("Not enough arguments have been provided to the program.")
+    # suggest what needs to be changed for a successful run 
+    print("Please provide a gapminder gdp data file to the program.")
+    # exit the program early
+    sys.exit()
+
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+data = pandas.read_csv(sys.argv[1], index_col = 'country').T
+print(data)
+# create a plot the transposed data
+ax = data.plot()
+# display the plot
+plt.show()
+~~~
+{: .python}
+
+Now if we run the program without an argument, here's what we'll see
+
+~~~
+$ python pandas_plots.py
+Not enough arguments have been provided to the program.
+Please provide a gapminder gdp data file to the program.
+~~~
+{: .python}
+
+Now if someone runs this program without having used it before (or written it
+themselves) the user will know how change their command to get the program running properly, rather than seeing an esoteric Python error.
+
+### Updating the Repo
+
+We've just made successful change to our repository. Let's add a commit to the
+repo.
+
+~~~
+$ git add pandas_plots.py
+$ git commit -m "Handling case for missing filename argument"
+~~~
+{: .bash}
+
 $ python ../code/readings_04.py --mean inflammation-01.csv
 5.45
 5.425
