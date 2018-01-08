@@ -1,30 +1,29 @@
 ---
-title: Refactoring Code
-teaching: 30
+title: Defensive Programming
+teaching: 10
 exercises: 0
 questions:
-- "How can I write Python programs that will work like Unix command-line tools?"
+- "How do I predict and avoid user confusion?"
 objectives:
-- "Use the values of command-line arguments in a program."
-- "Handle flags and files separately in a command-line program."
-- "Read data from standard input in a program so that it can be used in a pipeline."
+- "Ensure that programs indicate use and provide meaningful output upon failure."
 keypoints:
-- "The `sys` library connects a Python program to the system it is running on."
-- "The list `sys.argv` contains the command-line arguments that a program was run with."
 - "Avoid silent failures."
-- "The pseudo-file `sys.stdin` connects to a program's standard input."
-- "The pseudo-file `sys.stdout` connects to a program's standard output."
+- "Avoid esoteric output when a program fails."
 ---
-
 
 ## Defensive Programming
 
-Having the ability to run our program on any of the gapminder gdp data sets is
-great, but what happens if we run the code as we did before the addition of
-arguments?
+In our last lesson, we created a program which will plot our gapminder gdp data
+for an arbitrary number of files. This is great, but we didn't cover some of
+the vulnerabilities of this program we've created.
+
+  - What happens if we run the program without any arguments at all?
+  - What happens if we run the program from another directory?
+
+First, let's try running our program without any additional arguments or flags.
 
 ~~~
-$ python pandas_plots.py
+$ python gdp_plots.py
 ~~~
 {: .bash}
 
@@ -42,52 +41,82 @@ command and as a result there is no entry in `sys.argv` where we're telling it t
 this value. We may know all of this because we're the ones who wrote the
 program, but another user of the program without this experience will not.
 
+And if we run the program from another directory:
+
+~~~
+$ cd ..
+$ python ./data/gdp_plots.py
+~~~
+{: .bash}
+
+We see no output from the program at all. This is what is referred to as a "silent
+failure". The program has failed to produce a plot, but has reported no reason why.
+These kind of failures are difficult to debug and should be avoided.
+
 It is important to employ "defensive programming" in this scenario so that our
 program indicates to the user
 
  1. what is going wrong
- 2. how to fix this problem
+ 2. how to correct this problem
 
 Let's add a section to the code which checks the number of incoming arguments to
 the program and returns some information to the user if there is missing information.
 
 ~~~
 import sys
+import glob
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# make sure that a filename argument has been provided
-if len(sys.argv) <= 1:
+# make sure additional arguments or flags have
+# been provided by the user
+if len(sys.argv) == 1:
     # why the program will not continue
-    print("Not enough arguments have been provided to the program.")
-    # suggest what needs to be changed for a successful run 
-    print("Please provide a gapminder gdp data file to the program.")
-    # exit the program early
-    sys.exit()
+    print("Not enough arguments have been provided")
+    # how this can be corrected
+    print("Usage: python gdp_plots.py <filenames>")
+    print("Options:")
+    print("-a : plot all gdp data sets in current directory")
 
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
-data = pandas.read_csv(sys.argv[1], index_col = 'country').T
-print(data)
-# create a plot the transposed data
-ax = data.plot()
-# display the plot
-plt.show()
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+    # read data into a pandas dataframe and transpose
+    data = pandas.read_csv(filename, index_col = 'country').T
+
+    # create a plot the transposed data
+    ax = data.plot( title = filename )
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+
+    # display the plot
+    plt.show()
 ~~~
 {: .python}
 
 If we run the program without a filename argument, here's what we'll see
 
 ~~~
-$ python pandas_plots.py
+$ python gdp_plots.py
 ~~~
 {: .python}
 
 ~~~
-Not enough arguments have been provided to the program.
-Please provide a gapminder gdp data file to the program.
+Not enough arguments have been provided
+Usage: python gdp_plots.py <filenames>
+Options:
+-a : plot all gdp file in current directory
 ~~~
 {: .output}
 
@@ -101,7 +130,7 @@ We've just made another successful change to our repository. Let's add a commit
 to the repo.
 
 ~~~
-$ git add pandas_plots.py
+$ git add gdp_plots.py
 $ git commit -m "Handling case for missing filename argument"
 ~~~
 {: .bash}
