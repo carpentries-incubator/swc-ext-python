@@ -425,14 +425,22 @@ def plot_datafile(filename):
     # display the plots
     plt.show()
 
-# make sure that a filename argument has been provided
-check_arguments()
+def main():
+    # make sure that a filename argument has been provided
+    check_arguments()
 
-# loop over each filename
-for filename in sys.argv[1:]:
-    plot_datafile(filename)
+    # loop over each filename
+    for filename in sys.argv[1:]:
+        plot_datafile(filename)
+
+main()
 ~~~
 {: .python}
+
+The process we've just gone through is called **refactoring**. The behavior of
+the program hasn't changed, but it has been made more modular by separating the
+into different functions with their own purpose. These functions can then be
+called within a function named "main" to execute the program.
 
 #### Update the Repository
 
@@ -444,7 +452,6 @@ $ git add pandas_plots.py
 $ git commit -m "Reorganizing code."
 ~~~
 {: .bash}
-
 
 Another thing we might want to do with this script is to import its ability to
 generate plots in another place in Python. Let's see what happens if we try to
@@ -525,13 +532,16 @@ def plot_datafile(filename):
     # display the plots
     plt.show()
 
-if __name__ == "__main__":
+def main():
     # make sure that a filename argument has been provided
     check_arguments()
 
     # loop over each filename
     for filename in sys.argv[1:]:
         plot_datafile(filename)
+
+if __name__ == "__main__":
+   main()
 ~~~
 {: .python}
 
