@@ -21,7 +21,7 @@ prototyping code and exploring data, but sooner or later one will
 want to use that code in a program we can run from the command line. 
 In order to do that, we need to make our programs work like other
 Unix command-line tools. For example, we may want a program that
-reads a dataset and prints the average inflammation per patient.
+reads a data set and prints the average inflammation per patient.
 
 > ## Switching to Shell Commands
 >
@@ -68,7 +68,7 @@ This is much easier than starting a notebook, going to the browser, and running
 each cell in the notebook to get the same result.
 
 This program currently only workd for one set of data. How might we modify
-the program to work for any of the gapminder gdp datasets? We could go into the
+the program to work for any of the gapminder gdp data sets? We could go into the
 script and change the `.csv` filename to generate the same plot for different
 sets of data, but there is an even better way.
 
@@ -393,7 +393,7 @@ $ git commit -m "Allowing plot generation for multiple files at once"
 ~~~
 {: .bash}
 
-This code works nicely for generating plots of multiple datasets, but there is
+This code works nicely for generating plots of multiple data sets, but there is
 now a lot to read comfortably. It would be nice to break this work into clear
 chunks of code. This can be accomplished by making the argument checking section
 and the body of the for loop their own functions. This requires surprisingly few
@@ -563,35 +563,81 @@ interactive way. This would work the same way in a Jupyter notebook.
 >>
 {: .callout}
 
+## Handling Program Flags
 
-## Handling Command-Line Flags
+Now we have a program which is capable of handling any number of data sets at once.
 
-Now we have a program which will plot data from any of our gapminder gdp datasets.
+But what if we have 50 GDP data sets? It would be awfully tedious to type in the names
+of 50 files in the command line, so let's add a flag to our program indicating that we
+would like it to generate a plot for each data set in the current directory.
 
-But for plots of datasets with many countries, these plots can be difficult to
-read and the legend is very large. It would be useful to only generate plots for
-specific countries in the files we provide.
+Flags are a convention used in programming to indicate to a program that a non-default behavior
+is being requested by the user. In this case, we'll be using a "-a" flag to indicate to our program
+we would like it to operate on all data sets in our directory.
 
-This is a nice use case for command line flags. Flags are a way of indicating to
-a program that an optional capability is being invoked. Flags can sometimes
-stand on their own, and other times they indicate that additional information related
-to the program's behavior is about to be provided.
+To explore what files are in the current directory, we'll be using the Python's `glob` module.
 
-In this case we'll be adding a "-c" flag to our program to indicate that only information
-about countries listed after the flag should be in our plots.
+*   In Unix, the term "globbing" means "matching a set of files with a pattern".
+*   The most common patterns are:
+    *   `*` meaning "match zero or more characters"
+    *   `?` meaning "match exactly one character"
+*   Python contains the `glob` library to provide pattern matching functionality
+*   The `glob` library contains a function also called `glob` to match file patterns
+*   E.g., `glob.glob('*.txt')` matches all files in the current directory 
+    whose names end with `.txt`.
+*   Result is a (possibly empty) list of character strings.
 
+~~~
+import sys
+import pandas
+import glob
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
 
+def check_arguments():
+    if len(sys.argv) <= 1:
+        # why the program will not continue
+        print("Not enough arguments have been provided to the program.")
+        # suggest what needs to be changed for a successful run 
+        print("Please provide a gapminder gdp data file to the program.")
+        # exit the program early
+        sys.exit()
+            
+def plot_datafile(filename):
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    # create a plot the transposed data
+    ax = data.plot()
+    # display the plots
+    plt.show()
 
+def main():
+    # make sure that a filename argument has been provided
+    check_arguments()
+    
+    # check for -a flag, if it exists
+    # get all gdp datasets in current directory
+    if '-a' in sys.argv:
+        filenames = glob.glob("./data/*gdp*.csv")
+    # otherwise we'll assume that the remaining arguments
+    # are file names
+    else:
+        filenames = sys.argv[1:]
+        
+    # loop over each filename
+    for filename in filenames:
+        plot_datafile(filename)
 
-
-
-
-
-
+if __name__ == "__main__":
+   main()
+~~~
+{: .python}
 
 > ## Finding Particular Files
 >
-> Using the `glob` module introduced [earlier]({{ page.root }}/04-files/),
+> Using the `glob` module,
 > write a simple version of `ls` that shows files in the current directory with a particular suffix.
 > A call to this script should look like this:
 >
