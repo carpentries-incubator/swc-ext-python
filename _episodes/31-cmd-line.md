@@ -33,7 +33,8 @@ reads a dataset and prints the average inflammation per patient.
 > ## Converting Notebooks
 >
 > The Jupyter Notebook has the ability to convert all of the cells of a
-> current Notebook into a python program. To do this, 
+> current Notebook into a python program. To do this, go to `File` -> `Download as`
+> and select `Python (.py)` to get the current notebook as a Python script.
 > 
 {: .callout}
 
