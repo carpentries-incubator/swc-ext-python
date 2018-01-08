@@ -216,14 +216,14 @@ $ python pandas_plots.py ./data/gapminder_gdp_oceania.csv
 {: .bash}
 
 And the same plots as before were displayed, but this file is now being read
-from an agrument we've provided on the command line. We can now do this for files
-with similar information and get the same set of plots for that data *without
-any changes to our program's code*. Try this our for yourself now.
+from an agrument we've provided on the command line. We can now do this for
+files with similar information and get the same set of plots for that data
+*without any changes to our program's code*. Try this our for yourself now.
 
 ### Updating our Repository
 
-Now that we've made this change to our program and see that it works. Let's update our
-repository with these changes.
+Now that we've made this change to our program and see that it works. Let's
+update our repository with these changes.
 
 ~~~
 $ git add pandas_plots.py
@@ -233,8 +233,8 @@ $ git commit -m "Adding command line arguments"
 
 ### Returning Error Information
 
-Having the ability to run our program on any of the gapminder gdp data sets
-is great, but what happens if we run the code as we did before the addition of
+Having the ability to run our program on any of the gapminder gdp data sets is
+great, but what happens if we run the code as we did before the addition of
 arguments?
 
 ~~~
@@ -251,12 +251,17 @@ IndexError: list index out of range
 {: .output}
 
 Python returns an error when trying to find the command line argument in
-`sys.argv`. It cannot find that argument because we haven't provided it to the command and there is no entry in `sys.argv` where we're telling it to look for this value. We may know all of this because we're the ones who wrote the program, but another user
-of the program without this experience will not.
+`sys.argv`. It cannot find that argument because we haven't provided it to the
+command and there is no entry in `sys.argv` where we're telling it to look for
+this value. We may know all of this because we're the ones who wrote the
+program, but another user of the program without this experience will not.
 
-It is important to employ "defensive programming" in this scenario so that our program indicates to the user **a)** what is going wrong and **b)** how to fix this problem when running the program.
+It is important to employ "defensive programming" in this scenario so that our
+program indicates to the user **a)** what is going wrong and **b)** how to fix
+this problem when running the program.
 
-Let's add a section to the code which checks the number of incoming arguments to the program and returns some information to the user.
+Let's add a section to the code which checks the number of incoming arguments to
+the program and returns some information to the user.
 
 ~~~
 import sys
@@ -285,7 +290,7 @@ plt.show()
 ~~~
 {: .python}
 
-If we run the program without an argument, here's what we'll see
+If we run the program without a filename argument, here's what we'll see
 
 ~~~
 $ python pandas_plots.py
@@ -295,7 +300,8 @@ Please provide a gapminder gdp data file to the program.
 {: .python}
 
 Now if someone runs this program without having used it before (or written it
-themselves) the user will know how change their command to get the program running properly, rather than seeing an esoteric Python error.
+themselves) the user will know how change their command to get the program
+running properly, rather than seeing an esoteric Python error.
 
 ### Updating the Repo
 
@@ -323,27 +329,22 @@ $ git commit -m "Handling case for missing filename argument"
 
 ## Handling Multiple Files
 
-Perhaps we would like a script that can operate on multiple
-data files at once. To process each file separately,
-we'll need a loop that executes our plotting statements
-for each file.
+Perhaps we would like a script that can operate on multiple data files at
+once. To process each file separately, we'll need a loop that executes our
+plotting statements for each file.
 
-We want our program to process each file separately,
-and the easiest way to do this is a loop that
-executes once for each of the filenames provided in `sys.argv`..
+We want our program to process each file separately, and the easiest way to do
+this is a loop that executes once for each of the filenames provided in
+`sys.argv`..
 
-But we need to be careful:
-`sys.argv[0]` will always be the name of our program,
-rather than the name of a file.
-We also need to handle an unknown number of filenames,
-since our program could be run for any number of files.
+But we need to be careful: `sys.argv[0]` will always be the name of our program,
+rather than the name of a file.  We also need to handle an unknown number of
+filenames, since our program could be run for any number of files.
 
-The solution is to loop over the contents of `sys.argv[1:]`.
-The '1' tells Python to start the slice at location 1,
-so the program's name isn't included.
-Since we've left off the upper bound,
-the slice runs to the end of the list,
-and includes all the filenames.
+The solution is to loop over the contents of `sys.argv[1:]`. The '1' tells
+Python to start the slice at location 1, so the program's name isn't included.
+Since we've left off the upper bound, the slice runs to the end of the list, and
+includes all the filenames.
 
 Here is our updated program.
 
@@ -370,20 +371,19 @@ for file in sys.argv[1:]:
     data = pandas.read_csv(file, index_col = 'country').T
     # create a plot the transposed data
     ax = data.plot()
-
-# display the plots
-plt.show()
+    # display the plots
+    plt.show()
 ~~~
 {: .python}
 
-Now when we run the program and provide it with multiple filenames:
+Now when the program is given multiple filenames
 
 ~~~
 $ python pandas_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 ~~~
 {: .bash}
 
-we get one plot for each file we've specified on the command line.
+one plot for each filename is generated.
 
 #### Update the Repository
 
@@ -393,12 +393,12 @@ $ git commit -m "Allowing plot generation for multiple files at once"
 ~~~
 {: .bash}
 
-This code would look a lot nicer be easier to read if it were reorganized,
-and we could use it in other Python programs to generate plots for our datasets.
+This code would look a lot nicer be easier to read if it were reorganized, and
+we could use it in other Python programs to generate plots for our datasets.
 
-This can be accomplished by making the argument checking section and the
-body of the for loop their own functions. This requires surprisingly few changes
-to the code.
+This can be accomplished by making the argument checking section and the body of
+the for loop their own functions. This requires surprisingly few changes to the
+code.
 
 ~~~
 import sys
@@ -424,7 +424,7 @@ def plot_datafile(filename):
     ax = data.plot()
     # display the plots
     plt.show()
-    
+
 # make sure that a filename argument has been provided
 check_arguments()
 
@@ -436,8 +436,8 @@ for filename in sys.argv[1:]:
 
 #### Update the Repository
 
-We haven't changed the behavior of our program, but our *code* has changed, so let's
-update the repository.
+We haven't changed the behavior of our program, but our *code* has changed, so
+let's update the repository.
 
 ~~~
 $ git add pandas_plots.py
@@ -446,12 +446,12 @@ $ git commit -m "Reorganizing code."
 {: .bash}
 
 
-Another thing we might want to do with this script is to import its
-ability to generate plots in another place in Python. Let's see what
-happens if we try to do that now.
+Another thing we might want to do with this script is to import its ability to
+generate plots in another place in Python. Let's see what happens if we try to
+do that now.
 
-First, let's open an interactive Python session in the terminal
-and import our module.
+First, let's open an interactive Python session in the terminal and import our
+module.
 
 ~~~
 $ python
@@ -462,12 +462,12 @@ $
 ~~~
 {: .bash}
 
-We see our error message related to a lack and the session
-is terminated. This is a real problem if the functionality
-of the plot_datafile is needed elsewhere. We could copy the function
-into another location of course, but then if we change one of those
-functions the other will need to be updated as well which is an unlikely
-scenario given the number of things on our plate day-to-day.
+We see our error message related to a lack and the session is terminated. This
+is a real problem if the functionality of the plot_datafile is needed
+elsewhere. We could copy the function into another location of course, but then
+if we change one of those functions the other will need to be updated as well
+which is an unlikely scenario given the number of things on our plate
+day-to-day.
 
 > ## Running Versus Importing
 >
@@ -497,8 +497,8 @@ scenario given the number of things on our plate day-to-day.
 > is being imported or run as a script.
 {: .callout}
 
-Let's add the main part of our script to a section which
-identifies the program as being called from the command line.
+Let's add the main part of our script to a section which identifies the program
+as being called from the command line.
 
 ~~~
 import sys
@@ -535,8 +535,8 @@ if __name__ == "__main__":
 ~~~
 {: .python}
 
-Now if try to import this script from an interactive session
-and use our function
+Now if try to import this script from an interactive session and use our
+function
 
 ~~~
 $ python
@@ -546,9 +546,8 @@ $ python
 ~~~
 {: .bash}
 
-the session doesn't terminate and we can use the `plot_datafile`
-function in an interactive way. This would work the same way in a
-Jupyter notebook.
+the session doesn't terminate and we can use the `plot_datafile` function in an
+interactive way. This would work the same way in a Jupyter notebook.
 
 >> ## Exiting the Python interpreter
 >> To exit the Python interpreter, use the key combination `ctrl+d`
