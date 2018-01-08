@@ -1,6 +1,6 @@
 ---
 title: Defensive Programming
-teaching: 10
+teaching: 15
 exercises: 0
 questions:
 - "How do I predict and avoid user confusion?"
