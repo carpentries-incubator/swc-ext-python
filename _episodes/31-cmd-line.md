@@ -64,27 +64,18 @@ some of the gapminder data into a `pandas` dataframe, and plots that
 data using `matplotlib` with some default settings.
 
 We can run this program from the command line using `python pandas_plots.py`.
-This is much easier than starting a notebook, going to the browser, and running each cell in the notebook to get the same result.
+This is much easier than starting a notebook, going to the browser, and running
+each cell in the notebook to get the same result.
 
 This program currently only workd for one set of data. How might we modify
 the program to work for any of the gapminder gdp datasets? We could go into the
 script and change the `.csv` filename to generate the same plot for different
 sets of data, but there is an even better way.
 
-## Command-Line Arguments
-
-Python programs can use additional arguments provided in the following manner.
-
-~~~
-$ python <program> <argument1> <argument2> <other_arguments>
-~~~
-{: .bash}
-
-The program can then use these arguments to alter its behavior based on those arguments.
-In this case, we'll be using arguments to tell our program to operate on a specific file.
+### Initialize a repository
 
 But before we modify our `pandas_plots.py` program, we are going to put it under
-version control so that we can track its changes.
+version control so that we can track its changes as we go through this lesson.
 
 ~~~
 $ git init
@@ -105,12 +96,43 @@ $ git commit -m "Adding ignore file"
 Now that we have a clean repository, let's get back to work on adding command line
 arguments to our program.
 
-We'll be using the `sys` module to do so. `sys` (short for system) is a standard Python module used to
-store information about the program and its running environment, including what arguments were passed to the program when the command was executed. These arguments are stored as a list in `sys.argv`.
+## Command-Line Arguments
 
-These arguments can be accessed in our program by importing the `sys` module. The first argument in `sys.argv` is always the name of the program, so we'll find any additional arguments right after that in the list.
+Python programs can use additional arguments provided in the following manner.
 
-Using the text editor of your choice, let's write a new program called `args_list.py` containing the two following lines: 
+~~~
+$ python <program> <argument1> <argument2> <other_arguments>
+~~~
+{: .bash}
+
+The program can then use these arguments to alter its behavior based on those arguments.
+In this case, we'll be using arguments to tell our program to operate on a specific file.
+
+We'll be using the `sys` module to do so. `sys` (short for system) is a standard
+Python module used to store information about the program and its running
+environment, including what arguments were passed to the program when the
+command was executed. These arguments are stored as a list in `sys.argv`.
+
+These arguments can be accessed in our program by importing the `sys`
+module. The first argument in `sys.argv` is always the name of the program, so
+we'll find any additional arguments right after that in the list.
+
+Let's try this out in a separate location on your machine. The directory above
+our current directory (a.k.a. the home directory) should do nicely
+
+~~~
+$ cd ..
+$ pwd
+~~~
+{: .bash}
+
+~~~
+/home/swcuser
+~~~
+{: .output}
+
+Using the text editor of your choice, let's write a new program called
+`args_list.py` containing the two following lines:
 
 ~~~
 import sys
@@ -118,12 +140,10 @@ print('sys.argv is', sys.argv)
 ~~~
 {: .python}
 
-The strange name `argv` stands for "argument values".
-Whenever Python runs a program,
-it takes all of the values given on the command line
-and puts them in the list `sys.argv`
-so that the program can determine what they were.
-If we run this program with no arguments:
+The strange name `argv` stands for "argument values".  Whenever Python runs a
+program, it takes all of the values given on the command line and puts them in
+the list `sys.argv` so that the program can determine what they were.  If we run
+this program with no arguments:
 
 ~~~
 $ python argv_list.py
@@ -151,9 +171,23 @@ sys.argv is ['argv_list.py', 'first', 'second', 'third']
 
 then Python adds each of those arguments to that magic list.
 
-With this new information, we'll add command line arguments to our `pandas_plots.py` program.
+With this new information, we'll add command line arguments to our
+`pandas_plots.py` program. Let's move back into our `~/data` directory
 
-To do this we'll make two changes, one is to add the import of the sys module at the beginning of the program. The other is to replace the filename ("gapminder_gdp_oceania.csv") with the the second entry in the `sys.argv` list. 
+~~~
+$ cd data
+$ pwd
+~~~
+{: .bash}
+
+~~~
+/home/swcuser/data
+~~~
+{: .output}
+
+To do this we'll make two changes, one is to add the import of the sys module at
+the beginning of the program. The other is to replace the filename
+("gapminder_gdp_oceania.csv") with the the second entry in the `sys.argv` list.
 
 ~~~
 import sys
@@ -463,7 +497,7 @@ scenario given the number of things on our plate day-to-day.
 > is being imported or run as a script.
 {: .callout}
 
-So let's add the main part of our script to a section which
+Let's add the main part of our script to a section which
 identifies the program as being called from the command line.
 
 ~~~
