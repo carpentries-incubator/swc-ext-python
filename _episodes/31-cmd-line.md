@@ -1,6 +1,6 @@
 ---
 title: Command-Line Programs
-teaching: 30
+teaching: 45
 exercises: 0
 questions:
 - "How can I write Python programs that will work like Unix command-line tools?"
@@ -10,10 +10,6 @@ objectives:
 - "Read data from standard input in a program so that it can be used in a pipeline."
 keypoints:
 - "The `sys` library connects a Python program to the system it is running on."
-- "The list `sys.argv` contains the command-line arguments that a program was run with."
-- "Avoid silent failures."
-- "The pseudo-file `sys.stdin` connects to a program's standard input."
-- "The pseudo-file `sys.stdout` connects to a program's standard output."
 ---
 
 The Jupyter Notebook and other interactive tools are great for
@@ -25,7 +21,7 @@ reads a data set and prints the average inflammation per patient.
 
 > ## Switching to Shell Commands
 >
-> In this lesson we are switching from typing commands in a Python interpreter to typing
+> In this lesson we are switching from typing commands in Jupyter notebooks to typing
 > commands in a shell terminal window (such as bash). When you see a `$` in front of a
 > command that tells you to run that command in the shell rather than the Python interpreter.
 {: .callout}
@@ -39,7 +35,7 @@ reads a data set and prints the average inflammation per patient.
 {: .callout}
 
 To ensure that we're all starting with the same set of code. Please
-copy the text below into a file called `pandas_plots.py` and move
+copy the text below into a file called `gdp_plots.py` and move
 it into our working directory with the gapminder data (`~/data`).
 
 ~~~
@@ -50,10 +46,13 @@ import matplotlib.pyplot as plt
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
-data = pandas.read_csv('data/gapminder_gdp_oceania.csv', index_col = 'country').T
+
+# read data into a pandas dataframe and transpose
+data = pandas.read_csv('gapminder_gdp_oceania.csv', index_col = 'country').T
 
 # create a plot the transposed data
 ax = data.plot()
+
 # display the plot
 plt.show()
 ~~~
@@ -63,23 +62,25 @@ This program imports the `pandas` and `matplotlib` Python modules, reads
 some of the gapminder data into a `pandas` dataframe, and plots that
 data using `matplotlib` with some default settings.
 
-We can run this program from the command line using `python pandas_plots.py`.
+We can run this program from the command line using
+
+~~~
+$ python gdp_plots.py
+~~~
+{: .bash}
+
 This is much easier than starting a notebook, going to the browser, and running
 each cell in the notebook to get the same result.
 
-This program currently only workd for one set of data. How might we modify
-the program to work for any of the gapminder gdp data sets? We could go into the
-script and change the `.csv` filename to generate the same plot for different
-sets of data, but there is an even better way.
 
 ### Initialize a repository
 
-But before we modify our `pandas_plots.py` program, we are going to put it under
+But before we modify our `gdp_plots.py` program, we are going to put it under
 version control so that we can track its changes as we go through this lesson.
 
 ~~~
 $ git init
-$ git add pandas_plots.sh
+$ git add gdp_plots.sh
 $ git commit -m "First commit of analysis script"
 ~~~
 {: .bash}
@@ -96,7 +97,62 @@ $ git commit -m "Adding ignore file"
 Now that we have a clean repository, let's get back to work on adding command line
 arguments to our program.
 
+## Changing code under Version Control
+
+As it is, this plot isn't bad but let's add some labels for clarity. We'll use the
+data filename as a title for the plot and indicate what information in on each axis.
+
+~~~
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+
+filename = 'gapminder_gdp_oceania.csv'
+
+# read data into a pandas dataframe and transpose
+data = pandas.read_csv(filename, index_col = 'country').T
+
+# create a plot the transposed data
+ax = data.plot( title = filename )
+
+# set some plot attributes
+ax.set_xlabel("Year")
+ax.set_ylabel("GDP Per Capita")
+# set the x locations and labels
+ax.set_xticks( range(len(data.index)) )
+ax.set_xticklabels( data.index, rotation = 45 )
+
+# display the plot
+plt.show()
+~~~
+{: .python}
+
+Now when we run this, our plot looks a little bit nicer.
+
+~~~
+$ python gdp_plots.py
+~~~
+{: .bash}
+
+### Updating the Repository
+
+~~~
+$ git add gdp_plots.py
+$ git commit -m "Improving plot format"
+~~~
+{: .bash}
+
+
 ## Command-Line Arguments
+
+This program currently only works for the Oceania set of data. How might we modify
+the program to work for any of the gapminder gdp data sets? We could go into the
+script and change the `.csv` filename to generate the same plot for different
+sets of data, but there is an even better way.
 
 Python programs can use additional arguments provided in the following manner.
 
@@ -157,6 +213,7 @@ sys.argv is ['argv_list.py']
 
 the only thing in the list is the full path to our script,
 which is always `sys.argv[0]`.
+
 If we run it with a few arguments, however:
 
 ~~~
@@ -171,8 +228,10 @@ sys.argv is ['argv_list.py', 'first', 'second', 'third']
 
 then Python adds each of those arguments to that magic list.
 
-With this new information, we'll add command line arguments to our
-`pandas_plots.py` program. Let's move back into our `~/data` directory
+Using this new information, let's add command line arguments to our
+`gdp_plots.py` program.
+
+First, we need to move back into our `~/data` directory
 
 ~~~
 $ cd data
@@ -189,6 +248,8 @@ To do this we'll make two changes, one is to add the import of the sys module at
 the beginning of the program. The other is to replace the filename
 ("gapminder_gdp_oceania.csv") with the the second entry in the `sys.argv` list.
 
+Now our program should look as follows:
+
 ~~~
 import sys
 import pandas
@@ -198,134 +259,50 @@ import matplotlib.pyplot as plt
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
-data = pandas.read_csv(sys.argv[1], index_col = 'country').T
-print(data)
+
+filename = sys.argv[1]
+
+# read data into a pandas dataframe and transpose
+data = pandas.read_csv(filename, index_col = 'country').T
+
 # create a plot the transposed data
-ax = data.plot()
+ax = data.plot( title = filename )
+
+# set some plot attributes
+ax.set_xlabel("Year")
+ax.set_ylabel("GDP Per Capita")
+# set the x locations and labels
+ax.set_xticks( range(len(data.index)) )
+ax.set_xticklabels( data.index, rotation = 45 )
+
 # display the plot
 plt.show()
 ~~~
 {: .python}
 
-Now let's take a look at what happens when we provide a gapminder filename
+Let's take a look at what happens when we provide a gapminder filename
 to the program.
 
 ~~~
-$ python pandas_plots.py ./data/gapminder_gdp_oceania.csv
+$ python gdp_plots.py ./gapminder_gdp_oceania.csv
 ~~~
 {: .bash}
 
-And the same plots as before were displayed, but this file is now being read
+And the same plot as before is displayed, but this file is now being read
 from an agrument we've provided on the command line. We can now do this for
 files with similar information and get the same set of plots for that data
 *without any changes to our program's code*. Try this our for yourself now.
 
-### Updating our Repository
+### Update the Repository
 
 Now that we've made this change to our program and see that it works. Let's
 update our repository with these changes.
 
 ~~~
-$ git add pandas_plots.py
+$ git add gdp_plots.py
 $ git commit -m "Adding command line arguments"
 ~~~
 {: .bash}
-
-### Returning Error Information
-
-Having the ability to run our program on any of the gapminder gdp data sets is
-great, but what happens if we run the code as we did before the addition of
-arguments?
-
-~~~
-$ python pandas_plots.py
-~~~
-{: .bash}
-
-~~~
-Traceback (most recent call last):
-  File "pandas_analysis1.py", line 9, in <module>
-    data = pandas.read_csv(sys.argv[1], index_col = 'country').T
-IndexError: list index out of range
-~~~
-{: .output}
-
-Python returns an error when trying to find the command line argument in
-`sys.argv`. It cannot find that argument because we haven't provided it to the
-command and there is no entry in `sys.argv` where we're telling it to look for
-this value. We may know all of this because we're the ones who wrote the
-program, but another user of the program without this experience will not.
-
-It is important to employ "defensive programming" in this scenario so that our
-program indicates to the user **a)** what is going wrong and **b)** how to fix
-this problem when running the program.
-
-Let's add a section to the code which checks the number of incoming arguments to
-the program and returns some information to the user.
-
-~~~
-import sys
-import pandas
-# we need to import part of matplotlib
-# because we are no longer in a notebook
-import matplotlib.pyplot as plt
-
-# make sure that a filename argument has been provided
-if len(sys.argv) <= 1:
-    # why the program will not continue
-    print("Not enough arguments have been provided to the program.")
-    # suggest what needs to be changed for a successful run 
-    print("Please provide a gapminder gdp data file to the program.")
-    # exit the program early
-    sys.exit()
-
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
-data = pandas.read_csv(sys.argv[1], index_col = 'country').T
-print(data)
-# create a plot the transposed data
-ax = data.plot()
-# display the plot
-plt.show()
-~~~
-{: .python}
-
-If we run the program without a filename argument, here's what we'll see
-
-~~~
-$ python pandas_plots.py
-Not enough arguments have been provided to the program.
-Please provide a gapminder gdp data file to the program.
-~~~
-{: .python}
-
-Now if someone runs this program without having used it before (or written it
-themselves) the user will know how change their command to get the program
-running properly, rather than seeing an esoteric Python error.
-
-### Updating the Repo
-
-We've just made successful change to our repository. Let's add a commit to the
-repo.
-
-~~~
-$ git add pandas_plots.py
-$ git commit -m "Handling case for missing filename argument"
-~~~
-{: .bash}
-
-> ## The Right Way to Do It
->
-> If our programs can take complex parameters or multiple filenames,
-> we shouldn't handle `sys.argv` directly.
-> Instead,
-> we should use Python's `argparse` library,
-> which handles common cases in a systematic way,
-> and also makes it easy for us to provide sensible error messages for our users.
-> We will not cover this module in this lesson
-> but you can go to Tshepang Lekhonkhobe's [Argparse tutorial](http://docs.python.org/dev/howto/argparse.html)
-> that is part of Python's Official Documentation.
-{: .callout}
 
 ## Handling Multiple Files
 
@@ -335,7 +312,7 @@ plotting statements for each file.
 
 We want our program to process each file separately, and the easiest way to do
 this is a loop that executes once for each of the filenames provided in
-`sys.argv`..
+`sys.argv`.
 
 But we need to be careful: `sys.argv[0]` will always be the name of our program,
 rather than the name of a file.  We also need to handle an unknown number of
@@ -355,23 +332,24 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# make sure that a filename argument has been provided
-if len(sys.argv) <= 1:
-    # why the program will not continue
-    print("Not enough arguments have been provided to the program.")
-    # suggest what needs to be changed for a successful run 
-    print("Please provide a gapminder gdp data file to the program.")
-    # exit the program early
-    sys.exit()
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
 
-# loop over each filename
-for file in sys.argv[1:]:
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
-    data = pandas.read_csv(file, index_col = 'country').T
+for filename in sys.argv[1:]:
+    # read data into a pandas dataframe and transpose
+    data = pandas.read_csv(filename, index_col = 'country').T
+
     # create a plot the transposed data
-    ax = data.plot()
-    # display the plots
+    ax = data.plot( title = filename )
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+
+    # display the plot
     plt.show()
 ~~~
 {: .python}
@@ -379,7 +357,7 @@ for file in sys.argv[1:]:
 Now when the program is given multiple filenames
 
 ~~~
-$ python pandas_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
+$ python gdp_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 ~~~
 {: .bash}
 
@@ -388,180 +366,10 @@ one plot for each filename is generated.
 #### Update the Repository
 
 ~~~
-$ git add pandas_plots.py
+$ git add gdp_plots.py
 $ git commit -m "Allowing plot generation for multiple files at once"
 ~~~
 {: .bash}
-
-This code works nicely for generating plots of multiple data sets, but there is
-now a lot to read comfortably. It would be nice to break this work into clear
-chunks of code. This can be accomplished by making the argument checking section
-and the body of the for loop their own functions. This requires surprisingly few
-changes to the code.
-
-~~~
-import sys
-import pandas
-# we need to import part of matplotlib
-# because we are no longer in a notebook
-import matplotlib.pyplot as plt
-
-def check_arguments():
-    if len(sys.argv) <= 1:
-        # why the program will not continue
-        print("Not enough arguments have been provided to the program.")
-        # suggest what needs to be changed for a successful run 
-        print("Please provide a gapminder gdp data file to the program.")
-        # exit the program early
-        sys.exit()
-
-def plot_datafile(filename):
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
-    data = pandas.read_csv(filename, index_col = 'country').T
-    # create a plot the transposed data
-    ax = data.plot()
-    # display the plots
-    plt.show()
-
-def main():
-    # make sure that a filename argument has been provided
-    check_arguments()
-
-    # loop over each filename
-    for filename in sys.argv[1:]:
-        plot_datafile(filename)
-
-main()
-~~~
-{: .python}
-
-The process we've just gone through is called **refactoring**. The behavior of
-the program hasn't changed, but it has been made more modular by separating the
-into different functions with their own purpose. These functions can then be
-called within a function named "main" to execute the program.
-
-#### Update the Repository
-
-We haven't changed the behavior of our program, but our *code* has changed, so
-let's update the repository.
-
-~~~
-$ git add pandas_plots.py
-$ git commit -m "Reorganizing code."
-~~~
-{: .bash}
-
-Another thing we might want to do with this script is to import its ability to
-generate plots in another place in Python. Let's see what happens if we try to
-do that now.
-
-First, let's open an interactive Python session in the terminal and import our
-module.
-
-~~~
-$ python
->>> import pandas_plots
-Not enough arguments have been provided to the program.
-Please provide a gapminder gdp data file to the program.
-$
-~~~
-{: .bash}
-
-We see our error message related to a lack and the session is terminated. This
-is a real problem if the functionality of the plot_datafile is needed
-elsewhere. We could copy the function into another location of course, but then
-if we change one of those functions the other will need to be updated as well
-which is an unlikely scenario given the number of things on our plate
-day-to-day.
-
-> ## Running Versus Importing
->
-> Running a Python script in bash is very similar to
-> importing that file in Python.
-> The biggest difference is that we don't expect anything
-> to happen when we import a file,
-> whereas when running a script, we expect to see some
-> output printed to the console.
->
-> In order for a Python script to work as expected
-> when imported or when run as a script,
-> we typically put the part of the script
-> that produces output in the following if statement:
->
-> ~~~
-> if __name__ == '__main__':
->     main()  # Or whatever function produces output
-> ~~~
-> {: .python}
->
-> When you import a Python file, `__name__` is the name
-> of that file (e.g., when importing `pandas_plots.py`,
-> `__name__` is `'pandas_plots'`). However, when running a
-> script in bash, `__name__` is always set to `'__main__'`
-> in that script so that you can determine if the file
-> is being imported or run as a script.
-{: .callout}
-
-Let's add the main part of our script to a section which identifies the program
-as being called from the command line.
-
-~~~
-import sys
-import pandas
-# we need to import part of matplotlib
-# because we are no longer in a notebook
-import matplotlib.pyplot as plt
-
-def check_arguments():
-    if len(sys.argv) <= 1:
-        # why the program will not continue
-        print("Not enough arguments have been provided to the program.")
-        # suggest what needs to be changed for a successful run 
-        print("Please provide a gapminder gdp data file to the program.")
-        # exit the program early
-        sys.exit()
-
-def plot_datafile(filename):
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
-    data = pandas.read_csv(filename, index_col = 'country').T
-    # create a plot the transposed data
-    ax = data.plot()
-    # display the plots
-    plt.show()
-
-def main():
-    # make sure that a filename argument has been provided
-    check_arguments()
-
-    # loop over each filename
-    for filename in sys.argv[1:]:
-        plot_datafile(filename)
-
-if __name__ == "__main__":
-   main()
-~~~
-{: .python}
-
-Now if try to import this script from an interactive session and use our
-function
-
-~~~
-$ python
->>> import pandas_plots
->>> pandas_plots.plot_datafile("gapminder_gdp_oceania.csv")
->>>
-~~~
-{: .bash}
-
-the session doesn't terminate and we can use the `plot_datafile` function in an
-interactive way. This would work the same way in a Jupyter notebook.
-
->> ## Exiting the Python interpreter
->> To exit the Python interpreter, use the key combination `ctrl+d`
->>
-{: .callout}
 
 ## Handling Program Flags
 
@@ -589,51 +397,63 @@ To explore what files are in the current directory, we'll be using the Python's 
 
 ~~~
 import sys
-import pandas
 import glob
+import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-def check_arguments():
-    if len(sys.argv) <= 1:
-        # why the program will not continue
-        print("Not enough arguments have been provided to the program.")
-        # suggest what needs to be changed for a successful run 
-        print("Please provide a gapminder gdp data file to the program.")
-        # exit the program early
-        sys.exit()
-            
-def plot_datafile(filename):
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+    # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
+
     # create a plot the transposed data
-    ax = data.plot()
-    # display the plots
+    ax = data.plot( title = filename )
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+
+    # display the plot
     plt.show()
-
-def main():
-    # make sure that a filename argument has been provided
-    check_arguments()
-    
-    # check for -a flag, if it exists
-    # get all gdp datasets in current directory
-    if '-a' in sys.argv:
-        filenames = glob.glob("./data/*gdp*.csv")
-    # otherwise we'll assume that the remaining arguments
-    # are file names
-    else:
-        filenames = sys.argv[1:]
-        
-    # loop over each filename
-    for filename in filenames:
-        plot_datafile(filename)
-
-if __name__ == "__main__":
-   main()
 ~~~
 {: .python}
+
+### Updating the repository
+
+Yet another successful update to the code. Let's
+commit our changes.
+
+~~~
+$ git add gdp_plots.py
+$ git commit -m "Adding a flag to run script for all gdp data sets."
+~~~
+{: .bash}
+
+> ## The Right Way to Do It
+>
+> If our programs can take complex parameters or multiple filenames,
+> we shouldn't handle `sys.argv` directly.
+> Instead,
+> we should use Python's `argparse` library,
+> which handles common cases in a systematic way,
+> and also makes it easy for us to provide sensible error messages for our users.
+> We will not cover this module in this lesson
+> but you can go to Tshepang Lekhonkhobe's [Argparse tutorial](http://docs.python.org/dev/howto/argparse.html)
+> that is part of Python's Official Documentation.
+{: .callout}
 
 > ## Finding Particular Files
 >
