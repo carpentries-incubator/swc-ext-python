@@ -393,12 +393,11 @@ $ git commit -m "Allowing plot generation for multiple files at once"
 ~~~
 {: .bash}
 
-This code would look a lot nicer be easier to read if it were reorganized, and
-we could use it in other Python programs to generate plots for our datasets.
-
-This can be accomplished by making the argument checking section and the body of
-the for loop their own functions. This requires surprisingly few changes to the
-code.
+This code works nicely for generating plots of multiple datasets, but there is
+now a lot to read comfortably. It would be nice to break this work into clear
+chunks of code. This can be accomplished by making the argument checking section
+and the body of the for loop their own functions. This requires surprisingly few
+changes to the code.
 
 ~~~
 import sys
@@ -567,111 +566,28 @@ interactive way. This would work the same way in a Jupyter notebook.
 
 ## Handling Command-Line Flags
 
-The next step is to teach our program to pay attention to the `--min`, `--mean`, and `--max` flags.
-These always appear before the names of the files,
-so we could just do this:
+Now we have a program which will plot data from any of our gapminder gdp datasets.
 
-~~~
-$ cat ../code/readings_04.py
-~~~
-{: .bash}
+But for plots of datasets with many countries, these plots can be difficult to
+read and the legend is very large. It would be useful to only generate plots for
+specific countries in the files we provide.
 
-~~~
-import sys
-import numpy
+This is a nice use case for command line flags. Flags are a way of indicating to
+a program that an optional capability is being invoked. Flags can sometimes
+stand on their own, and other times they indicate that additional information related
+to the program's behavior is about to be provided.
 
-def main():
-    script = sys.argv[0]
-        action = sys.argv[1]
-	    filenames = sys.argv[2:]
+In this case we'll be adding a "-c" flag to our program to indicate that only information
+about countries listed after the flag should be in our plots.
 
-    for f in filenames:
-            data = numpy.loadtxt(f, delimiter=',')
 
-        if action == '--min':
-	            values = numpy.min(data, axis=1)
-		            elif action == '--mean':
-			                values = numpy.mean(data, axis=1)
-					        elif action == '--max':
-						            values = numpy.max(data, axis=1)
 
-        for m in values:
-	            print(m)
 
-if __name__ == '__main__':
-   main()
-~~~
-{: .python}
 
-This works:
 
-~~~
-$ python ../code/readings_04.py --max small-01.csv
-~~~
-{: .bash}
 
-~~~
-1.0
-2.0
-~~~
-{: .output}
 
-but there are several things wrong with it:
 
-1.  `main` is too large to read comfortably.
-
-2. If we do not specify at least two additional arguments on the
-   command-line, one for the **flag** and one for the **filename**, but only
-      one, the program will not throw an exception but will run. It assumes that the file
-         list is empty, as `sys.argv[1]` will be considered the `action`, even if it
-	    is a filename. [Silent failures]({{ page.root }}/reference/#silence-failure)  like this
-	       are always hard to debug.
-
-3. The program should check if the submitted `action` is one of the three recognized flags.
-
-This version pulls the processing of each file out of the loop into a function of its own.
-It also checks that `action` is one of the allowed flags
-before doing any processing,
-so that the program fails fast:
-
-~~~
-$ cat ../code/readings_05.py
-~~~
-{: .bash}
-
-~~~
-import sys
-import numpy
-
-def main():
-    script = sys.argv[0]
-        action = sys.argv[1]
-	    filenames = sys.argv[2:]
-	        assert action in ['--min', '--mean', '--max'], \
-		           'Action is not one of --min, --mean, or --max: ' + action
-			       for f in filenames:
-			               process(f, action)
-
-def process(filename, action):
-    data = numpy.loadtxt(filename, delimiter=',')
-
-    if action == '--min':
-            values = numpy.min(data, axis=1)
-	        elif action == '--mean':
-		        values = numpy.mean(data, axis=1)
-			    elif action == '--max':
-			            values = numpy.max(data, axis=1)
-
-    for m in values:
-            print(m)
-
-if __name__ == '__main__':
-   main()
-   ~~~
-   {: .python}
-
-This is four lines longer than its predecessor,
-but broken into more digestible chunks of 8 and 12 lines.
 
 > ## Finding Particular Files
 >
