@@ -108,9 +108,6 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
-
 filename = 'gapminder_gdp_oceania.csv'
 
 # read data into a pandas dataframe and transpose
@@ -257,9 +254,6 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
-
 filename = sys.argv[1]
 
 # read data into a pandas dataframe and transpose
@@ -332,9 +326,6 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
-
 for filename in sys.argv[1:]:
     # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
@@ -402,9 +393,6 @@ import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
-
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
 
 # check for -a flag in arguments
 if "-a" in sys.argv:
