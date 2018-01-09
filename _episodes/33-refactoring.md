@@ -111,7 +111,21 @@ main()
 {: .python}
 
 The behavior of the program hasn't changed, but it has been made more modular by
-separating the into different functions with their own purpose. 
+separating the into different functions with their own purpose.
+
+Why the extra function? Our function main has two main components to it
+
+  1. parsing arguments handed to the program
+  2. generating the desired plots
+
+But we've defined three functions above the `main` function: `parse_arguments`, `create_plot`, and `create_plots`.
+
+If the functions in our file reflected what `main` directly we would only have the `parse_arguments` and `create_plots`
+functions. If we think about using these functions independently, however, a function which always takes in a list of
+filenames isn't very convenient to use on its own. By defining the `create_plot` function, we have placed most of the
+plot generation work there, while allowing for a very simple definition of the `create_plots` function.
+
+The importance of this design decision will be made clear in the next lesson.
 
 #### Update the Repository
 

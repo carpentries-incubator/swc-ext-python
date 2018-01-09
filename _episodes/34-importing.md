@@ -159,3 +159,27 @@ $ git add gdp_plots.py
 $ git commit -m "Moving call to the main function."
 ~~~
 {: .bash}
+
+> ## Writing Modular Code
+> In our previous lesson we refactored our code for clarity and modularity.
+> As part of that process we created two functions `create_plot` and `create_plots`.
+> While the `create_plot` function wasn't used in our program, imagine importing our
+> module and finding that the only way to generate a plot for a single file
+> is to add that filename to a list before passing that list to `create_plots`.
+>
+> This might seem very strange or confusing to someone importing our module
+> for the first time. It take time to develop an intuition for design decisions like
+> these, but here are a few questions to ask yourself as a guide when organizing code: 
+>
+>   - Are my functions able to stand on their own? Do they accomplish simple tasks?
+>   - Is it easy to write a clear function names in my module?
+>     A function with the name "create_plots_and_export_data" is likely better
+>     off being borken up into two functions "create_plots" and "export_data"
+>   - Are my function names plural?
+>      In our example, it may have felt more natural to create only one function,
+>      "create_plots". In these cases, it is almost always useful to create a
+>      function which does our operation once ("create_plot") and another plural
+>      form of the function ("create_plots") which contains a loop over the
+>      singular function.
+>
+{: .callout}
