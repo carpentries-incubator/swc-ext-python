@@ -138,6 +138,14 @@ $ git commit -m "Refactoring code."
 ~~~
 {: .bash}
 
+Now that we're satisfied with our refactor. We can merge this branch into our master branch.
+
+~~~
+$ git checkout master
+$ git merge refactor
+~~~
+{: .bash}
+
 > ## Branching and Refactoring
 >
 > To demonstrate that the behavior of our program hasn't changed,
