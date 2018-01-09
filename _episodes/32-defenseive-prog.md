@@ -41,6 +41,49 @@ command and as a result there is no entry in `sys.argv` where we're telling it t
 this value. We may know all of this because we're the ones who wrote the
 program, but another user of the program without this experience will not.
 
+> ## More on Function Errors
+>
+> Python reports a runtime error when something goes wrong while a program is executing.
+>
+> ~~~
+> age = 53
+> remaining = 100 - aege # mis-spelled 'age'
+> ~~~
+> {: .python}
+>
+> ~~~
+> NameError: name 'aege' is not defined
+> ~~~
+> {: .error}
+>
+>  * The message indicates a problem with the name of a variable
+>
+> Python also reports a syntax error when it can't understand the source of a program.
+>
+> ~~~
+> print("hello world"
+> ~~~
+> {: .python}
+>
+> ~~~
+>   File "<ipython-input-6-d1cc229bf815>", line 1
+>     print ("hello world"
+>                         ^
+> SyntaxError: unexpected EOF while parsing
+> ~~~
+> {: .error}
+> 
+> *   The message indicates a problem on first line of the input ("line 1").
+>     *   In this case the "ipython-input" section of the file name tells us that
+>         we are working with input into IPython,
+>         the Python interpreter used by the Jupyter Notebook.
+> *   The `-6-` part of the filename indicates that
+>     the error occurred in cell 6 of our Notebook.
+> *   Next is the problematic line of code,
+>     indicating the problem with a `^` pointer.
+>
+{: .callout}
+
 And if we run the program from another directory:
 
 ~~~
