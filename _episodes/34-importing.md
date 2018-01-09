@@ -1,43 +1,31 @@
 ---
-title: Command-Line Programs
+title: Running Scripts and Importing
 teaching: 30
 exercises: 0
 questions:
-- "How can I write Python programs that will work like Unix command-line tools?"
+- "How can I import some of my work even if it is part of a program?"
 objectives:
-- "Use the values of command-line arguments in a program."
-- "Handle flags and files separately in a command-line program."
-- "Read data from standard input in a program so that it can be used in a pipeline."
+- "Learn how to import functions from one script into another."
+- "Understand the difference between using a file as a module and running it as a script or program."
 keypoints:
-- "The `sys` library connects a Python program to the system it is running on."
-- "The list `sys.argv` contains the command-line arguments that a program was run with."
-- "Avoid silent failures."
-- "The pseudo-file `sys.stdin` connects to a program's standard input."
-- "The pseudo-file `sys.stdout` connects to a program's standard output."
+- "The `__name__` variable allows us to know whether the file is being imported or run as a script."
 ---
 
-Another thing we might want to do with this script is to import its ability to
-generate plots in another place in Python. Let's see what happens if we try to
-do that now.
+In our last lesson we learned how refactoring code makes it easier to understand
+organize into pices that each have their own purpose. The added modularity also makes
+it easier to use in other places.
 
-First, let's open an interactive Python session in the terminal and import our
-module.
+First, let's start a Jupyter notebook in our current directory
+and see what happens if we try to import our file as it is.
 
 ~~~
-$ python
->>> import pandas_plots
-Not enough arguments have been provided to the program.
-Please provide a gapminder gdp data file to the program.
-$
+import gdp_plots
 ~~~
-{: .bash}
+{: .python}
 
-We see our error message related to a lack and the session is terminated. This
-is a real problem if the functionality of the plot_datafile is needed
-elsewhere. We could copy the function into another location of course, but then
-if we change one of those functions the other will need to be updated as well
-which is an unlikely scenario given the number of things on our plate
-day-to-day.
+The result is an error related to how Python is attempting to interpret
+the file. This is because Python is encountering our call to the function
+`main` and isn't sure how to proceed.
 
 > ## Running Versus Importing
 >
@@ -67,62 +55,107 @@ day-to-day.
 > is being imported or run as a script.
 {: .callout}
 
-Let's add the main part of our script to a section which identifies the program
+Let's add the main function in our script to a section which identifies the program
 as being called from the command line.
 
 ~~~
 import sys
+import glob
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-def check_arguments():
-    if len(sys.argv) <= 1:
-        # why the program will not continue
-        print("Not enough arguments have been provided to the program.")
-        # suggest what needs to be changed for a successful run 
-        print("Please provide a gapminder gdp data file to the program.")
-        # exit the program early
-        sys.exit()
 
-def plot_datafile(filename):
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
+"""
+Parse the argument list and return a list
+of filenames.
+"""
+def parse_arguments():
+    # make sure additional arguments or flags have
+    # been provided by the user
+    if len(sys.argv) == 1:
+        # why the program will not continue
+        print("Not enough arguments have been provided")
+        # how this can be corrected
+        print("Usage: python gdp_plots.py <filenames>")
+        print("Options:")
+        print("-a : plot all gdp data sets in current directory")
+
+    # check for -a flag in arguments
+    if "-a" in sys.argv:
+        filenames = glob.glob("*gdp*.csv")
+    else:
+        filenames = sys.argv[1:]
+
+    return filenames
+
+"""
+Creates a plot for the specified
+data file.
+"""
+def create_plot(filename):
+    # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
+    
     # create a plot the transposed data
-    ax = data.plot()
-    # display the plots
+    ax = data.plot( title = filename )
+    
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+    
+    # display the plot
     plt.show()
 
-def main():
-    # make sure that a filename argument has been provided
-    check_arguments()
+"""
+Takes in a list of filenames to plot
+and creates a plot for each file.
+"""
+def create_plots(filenames):
+    for filename in filenames:
+        create_plot(filename)
 
-    # loop over each filename
-    for filename in sys.argv[1:]:
-        plot_datafile(filename)
+"""
+ main function - does all the work        
+"""
+def main():
+    # parse arguments
+    files_to_plot = parse_arguments()
+
+    #generate plots
+    create_plots(files_to_plot)
 
 if __name__ == "__main__":
-   main()
+    # call main
+    main()
 ~~~
 {: .python}
 
-Now if try to import this script from an interactive session and use our
-function
+Now let's go back to the Jupyter notebook and try importing the file again
 
 ~~~
-$ python
->>> import pandas_plots
->>> pandas_plots.plot_datafile("gapminder_gdp_oceania.csv")
->>>
+import gdp_plots
+~~~
+{: .python}
+
+Success! You've just writeen your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
+
+~~~
+%matplotlib inline
+gdp_plots.create_plot("gapminder_gdp_oceania.csv")
+~~~
+{: .python}
+
+### Update the repository
+
+Back in the terminal, let's commit these changes to our repository.
+
+~~~
+$ git add gdp_plots.py
+$ git commit -m "Moving call to the main function."
 ~~~
 {: .bash}
-
-the session doesn't terminate and we can use the `plot_datafile` function in an
-interactive way. This would work the same way in a Jupyter notebook.
-
->> ## Exiting the Python interpreter
->> To exit the Python interpreter, use the key combination `ctrl+d`
->>
-{: .callout}

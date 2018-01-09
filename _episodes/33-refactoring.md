@@ -43,6 +43,7 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
+
 """
 Parse the argument list and return a list
 of filenames.
@@ -67,26 +68,33 @@ def parse_arguments():
     return filenames
 
 """
+Creates a plot for the specified
+data file.
+"""
+def create_plot(filename):
+    # read data into a pandas dataframe and transpose
+    data = pandas.read_csv(filename, index_col = 'country').T
+    
+    # create a plot the transposed data
+    ax = data.plot( title = filename )
+    
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+    
+    # display the plot
+    plt.show()
+
+"""
 Takes in a list of filenames to plot
 and creates a plot for each file.
 """
 def create_plots(filenames):
     for filename in filenames:
-        # read data into a pandas dataframe and transpose
-        data = pandas.read_csv(filename, index_col = 'country').T
-
-        # create a plot the transposed data
-        ax = data.plot( title = filename )
-
-        # set some plot attributes
-        ax.set_xlabel("Year")
-        ax.set_ylabel("GDP Per Capita")
-        # set the x locations and labels
-        ax.set_xticks( range(len(data.index)) )
-        ax.set_xticklabels( data.index, rotation = 45 )
-        
-        # display the plot
-        plt.show()
+        create_plot(filename)
 
 """
  main function - does all the work        
