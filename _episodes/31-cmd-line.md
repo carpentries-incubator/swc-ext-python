@@ -35,8 +35,8 @@ reads a data set and prints the average inflammation per patient.
 {: .callout}
 
 To ensure that we're all starting with the same set of code. Please
-copy the text below into a file called `gdp_plots.py` and move
-it into our working directory with the gapminder data (`~/data`).
+copy the text below into a file called `gdp_plots.py` in our working directory
+with the gapminder data (`~/data`).
 
 ~~~
 import pandas
@@ -86,10 +86,12 @@ $ git commit -m "First commit of analysis script"
 {: .bash}
 
 Because we're only concerned with changes to our analysis script, we are going to
-create a .gitignore file for all of the gapminder `.csv` files.
+create a .gitignore file for all of the gapminder `.csv` files and any Python notebook
+files (`.ipynb`) files we have created thus far.
 
 ~~~
 $ echo "*.csv" > .gitignore
+$ echo "*.ipynb" >> .gitignore
 $ git add .gitignore
 $ git commit -m "Adding ignore file"
 ~~~
@@ -142,7 +144,6 @@ $ git add gdp_plots.py
 $ git commit -m "Improving plot format"
 ~~~
 {: .bash}
-
 
 ## Command-Line Arguments
 
