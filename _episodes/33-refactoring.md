@@ -43,7 +43,6 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-
 """
 Parse the argument list and return a list
 of filenames.
@@ -121,7 +120,7 @@ let's update the repository.
 
 ~~~
 $ git add pandas_plots.py
-$ git commit -m "Reorganizing code."
+$ git commit -m "Refactoring code."
 ~~~
 {: .bash}
 
