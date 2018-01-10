@@ -17,7 +17,7 @@ prototyping code and exploring data, but sooner or later one will
 want to use that code in a program we can run from the command line. 
 In order to do that, we need to make our programs work like other
 Unix command-line tools. For example, we may want a program that
-reads a data set and prints the average inflammation per patient.
+reads a gapminder data set and plots the gdp of countries over time.
 
 > ## Switching to Shell Commands
 >
