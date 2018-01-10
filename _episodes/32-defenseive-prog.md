@@ -88,7 +88,7 @@ And if we run the program from another directory:
 
 ~~~
 $ cd ..
-$ python ./data/gdp_plots.py
+$ python gdp_plots.py
 ~~~
 {: .bash}
 
