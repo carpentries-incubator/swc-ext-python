@@ -36,7 +36,8 @@ reads a data set and prints the average inflammation per patient.
 
 To ensure that we're all starting with the same set of code. Please
 copy the text below into a file called `gdp_plots.py` in our working directory
-with the gapminder data (`~/data`).
+with the gapminder data (`~/data`). Alternatively, you can download the file
+[here](/scripts/gdp_plots.py) and move it the `~/data` directory.
 
 ~~~
 import pandas
