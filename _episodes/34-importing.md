@@ -66,12 +66,11 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-
-"""
-Parse the argument list and return a list
-of filenames.
-"""
 def parse_arguments():
+    """
+    Parse the argument list and return a list
+    of filenames.
+    """
     # make sure additional arguments or flags have
     # been provided by the user
     if len(sys.argv) == 1:
@@ -90,11 +89,11 @@ def parse_arguments():
 
     return filenames
 
-"""
-Creates a plot for the specified
-data file.
-"""
 def create_plot(filename):
+    """
+    Creates a plot for the specified
+    data file.
+    """
     # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
     
@@ -111,18 +110,18 @@ def create_plot(filename):
     # display the plot
     plt.show()
 
-"""
-Takes in a list of filenames to plot
-and creates a plot for each file.
-"""
 def create_plots(filenames):
+    """
+    Takes in a list of filenames to plot
+    and creates a plot for each file.
+    """
     for filename in filenames:
         create_plot(filename)
 
-"""
- main function - does all the work        
-"""
 def main():
+    """
+    main function - does all the work        
+    """
     # parse arguments
     files_to_plot = parse_arguments()
 
