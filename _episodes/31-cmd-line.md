@@ -173,7 +173,7 @@ module. The first argument in `sys.argv` is always the name of the program, so
 we'll find any additional arguments right after that in the list.
 
 Let's try this out in a separate location on your machine. The directory above
-our current directory (a.k.a. the home directory) should do nicely
+our current directory should do nicely
 
 ~~~
 $ cd ..
