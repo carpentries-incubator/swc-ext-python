@@ -36,8 +36,8 @@ reads a gapminder data set and plots the gdp of countries over time.
 
 To ensure that we're all starting with the same set of code. Please
 copy the text below into a file called `gdp_plots.py` in our working directory
-with the gapminder data (`~/Desktop/data`). Alternatively, you can download the file
-[here](/scripts/gdp_plots.py) and move it the `~/Desktop/data` directory.
+with the gapminder data (`~/Desktop/data`). Alternatively, you can [download the file
+here](http://christinalk.github.io/python-novice-gapminder-custom/scripts/gdp_plots.py) and move it the `~/Desktop/data` directory.
 
 ~~~
 import pandas
