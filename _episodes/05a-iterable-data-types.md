@@ -98,3 +98,46 @@ What do you notice about the result of printing `my_list` and `my_set`?
 >> * It may also change the next time you run your program
 > {: .solution}
 {: .callout}
+
+# Mutable vs Immutable Types
+
+* Mutability is a tricky subject and the cause of *many* python bugs
+* Some types can be modified "in place", that is the original object is changed
+instead of creating a new object
+* If an object can be modified in place it is **mutable**; otherwise it is **immutable**
+
+> ## Example
+> 
+> Run the following code. What's the difference?
+>
+> ~~~
+> my_list = list("abc")
+> also_my_list = my_list
+>
+> my_tuple = tuple("abc")
+> also_my_tuple = my_tuple
+>
+> my_list += list("def")
+> my_tuple += tuple("def")
+> 
+> print('my_list = ', my_list)
+> print('also_my_list = ', also_my_list)
+> 
+> print('my_tuple = ', my_tuple)
+> print('also_my_tuple = ', also_my_tuple)
+> ~~~
+> {: .python}
+> 
+>> ## Solution
+>>  * Modifying `my_list` also modifies `also_my_list`
+>>  * Modifying `my_tuple` does not change `also_my_tuple`
+>>
+>> ~~~
+>> my_list =  ['a', 'b', 'c', 'd', 'e', 'f']
+>> also_my_list =  ['a', 'b', 'c', 'd', 'e', 'f']
+>> my_tuple =  ('a', 'b', 'c', 'd', 'e', 'f')
+>> also_my_tuple =  ('a', 'b', 'c')
+>> ~~~
+>> {: .output}
+> {: .solution}
+{: .callout}
