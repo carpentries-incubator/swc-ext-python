@@ -20,3 +20,30 @@ keypoints:
 ---
 
 # What is an iterable data type?
+
+### What is iteration?
+
+* When programming you'll often be working with collections of things
+* Iteration is going through a collection item-by-item
+
+> ## Example
+>
+> * Translating a collection of DNA sequences into protein sequences
+> * Get the atomic number of every element in a molecule
+> * Calculate the mean of 3 measurements at every timepoint
+{: .callout}
+ 
+### What are the iterable data types?
+
+* Python has 5 basic iterable data types
+	* Strings
+	* Tuples
+	* Lists
+	* Sets
+	* Dictionaries
+* These data types have different features and are used for different types of data
+* It's helpful to consider whether these types are **ordered** or **unordered** 
+and whether they are **mutable** or **immutable**.
+
+
+# Ordered and Unordered Data
