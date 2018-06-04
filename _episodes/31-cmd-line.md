@@ -14,7 +14,7 @@ keypoints:
 
 The Jupyter Notebook and other interactive tools are great for
 prototyping code and exploring data, but sooner or later one will
-want to use that code in a program we can run from the command line. 
+want to use that code in a program we can run from the command line.
 In order to do that, we need to make our programs work like other
 Unix command-line tools. For example, we may want a program that
 reads a gapminder data set and plots the gdp of countries over time.
@@ -31,7 +31,7 @@ reads a gapminder data set and plots the gdp of countries over time.
 > The Jupyter Notebook has the ability to convert all of the cells of a
 > current Notebook into a python program. To do this, go to `File` -> `Download as`
 > and select `Python (.py)` to get the current notebook as a Python script.
-> 
+>
 {: .callout}
 
 To ensure that we're all starting with the same set of code. Please
@@ -81,7 +81,7 @@ version control so that we can track its changes as we go through this lesson.
 
 ~~~
 $ git init
-$ git add gdp_plots.sh
+$ git add gdp_plots.py
 $ git commit -m "First commit of analysis script"
 ~~~
 {: .bash}
@@ -384,7 +384,7 @@ To explore what files are in the current directory, we'll be using the Python's 
     *   `?` meaning "match exactly one character"
 *   Python contains the `glob` library to provide pattern matching functionality
 *   The `glob` library contains a function also called `glob` to match file patterns
-*   E.g., `glob.glob('*.txt')` matches all files in the current directory 
+*   E.g., `glob.glob('*.txt')` matches all files in the current directory
     whose names end with `.txt`.
 *   Result is a (possibly empty) list of character strings.
 
