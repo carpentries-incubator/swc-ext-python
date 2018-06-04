@@ -1,5 +1,5 @@
 ---
-title: "Data Types and Type Conversion"
+title: "Numeric Data Types"
 teaching: 5
 exercises: 0
 questions:
