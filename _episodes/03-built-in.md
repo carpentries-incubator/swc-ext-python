@@ -178,13 +178,14 @@ result of print is None
 ~~~
 {: .output}
 
-## Methods are functions for specific types
+## Methods are functions that belong to a specific object
 
 ~~~
 gene = 'ATGTTCTGGAT'
 ~~~
 {: .python}
 ~~~
+
 ~~~
 {: .output}
 
@@ -285,18 +286,5 @@ gene.lower()
 > > was not supplied. If it just returned `None`, the error would be much harder to trace as it
 > > would likely be stored into a variable and used later in the program, only to likely throw
 > > a runtime error.
-> {: .solution}
-{: .challenge}
-
-> ## Last Character of a String
->
-> If Python starts counting from zero,
-> and `len` returns the number of characters in a string,
-> what index expression will get the last character in the string `name`?
-> (Note: we will see a simpler way to do this in a later episode.)
->
-> > ## Solution
-> >
-> > `name[len(name) - 1]`
 > {: .solution}
 {: .challenge}

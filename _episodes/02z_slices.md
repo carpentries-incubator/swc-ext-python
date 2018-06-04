@@ -96,3 +96,16 @@ what happens if you try to get the second digit of `a`?
 > {: .error}
 > {: .solution}
 > {: .challenge}
+
+## Last Character of a String
+
+If Python starts counting from zero,
+and `len` returns the number of characters in a string,
+what index expression will get the last character in the string `name`?
+(Note: we will see a simpler way to do this in a later episode.)
+
+> ## Solution
+>
+> `name[len(name) - 1]`
+> {: .solution}
+> {: .challenge}
