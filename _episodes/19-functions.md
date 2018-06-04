@@ -130,14 +130,49 @@ result of call is: None
 ~~~
 {: .output}
 
+## Using conditionals inside functions
+
+We can make our function more robust by checking
+first that we are not given an empty list as input.
+So we can add a conditional to test the length of the input.
+
+~~~
+def average(values):
+    if len(values) == 0:
+        return None
+    return sum(values) / len(values)
+~~~
+{: .python}
+
+~~~
+a = average([1, 3, 4])
+print('average of actual values:', a)
+~~~
+{: .python}
+~~~
+2.6666666666666665
+~~~
+{: .output}
+
+If an empty list was passed in, we would get:
+~~~
+a = average([])
+print('average of actual values:', a)
+~~~
+{: .python}
+~~~
+None
+~~~
+{: .output}
+
 ## Our data analysis
 
 ~~~
-def plot_gdp(country_file, country): 
-	data = pandas.read_csv(country_file, index_col='country')
-	data.loc[country,:].plot()
-	plt.ylabel('GDP per capita')
-	plt.xticks(rotation=90)
+def plot_gdp(country_file, country):
+    data = pandas.read_csv(country_file, index_col='country')
+    data.loc[country,:].plot()
+    plt.ylabel('GDP per capita')
+    plt.xticks(rotation=90)
 ~~~
 {: .python}
 ~~~
@@ -242,7 +277,7 @@ plot_gdp('data/'data/gapminder_gdp_oceania.csv')
 
 > ## Encapsulate of If/Print Block
 >
-> The code below will run on a label-printer for chicken eggs.  A digital scale will report a chicken egg mass (in grams) to the computer and then the computer will print a label.  
+> The code below will run on a label-printer for chicken eggs.  A digital scale will report a chicken egg mass (in grams) to the computer and then the computer will print a label.
 >
 > Please re-write the code so that the if-block is folded into a function.
 >
@@ -255,7 +290,7 @@ plot_gdp('data/'data/gapminder_gdp_oceania.csv')
 >     mass=70+20.0*(2.0*random.random()-1.0)
 >
 >     print(mass)
->    
+>
 >     #egg sizing machinery prints a label
 >     if(mass>=85):
 >        print("jumbo")
@@ -280,7 +315,7 @@ plot_gdp('data/'data/gapminder_gdp_oceania.csv')
 >     # the (random) mass will be 70 +/- 20 grams
 >     mass=70+20.0*(2.0*random.random()-1.0)
 >
->     print(mass,print_egg_label(mass))    
+>     print(mass,print_egg_label(mass))
 >
 > ~~~
 > {: .python}
