@@ -46,4 +46,55 @@ keypoints:
 and whether they are **mutable** or **immutable**.
 
 
-# Ordered and Unordered Data
+# Ordered vs. Unordered Types
+
+Try running the following:
+
+~~~
+my_list = list('abc')
+my_set = set('abc')
+
+print('my_list = ', my_list)
+print('my_set = ', my_set)
+~~~
+{: .python}
+
+What do you notice about the result of printing `my_list` and `my_set`?
+
+> ## Solution
+> 
+> ~~~
+> my_list = ['a', 'b', 'c']
+> my_set = {'b', 'c', 'a'}
+> ~~~
+> {: .output}
+{: .solution}
+
+* **Ordered** types maintain the order in which they were created
+* **Unordered** types do not maintain this order
+
+> ## Challenge
+> 
+> * Is unordered the same as random?
+> * Will the same thing print each time?
+>
+> ~~~
+> print(set('abc'))
+> print(set('bca'))
+> print(set('cba'))
+> ~~~
+> {: .python}
+>
+>> ## Solution
+>> ~~~
+>> {'b', 'c', 'a'}
+>> {'b', 'c', 'a'}
+>> {'b', 'c', 'a'}
+>> ~~~
+>> {: .output}
+>> 
+>> Unordered means you can't *depend* on any particular order
+>> * The order may change when you upgrade python
+>> * It may also change the next time you run your program
+> {: .solution}
+{: .callout}
