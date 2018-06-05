@@ -229,6 +229,24 @@ Taylor Scott
 ~~~
 {: .output}
 
+## Use the index to change an element of a list
+ - Lists are mutable, so they can be changed in place
+ - Use the index to replace an element of a list with a new value
+
+~~~
+small_primes = [2, 3, 5, 8, 9, 11]
+print(small_primes)
+
+small_primes[3] = 7
+print(small_primes)
+~~~
+{: .python}
+~~~
+[2, 3, 5, 8, 9, 11]
+[2, 3, 5, 7, 9, 11]
+~~~
+{: .output}
+
 
 ## Use a slice to get part of a selection.
 - A slice is a part of a sequence.
