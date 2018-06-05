@@ -229,6 +229,20 @@ Taylor Scott
 ~~~
 {: .output}
 
+## Negative indices count backwards
+
+*    The end of the sequence is indexed starting at `-1`
+*    Negative indices can be used to get a sequence element
+
+~~~
+print(first_name[-1])
+~~~
+{: .python}
+~~~
+n
+~~~
+{: .output}
+
 ## Use the index to change an element of a list
  - Lists are mutable, so they can be changed in place
  - Use the index to replace an element of a list with a new value
@@ -261,6 +275,24 @@ print(small_primes)
 [2, 3, 5, 7, 11]
 ~~~
 {: .output}
+
+## Strings and tuples are immutable.
+
+*   Cannot change the characters in a string after it has been created.
+*   Cannot change the elements of a tuple after it has been created.
+    *   *Immutable*: can't be changed after creation.
+    *   In contrast, lists are *mutable*: they can be modified in place.
+
+~~~
+element = 'carbon'
+element[0] = 'C'
+~~~
+{: .python}
+~~~
+TypeError: 'str' object does not support item assignment
+~~~
+{: .error}
+
 
 ## Use a slice to get part of a selection.
 - A slice is a part of a sequence.
@@ -328,10 +360,12 @@ Jo
 
 ## Last Character of a String
 > ## Challenge
+> We've seen one way to get the last character of a string.
 > If Python starts counting from zero,
 > and `len` returns the number of characters in a string,
-> what index expression will get the last character in the string `name`?
-> (Note: we will see a simpler way to do this in a later episode.)
+> what is another index expression that will get the last character
+> in the string `name`?
+> Why might you prefer one over the other?
 >
 >> ## Solution
 >> ~~~
