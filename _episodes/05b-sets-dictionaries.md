@@ -164,30 +164,3 @@ dict_keys(['first', 'last'])
 dict_values(['Paul', 'Wilson'])
 ~~~
 {: .output}
-
-# Choosing the best data structure
-
-*   **Best Practice: Write programs for people and not for computers!**
-*   The best choice of data structure depends on how you will use it
-*   Focus on clarity before performance
-*   Good data structure choices can make your code easier to follow
-
-### Lists & Tuples vs Dictionaries
-
-*   Does the data have a natural order?
-    *  Yes &rarr; consider a list, dictionaries can be sorted by their keys, but 
-       order is not inherent
-    *  All access to list data is either by looping through it in order, or by 
-       referring to an entry by it's ordinal place in the list
-    *  All access to dictionary data is either by looping through it, perhaps 
-       in some arbitrary order, or by referring to an entry by it's semantic meaning
-*   Does the addition of keys add semantic value?
-    *  Yes &rarr; probably benefit from a dictionary
-    *  No  &rarr; fabricating keys that don't have semantic value can be counter-productive
-        * If the order of entries **IS** the semantic value, then use a list
-
-### Lists vs Tuples
-
-*   Do you want to clearly indicate that certain data has an immutable relationship?
-    * Yes &rarr; choose a tuple; immutability provides a weak form of semantics
-      since order is fixed

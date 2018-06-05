@@ -3,19 +3,22 @@ title: "More on Iterable Data Types"
 teaching: 5
 exercises: 0
 questions:
-- "What is iteration?"
-- "What is the difference between ordered and unordered types?"
-- "What is the difference between mutable and immutable types?"
+- "What do sequences, sets, and dictionaries have in common?"
+- "How do they differ?"
+- "When should I use each type?"
 objectives:
 - "Explain what it means for a data type to be iterable."
-- "Explain what ordered means in the context of iterable variables."
+- "Understand the difference between ordered and unordered types."
 - "Explain  how a mutable data type differs from an immutable data type."
+- "Understand when to use one iterable type versus another."
 keypoints:
 - "Iterable data types are collections of objects."
 - "Ordered data types perserve the order of creation."
 - "Unordered data types return data in a random order."
 - "Mutable data types can be changed in place."
 - "Immutable data types cannot be changed in place. To modify them, you must create a new object."
+- "All iterable types have a *length*, the number of items they hold"
+- "Choose an iterable type that makes your code safer and easier to understand."
 ---
 
 # What is an iterable data type?
@@ -172,3 +175,31 @@ TypeError                                 Traceback (most recent call last)
 TypeError: object of type 'int' has no len()
 ```
 {: .error}
+
+
+# Choosing the best data structure
+
+*   **Best Practice: Write programs for people and not for computers!**
+*   The best choice of data structure depends on how you will use it
+*   Focus on clarity before performance
+*   Good data structure choices can make your code easier to follow
+
+### Lists & Tuples vs Dictionaries
+
+*   Does the data have a natural order?
+    *  Yes &rarr; consider a list, dictionaries can be sorted by their keys, but 
+       order is not inherent
+    *  All access to list data is either by looping through it in order, or by 
+       referring to an entry by it's ordinal place in the list
+    *  All access to dictionary data is either by looping through it, perhaps 
+       in some arbitrary order, or by referring to an entry by it's semantic meaning
+*   Does the addition of keys add semantic value?
+    *  Yes &rarr; probably benefit from a dictionary
+    *  No  &rarr; fabricating keys that don't have semantic value can be counter-productive
+        * If the order of entries **IS** the semantic value, then use a list
+
+### Lists vs Tuples
+
+*   Do you want to clearly indicate that certain data has an immutable relationship?
+    * Yes &rarr; choose a tuple; immutability provides a weak form of semantics
+      since order is fixed
