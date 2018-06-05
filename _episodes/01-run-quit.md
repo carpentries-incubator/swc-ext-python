@@ -18,8 +18,8 @@ keypoints:
 ---
 
 > ## Getting the Data
-> 
-> The data we will be using is taken from the [gapminder][gapminder] dataset.
+>
+> The data we will be using is taken from the [gapminder](https://gapminder.org) dataset.
 > Create a directory called `python-novice-gapminder`, and download the zip file
 > [python-novice-gapminder-data.zip]({{page.root}}/files/python-novice-gapminder-data.zip)
 > into it.  Then unzip the file (it should create a `data` folder.  Then start a Jupyter 

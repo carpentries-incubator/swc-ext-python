@@ -1,6 +1,6 @@
 ---
-title: "Conditionals"
-teaching: 10
+title: "Comparisons and Conditionals"
+teaching: 15
 exercises: 10
 questions:
 - "How can programs do different things for different data?"
@@ -15,12 +15,87 @@ keypoints:
 - "Conditions are tested once, in order."
 - "Create a table showing variables' values to trace a program's execution."
 ---
+
+# Comparisons
+ - It is often useful to compare two objects
+    - For example, checking whether a data poinot is above the mean
+ - Python has many special operators for comparison
+ - Comparisons return `True` or `False`
+    - `True` and `False` are called **Boolean types**
+
+## Comparing numbers
+  - Use `==` to check whether two numbers are equal
+  - Use `!=` to check whether two number are unequal
+  - `>`, `>=`, `<`, `<=` check whether one number is greater than greater or less than a number (with or without equality)
+  - For example, the following comparisons all return `True`
+    ~~~
+    3 == 3
+    5.0 != 1
+    10.0 > 1.0 
+    10 >= 10
+    10 <= 10
+    1 < 5
+    ~~~
+    {: .python}
+
+## Comparing collections
+ - Just like numbers, `==` and `!=` can be used to check whether two collections are the same or different
+    - Collections are only equal if they are of the same type!
+ - Additionally, **membership** can be checked using the operators `in` and `not in`
+
+~~~
+small_primes = [2, 3, 5, 7, 11]
+3 in small_primes       # True
+4 in small_primes       # False
+
+4 not in small_primes   # True
+5 not in small_primes   # False
+~~~
+{: .python}
+
+## Check whether a value is (or is not) `None` using `is` (or `is not`)
+
+> ## Use `None` to represent missing or null data
+>
+> - It is sometimes useful to indicate that data does not exist
+> - For example, how would you add a person with only one name to the following list
+>
+> ~~~
+> people = [('Taylor', 'Scott'), ('Patrick', 'Shirwise'), ('Matt', 'Garcia'), ('Kalin', 'Kiesling')]
+> ~~~
+> {: .python}
+>
+> - It's best to add the new person as a tuple with two values. One of the values can be `None`
+>
+> ~~~
+> people.append(('Elvis', None))
+> print(people)
+> ~~~
+> {: .python}
+> ~~~
+> [('Taylor', 'Scott'), ('Patrick', 'Shirwise'), ('Matt', 'Garcia'), ('Kalin', 'Kiesling'), ('Elvis', None)]
+> ~~~
+> {: .output}
+{: .discussion}
+
+ - The operators `is` and `is not` check whether data is `None`
+ - You should only use `is` and `is not` when comparing to `None`
+
+ ~~~
+ ('Elvis', None)[0] is None     # False
+ ('Elvis', None)[1] is None     # True
+ ~~~
+ {: .python}
+
+
+# Conditionals 
+
 ## Use `if` statements to control whether or not a block of code is executed.
 
 *   An `if` statement (more properly called a *conditional* statement)
     controls whether some block of code is executed or not.
 *   Structure is similar to a `for` statement:
-    *   First line opens with `if` and ends with a colon
+    *   First line opens with `if` followed by a comparison and ends with a colon
     *   Body containing one or more statements is indented (usually by 4 spaces)
 
 ~~~
