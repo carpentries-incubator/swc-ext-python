@@ -25,7 +25,8 @@ keypoints:
 
 ### What is iteration?
 
-* When programming you'll often be working with collections of things
+* The types we just learned (strings, lists, tuples, sets, and dictionaries)
+ are all collections of things.
 * Iteration is going through a collection item-by-item
 
 > ## Example
@@ -37,7 +38,8 @@ keypoints:
  
 ### What are the iterable data types?
 
-* Python has 5 basic iterable data types
+* Collection types are often called **iterable**
+* As we've seen, Python has 5 basic iterable data types
 	* Strings
 	* Tuples
 	* Lists
@@ -113,32 +115,32 @@ instead of creating a new object
 > Run the following code. What's the difference?
 >
 > ~~~
-> my_list = list("abc")
+> my_list = ['a', 'b', 'c']
 > also_my_list = my_list
 >
-> my_tuple = tuple("abc")
-> also_my_tuple = my_tuple
+> my_string = 'abc'
+> also_my_string = my_string
 >
-> my_list += list("def")
-> my_tuple += tuple("def")
+> my_list.extend(['d', 'e', 'f'])
+> my_string = my_string + "def"
 > 
 > print('my_list = ', my_list)
 > print('also_my_list = ', also_my_list)
 > 
-> print('my_tuple = ', my_tuple)
-> print('also_my_tuple = ', also_my_tuple)
+> print('my_string = ', my_string)
+> print('also_my_string = ', also_my_string)
 > ~~~
 > {: .python}
 > 
 >> ## Solution
 >>  * Modifying `my_list` also modifies `also_my_list`
->>  * Modifying `my_tuple` does not change `also_my_tuple`
+>>  * Modifying `my_string` does not change `also_my_string`
 >>
 >> ~~~
 >> my_list =  ['a', 'b', 'c', 'd', 'e', 'f']
 >> also_my_list =  ['a', 'b', 'c', 'd', 'e', 'f']
->> my_tuple =  ('a', 'b', 'c', 'd', 'e', 'f')
->> also_my_tuple =  ('a', 'b', 'c')
+>> my_string =  abcdef
+>> also_my_string =  abc
 >> ~~~
 >> {: .output}
 > {: .solution}
