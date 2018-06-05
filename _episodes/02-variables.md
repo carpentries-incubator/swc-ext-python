@@ -1,7 +1,7 @@
 ---
 title: "Variables and Assignment"
-teaching: 10
-exercises: 10
+teaching: 5
+exercises: 5
 questions:
 - "How can I store data in programs?"
 objectives:
@@ -230,9 +230,6 @@ num_governors = governors_per_state * num_states
 >> of "left".
 >{: .solution}
 {: .challenge}
-
-> ## Challenge
->
 
 > ## Choosing a Name
 >

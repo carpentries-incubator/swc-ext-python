@@ -24,7 +24,7 @@ keypoints:
 > [python-novice-gapminder-data.zip]({{page.root}}/files/python-novice-gapminder-data.zip)
 > into it.  Then unzip the file (it should create a `data` folder.  Then start a Jupyter 
 > notebook from inside this directory (see the second header below).  
-> {: .challenge}
+{: .challenge}
 
 ## Python programs are plain text files.
 
