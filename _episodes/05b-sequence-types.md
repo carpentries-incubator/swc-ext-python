@@ -247,6 +247,20 @@ print(small_primes)
 ~~~
 {: .output}
 
+## Use `del` operator to remove an element from a list
+ - `del` is a statement, not a function (so there are no parentheses)
+
+~~~
+print(small_primes)
+del small_primes[4]
+print(small_primes)
+~~~
+{: .python}
+~~~
+[2, 3, 5, 7, 9, 11]
+[2, 3, 5, 7, 11]
+~~~
+{: .output}
 
 ## Use a slice to get part of a selection.
 - A slice is a part of a sequence.
