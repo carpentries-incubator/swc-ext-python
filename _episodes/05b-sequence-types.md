@@ -161,6 +161,46 @@ goals = [1, 'Create lists.', 2, 'Extract items from lists.', 3, 'Modify lists.']
 ~~~
 {: .python}
 
+> ## From Strings to Lists and Back
+>
+> Given this:
+>
+> ~~~
+> print('string to list:', list('tin'))
+> print('list to string:', ''.join(['g', 'o', 'l', 'd']))
+> ~~~
+> {: .python}
+> ~~~
+> ['t', 'i', 'n']
+> 'gold'
+> ~~~
+> {: .output}
+>
+> 1.  Explain in simple terms what `list('some string')` does.
+> 2.  What does `'-'.join(['x', 'y'])` generate?
+{: .challenge}
+
+
+# Tuples
+
+## Tuples are "immutable" lists
+ - Like lists, can contain mixed data types
+ - Defined with parenthesis and commas `my_tuple = (object 1, object 2, ...)`
+ - Can be used to "bind together" two objects
+
+ ~~~
+ first_name = "John"
+ last_name = "Smith"
+ full_name = (first_name, last_name)
+ print(full_name)
+ ~~~
+ {: .python}
+ ~~~
+ ('John', 'Smith')
+ ~~~
+ {: .output}
+
+
 # Accessing items in a Sequence
 
 ## Use an index to get a single object from a sequence.
