@@ -3,13 +3,13 @@ title: "Sequence Types: Strings, Tuples and Lists"
 teaching: 20
 exercises: 10
 questions:
-- "What is a Sequence in Python?"
+- "What is a sequence in Python?"
 - "What is the difference between strings, tuples, and lists?"
-- "How can we access items in a Sequence?"
+- "How can we access items in a sequence?"
 objectives:
 - "Explain the features of strings, tuples, and lists."
 - "Determine when to use strings, tuples, or lists to store data."
-- "Access specific items in a Sequence by position."
+- "Access specific items in a sequence by position."
 keypoints:
 - "Strings, tuples, and lists are ordered collections of objects."
 - "Strings and tuples are immutable."
@@ -21,7 +21,7 @@ keypoints:
 - "Access a range of items using slices: `sequence[start:stop:skip]`."
 ---
 
-# What is a Sequence?
+# What is a sequence?
 - A sequence is an *ordered* collection of objects
 - We've seen one example of a sequence already: strings are ordered collections of characters
 - As we'll see, python also allows for sequences of arbitrary types
@@ -201,7 +201,7 @@ goals = [1, 'Create lists.', 2, 'Extract items from lists.', 3, 'Modify lists.']
  {: .output}
 
 
-# Accessing items in a Sequence
+# Accessing items in a sequence
 
 ## Use an index to get a single object from a sequence.
  - The objects in a sequence are ordered. For example, the string 'AB' is not the same as 'BA'.
