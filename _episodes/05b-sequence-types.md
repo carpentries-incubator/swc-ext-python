@@ -85,6 +85,82 @@ keypoints:
 {: .discussion}
 
 
+# Lists
+
+## A list stores many values in a single structure.
+
+*   Doing calculations with a hundred variables called `pressure_001`, `pressure_002`, etc.,
+    would be at least as slow as doing them by hand.
+*   Use a *list* to store many values together.
+    *   Contained within square brackets `[...]`.
+    *   Values separated by commas `,`.
+
+~~~
+teen_primes = [12, 13, 17, 23]
+~~~
+{: .python}
+
+## Appending items to a list lengthens it.
+
+*   Use `list_name.append()` to add items to the end of a list.
+
+~~~
+primes = [2, 3, 5]
+print('primes is initially:', primes)
+primes.append(7)
+primes.append(9)
+print('primes has become:', primes)
+~~~
+{: .python}
+~~~
+primes is initially: [2, 3, 5]
+primes has become: [2, 3, 5, 7, 9]
+~~~
+{: .output}
+
+*   `append` is a *method* of lists.
+    *   Like a function, but tied to a particular object.
+*   Use `object_name.method_name` to call methods.
+    *   Deliberately resembles the way we refer to things in a library.
+*   We will meet other methods of lists as we go along.
+    *   Use `help(list)` for a preview.
+*   `extend` is similar to `append`, but it allows you to combine two lists.  For example:
+
+~~~
+teen_primes = [11, 13, 17, 19]
+middle_aged_primes = [37, 41, 43, 47]
+print('primes is currently:', primes)
+primes.extend(teen_primes)
+print('primes has now become:', primes)
+primes.append(middle_aged_primes)
+print('primes has finally become:', primes)
+~~~
+{: .python}
+~~~
+primes is currently: [2, 3, 5, 7, 9]
+primes has now become: [2, 3, 5, 7, 9, 11, 13, 17, 19]
+primes has finally become: [2, 3, 5, 7, 9, 11, 13, 17, 19, [37, 41, 43, 47]]
+~~~
+{: .output}
+
+Note that while `extend` maintains the "flat" structure of the list, appending a list to a list makes the result two-dimensional.
+
+## The empty list contains no values.
+
+*   Use `[]` on its own to represent a list that doesn't contain any values.
+    *   "The zero of lists."
+*   Helpful as a starting point for collecting values
+    (which we will see in a [later episode]({{page.root}}/06-for-loops/)).
+
+## Lists may contain values of different types.
+
+*   A single list may contain numbers, strings, and anything else.
+
+~~~
+goals = [1, 'Create lists.', 2, 'Extract items from lists.', 3, 'Modify lists.']
+~~~
+{: .python}
+
 # Accessing items in a Sequence
 
 ## Use an index to get a single object from a sequence.
@@ -101,20 +177,21 @@ keypoints:
   position.
 
 ~~~
-first_name = "Taylor"
+first_name = "John"
 print(first_name[0])
 
-full_name = ("Taylor", "Dean", "Scott")
-middle_name = full_name[1]
-print(middle_name)
+full_name = ("John", "A", "Doe")
+middle_initial = full_name[1]
+print(middle_initial)
 
 swc_instructors = ["Matt Garcia", "Kalin Kiesling", "Taylor Scott", "Patrick Shirwise"]
 an_instructor = swc_instructors[2]
+print(an_instructor)
 ~~~
 {: .python}
 ~~~
-T
-Dean
+J
+A.
 Taylor Scott
 ~~~
 {: .output}
