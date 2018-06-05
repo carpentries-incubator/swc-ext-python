@@ -18,7 +18,61 @@ keypoints:
 ---
 
 # Sets
+## Sets are mutable, unordered collections of *unique* items
 
+*    Sets can only hold **immutable** objects
+*    Construct a set with braces: `my_set = {object1, object2, object3, ...}`
+     * You can also use the built-in `set()` function to make a set from another
+       iterable: `my_set = set("abc")`
+*    Sets in Python behave like mathematical sets
+     * Support common set operations (as methods): 
+     * `my_set.union()`, `my_set.difference()`, `my_set.intersect()`
+
+~~~
+set1 = set("abc")
+set2 = set("acb")
+set3 = set("aabbbcc")
+print(set1, set2, set3)
+~~~
+{: .python}
+~~~
+{'b', 'c', 'a'} {'b', 'c', 'a'} {'b', 'c', 'a'}
+~~~
+{: .output}
+
+*    Add items to a set using the `add()` and `update()` methods
+
+~~~
+my_set = {'a', 'b', 'c'}
+my_set.add('d')
+print(my_set)
+
+my_set.update({'e', 'f', 'g'})
+print(my_set)
+~~~
+{: .python}
+~~~
+{'a', 'c', 'd', 'b'}
+{'f', 'g', 'b', 'e', 'c', 'd', 'a'}
+~~~
+{: .output}
+
+*    Get an element from a set using `pop()`
+*    This returns an element from the set **and removes it**
+
+~~~
+some_set = set(['UGA', 'UAG', 'UAA'])
+print(some_set)
+print(some_set.pop())
+print(some_set)
+~~~
+{: .python}
+~~~
+{'UAG', 'UAA', 'UGA'}
+UAG
+{'UAA', 'UGA'}
+~~~
+{: .output}
 
 # Dictionaries
 ## Dictionaries add meaningful labels
@@ -29,6 +83,8 @@ keypoints:
      * Be sure to choose meaningful names!
 *    Dictionaries are mutable, you can change them
      *   Because of meaningful labels, this is less dangerous
+*    Dictionaries map **keys** to **values**: `my_dict = {key1:value1, key2:value2, ...}`
+     * Keys must be **immutable**
 
 ~~~
 name = {'first': 'Paul', 'last': 'Wilson'}
