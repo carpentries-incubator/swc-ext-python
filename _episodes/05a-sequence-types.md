@@ -27,32 +27,37 @@ keypoints:
 - As we'll see, python also allows for sequences of arbitrary types
 
 # Strings
-- A string is an *ordered*, *immutable* sequence of characters
+- A string is a sequence of characters
 - Strings are constructed with quotes
   - Strings can be constructed with single quotes, double quotes, or triple quotes
-    ~~~
-    my_string = 'a sequence of characters'
-    my_string = "a sequence of characters"
-    my_string = '''a sequence of characters'''
-    ~~~
-    {: .python}
+
+~~~
+my_string = 'a sequence of characters'
+my_string = "a sequence of characters"
+my_string = '''a sequence of characters'''
+~~~
+{: .python}
+
 - Triple quoted strings can span multiple lines
-  ~~~
-  single_quote_string = 'a string on one line'
-  triple_quote_string = '''a string
-  on two lines'''
-  ~~~
+
+~~~
+single_quote_string = 'a string on one line'
+triple_quote_string = '''a string
+on two lines'''
+~~~
   {: .python}
+
 - Strings can also be constructed with the `str()` function
-  ~~~
-  string_from_int = str(25)
-  print(string_from_int)
-  ~~~
-  {: .python}
-  ~~~
-  '25'
-  ~~~
-  {: .output}
+
+~~~
+string_from_int = str(25)
+print(string_from_int)
+~~~
+{: .python}
+~~~
+'25'
+~~~
+{: .output}
 
 
 > ## Can you `+` and `*` strings?
@@ -244,7 +249,7 @@ n
 {: .output}
 
 ## Use the index to change an element of a list
- - Lists are mutable, so they can be changed in place
+ - Lists can be changed in place
  - Use the index to replace an element of a list with a new value
 
 ~~~

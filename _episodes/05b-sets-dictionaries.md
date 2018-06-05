@@ -10,17 +10,15 @@ objectives:
 - "Understand how dictionaries map keys to values"
 - "Learn how to add and get items from sets and dictionaries."
 keypoints:
-- "A set is an unordered, unique collection of **immutable** objects."
+- "A set is an unordered, unique collection of immutable objects."
 - "A dictionary is a mapping between objects, from **keys** to **values**."
-- "Dictionary keys must be **immutable**."
+- "Dictionary keys must be immutable."
 - "Get a value from a dictionary with `my_dict[some_key]`. Add an item with `my_dict[some_key] = some_value`."
 - "Dictionaries and sets are mutable."
 ---
 
 # Sets
-## Sets are mutable, unordered collections of *unique* items
-
-*    Sets can only hold **immutable** objects
+## Sets are unordered collections of *unique* items
 *    Construct a set with braces: `my_set = {object1, object2, object3, ...}`
      * You can also use the built-in `set()` function to make a set from another
        iterable: `my_set = set("abc")`
@@ -74,6 +72,25 @@ UAG
 ~~~
 {: .output}
 
+> ## What objects can go in a set?
+> Suprisingly, not type of object can be added to a set
+> ~~~
+> my_set = {[1, 2]}
+> ~~~
+> {: .python}
+> ~~~
+> ---------------------------------------------------------------------------
+> TypeError                                 Traceback (most recent call last)
+> <ipython-input-4-bf858b2308e0> in <module>()
+> ----> 1 my_set = {[1, 2]}
+>  
+> TypeError: unhashable type: 'list'
+> ~~~
+> {: .error}
+> - The error means that python cannot add a list to a set
+> - Only objects that **cannot change** can be added to sets
+{: .challenge}
+
 # Dictionaries
 ## Dictionaries add meaningful labels
 
@@ -84,7 +101,7 @@ UAG
 *    Dictionaries are mutable, you can change them
      *   Because of meaningful labels, this is less dangerous
 *    Dictionaries map **keys** to **values**: `my_dict = {key1:value1, key2:value2, ...}`
-     * Keys must be **immutable**
+     * As with sets, **dictionary keys must be guaranteed not to change**
 
 ~~~
 name = {'first': 'Paul', 'last': 'Wilson'}
