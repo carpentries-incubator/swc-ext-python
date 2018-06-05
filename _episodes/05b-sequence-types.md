@@ -55,11 +55,9 @@ keypoints:
   {: .output}
 
 
-> ## What can you do with strings?
+> ## Can you `+` and `*` strings?
 > 
-> Can you use the `+` and `*` operators on strings?
-> 
-> What do you expect the value of `full_name` to be?
+> What do you expect the value of `full_name` to be here?
 > ~~~
 > first_name = 'John'
 > last_name = 'Smith'
