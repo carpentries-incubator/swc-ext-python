@@ -22,6 +22,69 @@ keypoints:
 ---
 
 # What is a Sequence?
+- A sequence is an *ordered* collection of objects
+- We've seen one example of a sequence already: strings are ordered collections of characters
+- As we'll see, python also allows for sequences of arbitrary types
+
+# Strings
+- A string is an *ordered*, *immutable* sequence of characters
+- Strings are constructed with quotes
+  - Strings can be constructed with single quotes, double quotes, or triple quotes
+    ~~~
+    my_string = 'a sequence of characters'
+    my_string = "a sequence of characters"
+    my_string = '''a sequence of characters'''
+    ~~~
+    {: .python}
+- Triple quoted strings can span multiple lines
+  ~~~
+  single_quote_string = 'a string on one line'
+  triple_quote_string = '''a string
+  on two lines'''
+  ~~~
+  {: .python}
+- Strings can also be constructed with the `str()` function
+  ~~~
+  string_from_int = str(25)
+  print(string_from_int)
+  ~~~
+  {: .python}
+  ~~~
+  '25'
+  ~~~
+  {: .output}
+
+
+> ## What can you do with strings?
+> 
+> Can you use the `+` and `*` operators on strings?
+> 
+> What do you expect the value of `full_name` to be?
+> ~~~
+> first_name = 'John'
+> last_name = 'Smith'
+> 
+> full_name = first_name + ' ' + last_name
+> ~~~
+> {: .python}
+>> ## Solution
+>> ~~~
+>> 'John Smith'
+>> ~~~
+>> {: .output}
+>> - Adding two strings joins them together
+>> - This is called **concatenation**
+> {: .solution}
+>
+> What does `'3' * 10` produce? Is it what you expect? What about `'3' * '10'`?
+>
+>> ## Solution
+>> - `'3' * 10 = '3333333333'`
+>> - `'3' * '10'` gives a TypeError
+>> - Multiplying a string an integer _N_ concatenates _N_ copies of the string
+>> - Multiplying a string by a string is not allowed
+> {: .solution}
+{: .discussion}
 
 
 # Accessing items in a Sequence
