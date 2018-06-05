@@ -142,7 +142,7 @@ instead of creating a new object
 > {: .solution}
 {: .callout}
 
-# Iterables have lists
+# Iterables have lengths
 
 - The `len()` function gives the number of things in a collection
 
