@@ -141,3 +141,35 @@ instead of creating a new object
 >> {: .output}
 > {: .solution}
 {: .callout}
+
+# Iterables have lists
+
+- The `len()` function gives the number of things in a collection
+
+~~~
+print(len("abc"))
+print(len([1, 2, 3, 4]))
+~~~
+{: .python}
+~~~
+3
+4
+~~~
+{: .output}
+
+- Numbers do not have a length
+
+```
+print(len(52))
+```
+{: .python}
+
+```
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-3-f769e8e8097d> in <module>()
+----> 1 print(len(52))
+
+TypeError: object of type 'int' has no len()
+```
+{: .error}
