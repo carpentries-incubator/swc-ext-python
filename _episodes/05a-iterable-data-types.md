@@ -1,5 +1,5 @@
 ---
-title: "Iterable Data Types"
+title: "More on Iterable Data Types"
 teaching: 5
 exercises: 0
 questions:
@@ -10,7 +10,6 @@ objectives:
 - "Explain what it means for a data type to be iterable."
 - "Explain what ordered means in the context of iterable variables."
 - "Explain  how a mutable data type differs from an immutable data type."
-- "Explain the use of code blocks in episodes."
 keypoints:
 - "Iterable data types are collections of objects."
 - "Ordered data types perserve the order of creation."
