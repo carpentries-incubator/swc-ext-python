@@ -204,17 +204,10 @@ goals = [1, 'Create lists.', 2, 'Extract items from lists.', 3, 'Modify lists.']
 # Accessing items in a Sequence
 
 ## Use an index to get a single object from a sequence.
-
-- The objects in a sequence are ordered. For example, the string 'AB' is not the same as 'BA'.
-
--  Because of this ordering, we can give each item a number that is it's position in the sequence. This
-
-  number is called an index or sometimes a subscript.
-
-- Indices are numbered from 0.
-
-- Use the position's index in square brackets to get the item at that
-  position.
+ - The objects in a sequence are ordered. For example, the string 'AB' is not the same as 'BA'.
+ -  Because of this ordering, we can give each item a number that is it's position in the sequence. This number is called an index or sometimes a subscript.
+ - Indices are numbered from 0.
+ - Use the position's index in square brackets to get the item at that position.
 
 ~~~
 first_name = "John"
@@ -237,20 +230,15 @@ Taylor Scott
 {: .output}
 
 
-## Use a slice to get a substring.
-
-- A part of a string is called a substring. A substring can be as short as a
-  single character.
-- An item in a list is called an element. Whenever we treat a string as if it
-  were a list, the string's elements are its individual characters.
-- A slice is a part of a string (or, more generally, any list-like thing).
+## Use a slice to get part of a selection.
+- A slice is a part of a sequence.
 - We take a slice by using `[start:stop]`, where `start` is replaced with the
   index of the first element we want and `stop` is replaced with the index of
   the element just after the last element we want.
 - Mathematically, you might say that a slice selects `[start:stop)`.
 - The difference between stop and start is the slice's length.
-- Taking a slice does not change the contents of the original string. Instead,
-  the slice is a copy of part of the original string.
+- Taking a slice does not change the contents of the original sequence. Instead,
+  the slice is a copy of part of the original sequence.
 
 ~~~
 print(first_name[0:2])
@@ -259,30 +247,30 @@ print(first_name[0:2])
 {: .python}
 
 ~~~
-Ah
+Jo
 ~~~
 {: .output}
 
-## Slicing
-
-What does the following program print?
-
-~~~
-atom_name = 'carbon'
-print('atom_name[1:3] is:', atom_name[1:3])
-~~~
-{: .python}
-~~~
-atom_name[1:3] is: ar
-~~~
-{: .output}
-
-1. What does `thing[low:high]` do?
-2. What does `thing[low:]` (without a value after the colon) do?
-3. What does `thing[:high]` (without a value before the colon) do?
-4. What does `thing[:]` (just a colon) do?
-5. What does `thing[number:negative-number]` do?
+> ## Exercise
+>  What does the following program print?
+>
+>  ~~~
+>  atom_name = 'carbon'
+>  print('atom_name[1:3] is:', atom_name[1:3])
+>  ~~~
+>  {: .python}
+>  ~~~
+>  atom_name[1:3] is: ar
+>  ~~~
+>  {: .output}
+>
+> 1. What does `thing[low:high]` do?
+> 2. What does `thing[low:]` (without a value after the colon) do?
+> 3. What does `thing[:high]` (without a value before the colon) do?
+> 4. What does `thing[:]` (just a colon) do?
+> 5. What does `thing[number:negative-number]` do?
    {: .challenge}
+{: .discussion}
 
 > ## Challenge
 >
