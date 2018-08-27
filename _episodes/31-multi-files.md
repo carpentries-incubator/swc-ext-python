@@ -108,7 +108,7 @@ $ git commit -m "Allowing plot generation for multiple files at once"
 {: .bash}
 
 
-## Saving Figures
+### Saving Figures
 
 By using `plt.show()` with multiple files, the program stops each
 time a figure is generated and the user must exit it to continue.
@@ -218,15 +218,194 @@ for filename in filenames:
 ### Updating the repository
 
 Yet another successful update to the code. Let's
-commit our changes.
+commit our changes. This time, we have new image files we must also
+commit.
 
 ~~~
-$ git add gdp_plots.py
+$ git add gdp_plots.py *.png
 $ git commit -m "Saves each figure as a separate file."
 ~~~
 {: .bash}
 
-## More Practice
+## Handling Multiple Files with Bash
+
+Now that we've created a Python script to save multiple files at once,
+let's try to do the same thing in Bash. We'll leave our current branch
+alone and switch to our `bash-multi-files` branch.
+
+~~~
+$ git checkout bash-multi-files
+~~~
+{: .bash}
+
+If we look at our `gdp_plots.py` file, it is not in a for-loop format
+because it is not up to date with other branch. Our script should look
+like this:
+
+~~~
+import sys
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+filename = sys.argv[1]
+
+# read data into a pandas dataframe and transpose
+data = pandas.read_csv(filename, index_col = 'country').T
+
+# create a plot the transposed data
+ax = data.plot( title = filename )
+
+# set some plot attributes
+ax.set_xlabel("Year")
+ax.set_ylabel("GDP Per Capita")
+# set the x locations and labels
+ax.set_xticks( range(len(data.index)) )
+ax.set_xticklabels( data.index, rotation = 45 )
+
+# display the plot
+plt.show()
+~~~
+{: .python}
+
+Let's use bash to generate multiple plots by calling our Python script
+in a bash for-loop. First, let's create a bash file for us to edit.
+
+~~~
+$ touch gdp_plot.sh
+~~~
+{: .bash}
+
+In this script, we'll write a for-loop will call our `gdp_plots.py` script
+on multiple files. We can break up our long list of files by using a
+backslash `\` and writing the rest on the next line.
+
+~~~
+#!/bin/bash
+for filename in gapminder_all.csv  gapminder_gdp_africa.csv \
+    gapminder_gdp_americas.csv  gapminder_gdp_asia.csv \
+    gapminder_gdp_europe.csv  gapminder_gdp_oceania.csv
+do
+   python gdp_plots.py $filename
+done
+~~~
+{: .bash}
+
+We can run our script to see if it works:
+
+~~~
+$ bash gdp_plots.sh
+~~~
+{: .bash}
+
+When we run this, we see that it stops to show us each plot like before.
+Let's update our script to save the figure like before.
+
+~~~
+import sys
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+filename = sys.argv[1]
+
+# read data into a pandas dataframe and transpose
+data = pandas.read_csv(filename, index_col = 'country').T
+
+# create a plot the transposed data
+ax = data.plot( title = filename )
+
+# set some plot attributes
+ax.set_xlabel("Year")
+ax.set_ylabel("GDP Per Capita")
+# set the x locations and labels
+ax.set_xticks( range(len(data.index)) )
+ax.set_xticklabels( data.index, rotation = 45 )
+
+# save the plot with a unique file name
+save_name = filename.split('.')[0] + '.png'
+plt.savefig(save_name)
+~~~
+{: .python}
+
+When we run the script again, we should have new image files generated.
+
+### Updating the repository
+
+Yet another successful update to the code. Let's
+commit our changes. Since our Python and bash scripts had somewhat
+unrelated changes, let's make two separate commits. Let's additionally
+add our image files that were generated.
+
+~~~
+$ git add gdp_plots.sh
+$ git commit -m "Wrote bash script to call python plotter."
+$ git add gdp_plots.py
+$ git commit -m "Saves figures with unique name."
+$ git add *png
+$ git commit -m "generated figures"
+~~~
+{: .bash}
+
+## Comparing Methods
+
+We have successfully developed two different methods for accomplishing
+the same task. This is common to do in software development when there is not
+a clear path forward. Let's compare our two methods and decide which to
+merge into our `master` branch.
+
+One comparison we might be interested in is how fast each is. We can
+use bash's `time` function to get the time to run the script. Let's time
+each script. To do this, we just add `time` before each command when we run a script
+or command and it will give us timing information when it is completed.
+
+While we are on our bash branch, we'll time that script first.
+
+~~~
+$ time bash gdp_plots.sh
+~~~
+{: .bash}
+
+~~~
+real    0m0.106s
+user    0m0.041s
+sys     0m0.030s
+~~~
+
+We are most interested in the "real" time in the output, which is the
+elapsed time we experience.
+
+Let's checkout our python branch and time our script there.
+
+~~~
+$ git checkout python-multi-files
+$ time bash gdp_plots.py gapminder_all.csv  gapminder_gdp_africa.csv \
+    gapminder_gdp_americas.csv  gapminder_gdp_asia.csv \
+    gapminder_gdp_europe.csv  gapminder_gdp_oceania.csv
+~~~
+{: .bash}
+
+~~~
+real    0m0.051s
+user    0m0.021s
+sys     0m0.003s
+~~~
+
+As we can see, our Python method ran faster than the bash method. For
+this reason, we will merge our Python branch into master.
+
+~~~
+$ git checkout master
+$ git merge python-multi-files
+~~~
+
+Another advantage to the Python method over the bash method is that
+we do not need to change a file and commit it each time we want to
+create plots from different data.
+
+## More Practice with Multiple Files in Python
 
 > ## Finding Particular Files
 >
