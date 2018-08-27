@@ -17,7 +17,36 @@ keypoints:
 ## Handling Multiple Files
 
 Perhaps we would like a script that can operate on multiple data files at
-once. To process each file separately, we'll need a loop that executes our
+once. This can actually be done in two different ways: (1) writing a
+bash script that calls our already-existing Python script in a for-loop, or
+(2) modifying our Python script to read multiple files in a for-loop.
+We will try both methods and compare the two.
+
+### Create New Branches
+
+First we will create two new branches where we can develop each of these
+two different methods. We will call these branches `python-multi-files` and
+`bash-multi-files`
+
+~~~
+$ git branch python-multi-files
+$ git branch bash-multi-files
+~~~
+{: .bash}
+
+We can check that these two branches were created with `$ git branch -a`.
+
+## Handling Multiple Files with Python
+
+First, we'll try using just Python to loop through mutliple files. Let's
+switch to Python branch.
+
+~~~
+$ git checkout python-multi-files
+~~~
+{: .bash}
+
+To process each file separately, we'll need a loop that executes our
 plotting statements for each file.
 
 We want our program to process each file separately, and the easiest way to do
@@ -78,29 +107,18 @@ $ git commit -m "Allowing plot generation for multiple files at once"
 ~~~
 {: .bash}
 
-## Handling Program Flags
 
-Now we have a program which is capable of handling any number of data sets at once.
+## Saving Figures
 
-But what if we have 50 GDP data sets? It would be awfully tedious to type in the names
-of 50 files in the command line, so let's add a flag to our program indicating that we
-would like it to generate a plot for each data set in the current directory.
+By using `plt.show()` with multiple files, the program stops each
+time a figure is generated and the user must exit it to continue.
+To avoid this slow down, we can replace this with `plt.savefig()` and
+view all the figures after the script finishes. This function has one
+required argument which is the filename to save the figure as. The filename
+must have a valid image extension (eg. PNG, JPEG, etc.).
 
-Flags are a convention used in programming to indicate to a program that a non-default behavior
-is being requested by the user. In this case, we'll be using a "-a" flag to indicate to our program
-we would like it to operate on all data sets in our directory.
-
-To explore what files are in the current directory, we'll be using the Python's `glob` module.
-
-*   In Unix, the term "globbing" means "matching a set of files with a pattern".
-*   The most common patterns are:
-    *   `*` meaning "match zero or more characters"
-    *   `?` meaning "match exactly one character"
-*   Python contains the `glob` library to provide pattern matching functionality
-*   The `glob` library contains a function also called `glob` to match file patterns
-*   E.g., `glob.glob('*.txt')` matches all files in the current directory
-    whose names end with `.txt`.
-*   Result is a (possibly empty) list of character strings.
+Let's replace our `plt.show()` with `plt.savefig('gdp-plot.png)`. Our
+new script should like like this:
 
 ~~~
 import sys
@@ -130,8 +148,70 @@ for filename in filenames:
     ax.set_xticks( range(len(data.index)) )
     ax.set_xticklabels( data.index, rotation = 45 )
 
-    # display the plot
-    plt.show()
+    # save the plot
+    plt.savefig('gdp-plot.png')
+~~~
+{: .python}
+
+If we look at the contents of our folder now, we should have a new
+file called `gdp-plot.png`. But why is there only one when we supplied
+multiple data files? This is because each time the plot is created,
+it is being saved as the same file name and overwriting the previous
+plot.
+
+We can fix this by creating a unique file name each time. A simple
+unique name can be used based on the original file name. We can use
+Python's `split()` function to split `filename`, which is a string,
+by any character. This returns a list like so:
+
+~~~
+name = 'my-data.csv'
+split_name = name.split('.')
+print(split_name)
+print(split_name[0])
+~~~
+{: .python}
+
+~~~
+['my-data', 'csv']
+'my-data'
+~~~
+
+We'll split the original file name and use the first part to rename
+our plot. And then we will concatenate `.png` to the name to specify
+our file type.
+
+~~~
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+    # read data into a pandas dataframe and transpose
+    data = pandas.read_csv(filename, index_col = 'country').T
+
+    # create a plot the transposed data
+    ax = data.plot( title = filename )
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+
+    # save the plot with a unique file name
+    save_name = filename.split('.')[0] + '.png'
+    plt.savefig(save_name)
 ~~~
 {: .python}
 
@@ -142,22 +222,11 @@ commit our changes.
 
 ~~~
 $ git add gdp_plots.py
-$ git commit -m "Adding a flag to run script for all gdp data sets."
+$ git commit -m "Saves each figure as a separate file."
 ~~~
 {: .bash}
 
-> ## The Right Way to Do It
->
-> If our programs can take complex parameters or multiple filenames,
-> we shouldn't handle `sys.argv` directly.
-> Instead,
-> we should use Python's `argparse` library,
-> which handles common cases in a systematic way,
-> and also makes it easy for us to provide sensible error messages for our users.
-> We will not cover this module in this lesson
-> but you can go to Tshepang Lekhonkhobe's [Argparse tutorial](http://docs.python.org/dev/howto/argparse.html)
-> that is part of Python's Official Documentation.
-{: .callout}
+## More Practice
 
 > ## Finding Particular Files
 >
