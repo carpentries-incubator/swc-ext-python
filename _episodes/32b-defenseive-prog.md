@@ -29,8 +29,8 @@ $ python gdp_plots.py
 
 ~~~
 Traceback (most recent call last):
-  File "pandas_analysis1.py", line 9, in <module>
-    data = pandas.read_csv(sys.argv[1], index_col = 'country').T
+  File "gdp_plot.py", line 12, in <module>
+    filenames = sys.argv[1:]
 IndexError: list index out of range
 ~~~
 {: .output}
@@ -72,7 +72,7 @@ program, but another user of the program without this experience will not.
 > SyntaxError: unexpected EOF while parsing
 > ~~~
 > {: .error}
-> 
+>
 > *   The message indicates a problem on first line of the input ("line 1").
 >     *   In this case the "ipython-input" section of the file name tells us that
 >         we are working with input into IPython,
@@ -88,7 +88,7 @@ And if we run the program from another directory:
 
 ~~~
 $ cd ..
-$ python gdp_plots.py
+$ python data/gdp_plots.py -a
 ~~~
 {: .bash}
 
@@ -143,8 +143,9 @@ for filename in filenames:
     ax.set_xticks( range(len(data.index)) )
     ax.set_xticklabels( data.index, rotation = 45 )
 
-    # display the plot
-    plt.show()
+    # save the plot with a unique file name
+    save_name = filename.split('.')[0] + '.png'
+    plt.savefig(save_name)
 ~~~
 {: .python}
 
