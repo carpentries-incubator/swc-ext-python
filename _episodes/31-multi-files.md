@@ -1,7 +1,7 @@
 ---
 title: Trying Different Methods
 teaching: 25
-exercises: 2
+exercises: 0
 questions:
 - "How do I plot multiple files using different methods?"
 objectives:

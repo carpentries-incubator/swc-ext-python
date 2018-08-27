@@ -1,7 +1,7 @@
 ---
 title: Command-Line Programs
 teaching: 20
-exercises: 2
+exercises: 0
 questions:
 - "How can I write Python programs that will work like Unix command-line tools?"
 objectives:

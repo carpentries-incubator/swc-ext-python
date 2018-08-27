@@ -1,7 +1,7 @@
 ---
 title: Program Flags
-teaching: 10
-exercises: 2
+teaching: 5
+exercises: 0
 questions:
 - "How do I plot multiple files using different methods?"
 objectives:
@@ -10,7 +10,7 @@ objectives:
 - "Handle flags and files separately in a command-line program."
 - "Practice making branches and merging in a Git repository."
 keypoints:
-- "Make different branches in a Git reposityory to try different methods."
+- "Make different branches in a Git repository to try different methods."
 - "Use bash's `time` command to time scripts."
 ---
 
@@ -66,8 +66,9 @@ for filename in filenames:
     ax.set_xticks( range(len(data.index)) )
     ax.set_xticklabels( data.index, rotation = 45 )
 
-    # display the plot
-    plt.show()
+    # save the plot with a unique file name
+    save_name = filename.split('.')[0] + '.png'
+    plt.savefig(save_name)
 ~~~
 {: .python}
 
