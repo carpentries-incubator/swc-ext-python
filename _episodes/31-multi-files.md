@@ -400,6 +400,7 @@ this reason, we will merge our Python branch into master.
 $ git checkout master
 $ git merge python-multi-files
 ~~~
+{: .bash}
 
 Another advantage to the Python method over the bash method is that
 we do not need to change a file and commit it each time we want to
