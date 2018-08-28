@@ -356,9 +356,9 @@ $ time bash gdp_plots.sh
 {: .bash}
 
 ~~~
-real    0m0.106s
-user    0m0.041s
-sys     0m0.030s
+real    0m6.031s
+user    0m5.535s
+sys     0m0.388s
 ~~~
 
 We are most interested in the "real" time in the output, which is the
@@ -375,9 +375,9 @@ $ time bash gdp_plots.py gapminder_all.csv  gapminder_gdp_africa.csv \
 {: .bash}
 
 ~~~
-real    0m0.051s
-user    0m0.021s
-sys     0m0.003s
+real    0m3.163s
+user    0m3.002s
+sys     0m0.132s
 ~~~
 
 As we can see, our Python method ran faster than the bash method. For
