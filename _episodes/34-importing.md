@@ -1,6 +1,6 @@
 ---
 title: Running Scripts and Importing
-teaching: 30
+teaching: 15
 exercises: 0
 questions:
 - "How can I import some of my work even if it is part of a program?"
@@ -66,11 +66,21 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
+
 def parse_arguments():
     """
     Parse the argument list and return a list
     of filenames.
+
+    Input:
+    ------
+        none
+
+    Returns:
+    --------
+        filenames: list of strings, list of files to plot
     """
+
     # make sure additional arguments or flags have
     # been provided by the user
     if len(sys.argv) == 1:
@@ -89,38 +99,60 @@ def parse_arguments():
 
     return filenames
 
+
 def create_plot(filename):
     """
     Creates a plot for the specified
     data file.
+
+    Input:
+    ------
+        filename: string, path to file to plot
+
+    Returns:
+    --------
+        none
     """
+
     # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
-    
+
     # create a plot the transposed data
     ax = data.plot( title = filename )
-    
+
     # set some plot attributes
     ax.set_xlabel("Year")
     ax.set_ylabel("GDP Per Capita")
     # set the x locations and labels
     ax.set_xticks( range(len(data.index)) )
     ax.set_xticklabels( data.index, rotation = 45 )
-    
-    # display the plot
-    plt.show()
+
+    # save the plot with a unique file name
+    save_name = filename.split('.')[0] + '.png'
+    plt.savefig(save_name)
+
 
 def create_plots(filenames):
     """
     Takes in a list of filenames to plot
     and creates a plot for each file.
+
+    Input:
+    ------
+        filenames: list of strings, list of files to plot
+
+    Returns:
+    --------
+        none
     """
+
     for filename in filenames:
         create_plot(filename)
 
+
 def main():
     """
-    main function - does all the work        
+    main function - does all the work
     """
     # parse arguments
     files_to_plot = parse_arguments()
@@ -128,13 +160,14 @@ def main():
     #generate plots
     create_plots(files_to_plot)
 
+
 if __name__ == "__main__":
     # call main
     main()
 ~~~
 {: .python}
 
-Now let's go back to the Jupyter notebook and try importing the file again
+Now let's go back to the Jupyter notebook and try importing the file again.
 
 ~~~
 import gdp_plots
@@ -168,7 +201,7 @@ $ git commit -m "Moving call to the main function."
 >
 > This might seem very strange or confusing to someone importing our module
 > for the first time. It take time to develop an intuition for design decisions like
-> these, but here are a few questions to ask yourself as a guide when organizing code: 
+> these, but here are a few questions to ask yourself as a guide when organizing code:
 >
 >   - Are my functions able to stand on their own? Do they accomplish simple tasks?
 >   - Is it easy to write a clear function names in my module?
