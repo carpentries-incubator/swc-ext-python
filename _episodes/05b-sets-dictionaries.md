@@ -23,7 +23,7 @@ keypoints:
      * You can also use the built-in `set()` function to make a set from another
        iterable: `my_set = set("abc")`
 *    Sets in Python behave like mathematical sets
-     * Support common set operations (as methods): 
+     * Support common set operations (as methods):
      * `my_set.union()`, `my_set.difference()`, `my_set.intersect()`
 
 ~~~
@@ -73,7 +73,7 @@ UAG
 {: .output}
 
 > ## What objects can go in a set?
-> Suprisingly, not type of object can be added to a set
+> Surprisingly, not every type of object can be added to a set
 > ~~~
 > my_set = {[1, 2]}
 > ~~~

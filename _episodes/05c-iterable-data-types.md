@@ -35,7 +35,7 @@ keypoints:
 > * Get the atomic number of every element in a molecule
 > * Calculate the mean of 3 measurements at every timepoint
 {: .callout}
- 
+
 ### What are the iterable data types?
 
 * Collection types are often called **iterable**
@@ -46,7 +46,7 @@ keypoints:
 	* Sets
 	* Dictionaries
 * These data types have different features and are used for different types of data
-* It's helpful to consider whether these types are **ordered** or **unordered** 
+* It's helpful to consider whether these types are **ordered** or **unordered**
 and whether they are **mutable** or **immutable**.
 
 
@@ -66,7 +66,7 @@ print('my_set = ', my_set)
 What do you notice about the result of printing `my_list` and `my_set`?
 
 > ## Solution
-> 
+>
 > ~~~
 > my_list = ['a', 'b', 'c']
 > my_set = {'b', 'c', 'a'}
@@ -78,7 +78,7 @@ What do you notice about the result of printing `my_list` and `my_set`?
 * **Unordered** types do not maintain this order
 
 > ## Challenge
-> 
+>
 > * Is unordered the same as random?
 > * Will the same thing print each time?
 >
@@ -96,7 +96,7 @@ What do you notice about the result of printing `my_list` and `my_set`?
 >> {'b', 'c', 'a'}
 >> ~~~
 >> {: .output}
->> 
+>>
 >> Unordered means you can't *depend* on any particular order
 >> * The order may change when you upgrade python
 >> * It may also change the next time you run your program
@@ -111,7 +111,7 @@ instead of creating a new object
 * If an object can be modified in place it is **mutable**; otherwise it is **immutable**
 
 > ## Example
-> 
+>
 > Run the following code. What's the difference?
 >
 > ~~~
@@ -123,15 +123,15 @@ instead of creating a new object
 >
 > my_list.extend(['d', 'e', 'f'])
 > my_string = my_string + "def"
-> 
+>
 > print('my_list = ', my_list)
 > print('also_my_list = ', also_my_list)
-> 
+>
 > print('my_string = ', my_string)
 > print('also_my_string = ', also_my_string)
 > ~~~
 > {: .python}
-> 
+>
 >> ## Solution
 >>  * Modifying `my_list` also modifies `also_my_list`
 >>  * Modifying `my_string` does not change `also_my_string`
@@ -189,11 +189,11 @@ TypeError: object of type 'int' has no len()
 ### Lists & Tuples vs Dictionaries
 
 *   Does the data have a natural order?
-    *  Yes &rarr; consider a list, dictionaries can be sorted by their keys, but 
+    *  Yes &rarr; consider a list, dictionaries can be sorted by their keys, but
        order is not inherent
-    *  All access to list data is either by looping through it in order, or by 
+    *  All access to list data is either by looping through it in order, or by
        referring to an entry by it's ordinal place in the list
-    *  All access to dictionary data is either by looping through it, perhaps 
+    *  All access to dictionary data is either by looping through it, perhaps
        in some arbitrary order, or by referring to an entry by it's semantic meaning
 *   Does the addition of keys add semantic value?
     *  Yes &rarr; probably benefit from a dictionary
@@ -205,3 +205,59 @@ TypeError: object of type 'int' has no len()
 *   Do you want to clearly indicate that certain data has an immutable relationship?
     * Yes &rarr; choose a tuple; immutability provides a weak form of semantics
       since order is fixed
+
+<table>
+  <thead>
+    <tr>
+      <th>Data Structure</th>
+      <th>Used When/For</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>List</td>
+      <td>Simple Collection of Elements</td>
+      <td>
+        <ul>
+          <li>Has a consistent order</li>
+          <li>Finding may require inspecting all elements</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Set</td>
+      <td>Unique collection of elements</td>
+      <td>
+        <ul>
+          <li>Has random order</li>
+          <li>Finding items will be fast</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Tuple</td>
+      <td>Immutable collection of elements</td>
+      <td>
+        <ul>
+          <li>All elements in collection must be present at creation</li>
+          <li>Immutability is useful to protect data from unintended changes</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Dictionary</td>
+      <td>
+        Collections indexed by keys<br><br>
+        Can encode simple object-like data structures
+      </td>
+      <td>
+        <ul>
+          <li>Has random order</li>
+          <li>Lookup by key will be fast</li>
+          <li>Simple data structures behave like temporary in-memory databases</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
