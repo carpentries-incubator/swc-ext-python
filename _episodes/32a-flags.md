@@ -3,15 +3,11 @@ title: Program Flags
 teaching: 5
 exercises: 0
 questions:
-- "How do I plot multiple files using different methods?"
+- "How can I make an easy shortcut to analyze all files at once using a program flag?"
 objectives:
-- "Read data from standard input in a program so that it can be used in a pipeline."
-- "Compare using different methods to accomplish the same task."
 - "Handle flags and files separately in a command-line program."
-- "Practice making branches and merging in a Git repository."
 keypoints:
-- "Make different branches in a Git repository to try different methods."
-- "Use bash's `time` command to time scripts."
+- "Adding command line flags can be a user-friendly way to accomplish common tasks."
 ---
 
 ## Handling Program Flags

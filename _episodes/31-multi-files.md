@@ -3,11 +3,10 @@ title: Trying Different Methods
 teaching: 25
 exercises: 0
 questions:
-- "How do I plot multiple files using different methods?"
+- "How do I plot multiple data sets using different methods?"
 objectives:
 - "Read data from standard input in a program so that it can be used in a pipeline."
 - "Compare using different methods to accomplish the same task."
-- "Handle flags and files separately in a command-line program."
 - "Practice making branches and merging in a Git repository."
 keypoints:
 - "Make different branches in a Git reposityory to try different methods."

@@ -1,6 +1,6 @@
 ---
 title: Defensive Programming
-teaching: 15
+teaching: 10
 exercises: 0
 questions:
 - "How do I predict and avoid user confusion?"
@@ -9,6 +9,7 @@ objectives:
 keypoints:
 - "Avoid silent failures."
 - "Avoid esoteric output when a program fails."
+- "Add checkpoints in code to check for common failures."
 ---
 
 ## Defensive Programming
