@@ -1,5 +1,5 @@
 ---
-title: "Pandas DataFrames"
+title: "More with Pandas DataFrames"
 teaching: 5
 exercises: 0
 questions:
@@ -173,7 +173,7 @@ Poland          5338.752143     6557.152776     8006.506993
 
 In the above code, we discover that **slicing using `loc` is inclusive at both
 ends**, which differs from **slicing using `iloc`**, where slicing indicates
-everything up to but not including the final index. 
+everything up to but not including the final index.
 
 
 ## Result of slicing can be used in further operations.
@@ -286,7 +286,7 @@ print(data.iloc[0, 0])
 > 1.  GDP per capita for all countries in 1982.
 > 2.  GDP per capita for Denmark for all years.
 > 3.  GDP per capita for all countries for years *after* 1985.
-> 4.  GDP per capita for each country in 2007 as a multiple of 
+> 4.  GDP per capita for each country in 2007 as a multiple of
 >     GDP per capita for that country in 1952.
 {: .challenge}
 

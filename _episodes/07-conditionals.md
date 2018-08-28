@@ -1,6 +1,6 @@
 ---
 title: "Comparisons and Conditionals"
-teaching: 15
+teaching: 10
 exercises: 10
 questions:
 - "How can programs do different things for different data?"

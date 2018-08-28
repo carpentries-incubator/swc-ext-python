@@ -1,6 +1,6 @@
 ---
 title: "More on Iterable Data Types"
-teaching: 5
+teaching: 10
 exercises: 0
 questions:
 - "What do sequences, sets, and dictionaries have in common?"

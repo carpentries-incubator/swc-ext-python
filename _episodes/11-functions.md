@@ -1,6 +1,6 @@
 ---
 title: "Writing Functions"
-teaching: 15
+teaching: 5
 exercises: 10
 questions:
 - "How can I create my own functions?"

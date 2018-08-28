@@ -1,7 +1,7 @@
 ---
 title: "Sequence Types: Strings, Tuples and Lists"
-teaching: 20
-exercises: 10
+teaching: 10
+exercises: 5
 questions:
 - "What is a sequence in Python?"
 - "What is the difference between strings, tuples, and lists?"
@@ -61,12 +61,12 @@ print(string_from_int)
 
 
 > ## Can you `+` and `*` strings?
-> 
+>
 > What do you expect the value of `full_name` to be here?
 > ~~~
 > first_name = 'John'
 > last_name = 'Smith'
-> 
+>
 > full_name = first_name + ' ' + last_name
 > ~~~
 > {: .python}
@@ -375,7 +375,7 @@ Jo
 >> ## Solution
 >> ~~~
 >> name[len(name) - 1]
->> ~~~ 
+>> ~~~
 >> {: .python}
 >{: .solution}
 {: .challenge}

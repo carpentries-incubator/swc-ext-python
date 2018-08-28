@@ -1,6 +1,6 @@
 ---
 title: "Running and Quitting"
-teaching: 15
+teaching: 10
 exercises: 0
 questions:
 - "How can I run Python programs?"
@@ -22,18 +22,18 @@ keypoints:
 > The data we will be using is taken from the [gapminder](https://gapminder.org) dataset.
 > Create a directory called `python-novice-gapminder`, and download the zip file
 > [python-novice-gapminder-data.zip]({{page.root}}/files/python-novice-gapminder-data.zip)
-> into it.  Then unzip the file (it should create a `data` folder.  Then start a Jupyter 
-> notebook from inside this directory (see the second header below).  
+> into it.  Then unzip the file (it should create a `data` folder.  Then start a Jupyter
+> notebook from inside this directory (see the second header below).
 {: .challenge}
 
 ## Python programs are plain text files.
 
-*   They have the `.py` extension to let everyone (including the operating system) 
+*   They have the `.py` extension to let everyone (including the operating system)
     know it is a Python program.
     *   This is convention, not a requirement.
 *   It's common to write them using a text editor but we are going to use
     the [Jupyter Notebook][jupyter].
-*   The bit of extra setup is well worth it because the Notebook provides code completion 
+*   The bit of extra setup is well worth it because the Notebook provides code completion
     and other helpful features.
 *   Notebook files have the extension `.ipynb` to distinguish them from plain-text Python programs.
     *   Can export as "pure Python" to run from the command line.
@@ -50,7 +50,7 @@ keypoints:
     ~~~
     {: .python}
 
-*   This will start a Jupyter Notebook server and open your default web browser. 
+*   This will start a Jupyter Notebook server and open your default web browser.
 *   The server runs locally on your machine only and does not use an internet connection.
 *   The server sends messages to your browser.
 *   The server does the work and the web browser renders the notebook.
@@ -64,14 +64,14 @@ keypoints:
     *   It allows you to display figures next to the code that produces them
         to tell a complete story of the analysis.
 
-![Example Jupyter Notebook](../fig/0_jupyter_notebook_example.jpg)  
+![Example Jupyter Notebook](../fig/0_jupyter_notebook_example.jpg)
 *Screenshot of a [Jupyter Notebook on quantum mechanics](https://github.com/jrjohansson/qutip-lectures) by Robert Johansson*
 
 > ## How It's Stored
 >
 > *   The notebook file is stored in a format called JSON.
 > *   Just like a webpage, what's saved looks different from what you see in your browser.
-> *   But this format allows Jupyter to mix software (in several languages) with documentation 
+> *   But this format allows Jupyter to mix software (in several languages) with documentation
       and graphics, all in one file.
 {: .callout}
 
@@ -85,7 +85,7 @@ keypoints:
     pressing the "return" key when in edit mode (green) moves the cursor to the next line in the cell just like in a text editor.
 *   We need some other way to tell the Notebook we want to run what's in the cell.
 *   Pressing the "shift" and the "enter" key together will execute the contents of the cell.
-*   Notice that the "return" and "shift" keys on the 
+*   Notice that the "return" and "shift" keys on the
     right of the keyboard are right next to each other.
 
 ## Use comments to add documentation to programs.
@@ -107,7 +107,7 @@ adjustment = 0.5   # Neither is this - anything after '#' is ignored.
 > 2 + 1
 > ~~~
 > {: .python}
-> 
+>
 > > ## Solution
 > >
 > > Python returns the output of the last calculation.

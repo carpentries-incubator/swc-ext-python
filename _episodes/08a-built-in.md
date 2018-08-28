@@ -1,7 +1,7 @@
 ---
 title: "Built-in Functions and Help"
-teaching: 10
-exercises: 10
+teaching: 5
+exercises: 5
 questions:
 - "How can I use built-in functions?"
 - "How can I find out what they do?"
@@ -246,7 +246,7 @@ gene.lower()
 > ~~~
 > {: .python}
 > > ## Solution
-> > 1. 
+> > 1.
 > > ~~~
 > > print(max(easy_string))
 > > ~~~
@@ -271,7 +271,7 @@ gene.lower()
 > > 4
 > > ~~~
 > > {: .output}
-> > 
+> >
 > > 2. It throws a TypeError. The command is trying to run `max(4, 'tin')` and you can't compare
 > >    a string and an integer
 > {: .solution}
