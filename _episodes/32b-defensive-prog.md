@@ -103,6 +103,8 @@ program indicates to the user
  1. what is going wrong
  2. how to correct this problem
 
+### Check Input Arguments
+
 Let's add a section to the code which checks the number of incoming arguments to
 the program and returns some information to the user if there is missing information.
 
@@ -177,5 +179,76 @@ to the repo.
 ~~~
 $ git add gdp_plots.py
 $ git commit -m "Handling case for missing filename argument"
+~~~
+{: .bash}
+
+### Check for silent errors
+
+Silent errors can be difficult to anticipate. If we try to run our program
+from another directory with the `-a` flag, we don't see any errors, but it
+also doesn't do anything. This is because when we do the `-a` flag here,
+there are no `.csv` files in the directory, so our `filenames` variable is
+empty. Let's add a check to ensure there are files to plot.
+
+~~~
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# make sure additional arguments or flags have
+# been provided by the user
+if len(sys.argv) == 1:
+    # why the program will not continue
+    print("Not enough arguments have been provided")
+    # how this can be corrected
+    print("Usage: python gdp_plots.py <filenames>")
+    print("Options:")
+    print("-a : plot all gdp data sets in current directory")
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("*gdp*.csv")
+    # check if no files were found and print message.
+    if filenames == []:
+        # file list is empty (no files found)
+        print("No files found in this folder.")
+        print("Make sure data is located in current directory.")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+    # read data into a pandas dataframe and transpose
+    data = pandas.read_csv(filename, index_col = 'country').T
+
+    # create a plot the transposed data
+    ax = data.plot( title = filename )
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks( range(len(data.index)) )
+    ax.set_xticklabels( data.index, rotation = 45 )
+
+    # save the plot with a unique file name
+    save_name = filename.split('.')[0] + '.png'
+    plt.savefig(save_name)
+~~~
+{: .python}
+
+Now if someone runs this program in a directory with no valid datafiles,
+a message appears.
+
+### Update the Repository
+
+We've just made another successful change to our repository. Let's add a commit
+to the repo.
+
+~~~
+$ git add gdp_plots.py
+$ git commit -m "Handling case if no files present in directory"
 ~~~
 {: .bash}
