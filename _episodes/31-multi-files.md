@@ -127,13 +127,7 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# check for -a flag in arguments
-if "-a" in sys.argv:
-    filenames = glob.glob("*gdp*.csv")
-else:
-    filenames = sys.argv[1:]
-
-for filename in filenames:
+for filename in sys.argv[1:]:
     # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
 
@@ -188,13 +182,7 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# check for -a flag in arguments
-if "-a" in sys.argv:
-    filenames = glob.glob("*gdp*.csv")
-else:
-    filenames = sys.argv[1:]
-
-for filename in filenames:
+for filename in sys.argv[1:]:
     # read data into a pandas dataframe and transpose
     data = pandas.read_csv(filename, index_col = 'country').T
 
