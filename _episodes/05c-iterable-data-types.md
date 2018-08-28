@@ -206,58 +206,36 @@ TypeError: object of type 'int' has no len()
     * Yes &rarr; choose a tuple; immutability provides a weak form of semantics
       since order is fixed
 
-<table>
-  <thead>
-    <tr>
-      <th>Data Structure</th>
-      <th>Used When/For</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>List</td>
-      <td>Simple Collection of Elements</td>
-      <td>
-        <ul>
-          <li>Has a consistent order</li>
-          <li>Finding may require inspecting all elements</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>Set</td>
-      <td>Unique collection of elements</td>
-      <td>
-        <ul>
-          <li>Has random order</li>
-          <li>Finding items will be fast</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>Tuple</td>
-      <td>Immutable collection of elements</td>
-      <td>
-        <ul>
-          <li>All elements in collection must be present at creation</li>
-          <li>Immutability is useful to protect data from unintended changes</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>Dictionary</td>
-      <td>
-        Collections indexed by keys<br><br>
-        Can encode simple object-like data structures
-      </td>
-      <td>
-        <ul>
-          <li>Has random order</li>
-          <li>Lookup by key will be fast</li>
-          <li>Simple data structures behave like temporary in-memory databases</li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
+### Comparison of Collection Data Structures
+
+#### List
+
+**Used When/For:** Simple Collection of Elements
+
+* Has a consistent order
+* Finding items may require inspecting all elements
+* Elements indexed/accessed by numeric position
+
+#### Set
+
+**Used When/For:** *Unique* Collection of Elements
+
+* Has a random order
+* Finding elements will be fast
+
+#### Tuple
+
+**Used When/For:** *Immutable* Collection of Elements
+
+* All elements in collection must be present at creation
+* Immutability is useful to protect data from unintended changes
+
+#### Dictionary
+
+**Used When/For:** *Named* Collection of Elements
+
+* Collections indexed by keys
+* Can encode simple object-like data structures
+* Has random order
+* Lookup/retrieval by key will be fast
+* Simple data structures behave like temporary in-memory databases
