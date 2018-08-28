@@ -138,7 +138,10 @@ for p in primes:
     *   *Not* a list: the numbers are produced on demand
         to make looping over large ranges more efficient.
 *   `range(N)` is the numbers 0..N-1
-    *   Exactly the legal indices of a list or character string of length N
+    *   Range of numbers corresponds to the index positions of a sequence of length N, such as a list or character string
+*   `range(start, stop)` is the numbers `start`..`(stop - 1)`
+    *   Range of begins with number `start` and ends one number before `stop` similar to the slice syntax `list[5:10]`
+*   `range(start, stop, step)` is the numbers `start`..`(stop - 1)`, counting by `step`
 
 ~~~
 print('a range is not a list: range(0, 3)')
@@ -350,7 +353,7 @@ print(total)
 >    *without* running it.
 > 2. Run the code and read the error message.
 >    What type of `NameError` do you think this is?
->    Is it a string with no quotes, a misspelled variable, or a 
+>    Is it a string with no quotes, a misspelled variable, or a
 >    variable that should have been defined but was not?
 > 3. Fix the error.
 > 4. Repeat steps 2 and 3, until you have fixed all the errors.
