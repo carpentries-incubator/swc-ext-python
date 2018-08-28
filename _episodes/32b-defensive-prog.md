@@ -1,7 +1,7 @@
 ---
 title: Defensive Programming
 teaching: 10
-exercises: 0
+exercises: 5
 questions:
 - "How do I predict and avoid user confusion?"
 objectives:

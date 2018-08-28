@@ -1,7 +1,7 @@
 ---
 title: Program Flags
 teaching: 5
-exercises: 0
+exercises: 5
 questions:
 - "How can I make an easy shortcut to analyze all files at once using a program flag?"
 objectives:

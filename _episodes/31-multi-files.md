@@ -1,7 +1,7 @@
 ---
 title: Trying Different Methods
-teaching: 25
-exercises: 0
+teaching: 5
+exercises: 25
 questions:
 - "How do I plot multiple data sets using different methods?"
 objectives:

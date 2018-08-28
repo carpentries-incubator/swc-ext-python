@@ -1,7 +1,7 @@
 ---
 title: Running Scripts and Importing
-teaching: 15
-exercises: 0
+teaching: 10
+exercises: 10
 questions:
 - "How can I import some of my work even if it is part of a program?"
 objectives:

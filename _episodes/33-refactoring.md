@@ -1,7 +1,7 @@
 ---
 title: Refactoring
 teaching: 10
-exercises: 0
+exercises: 10
 questions:
 - "When should I reorganize my code so it is more clear and readable for others?"
 - "How can I organize my code so that it is useable in other places?"
