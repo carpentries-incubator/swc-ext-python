@@ -205,11 +205,15 @@ for filename in sys.argv[1:]:
 ### Updating the repository
 
 Yet another successful update to the code. Let's
-commit our changes. This time, we have new image files we must also
-commit.
+commit our changes. If we do `git status` we see we also have image
+files untracked. Let's ignore those files because they will likely
+change as our data changes.
 
 ~~~
-$ git add gdp_plots.py *.png
+$ echo "*.png" >> .gitignore
+$ git add .gitignore
+$ git commit -m "ignoring generated images"
+$ git add gdp_plots.py
 $ git commit -m "Saves each figure as a separate file."
 ~~~
 {: .bash}
@@ -323,16 +327,17 @@ When we run the script again, we should have new image files generated.
 
 Yet another successful update to the code. Let's
 commit our changes. Since our Python and bash scripts had somewhat
-unrelated changes, let's make two separate commits. Let's additionally
-add our image files that were generated.
+unrelated changes, let's make two separate commits. We will also
+ignore our images like before.
 
 ~~~
 $ git add gdp_plots.sh
 $ git commit -m "Wrote bash script to call python plotter."
 $ git add gdp_plots.py
 $ git commit -m "Saves figures with unique name."
-$ git add *png
-$ git commit -m "generated figures"
+$ echo "*.png" >> .gitignore
+$ git add .gitignore
+$ git commit -m "ignoring generated images"
 ~~~
 {: .bash}
 
