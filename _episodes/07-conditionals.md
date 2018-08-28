@@ -18,7 +18,7 @@ keypoints:
 
 # Comparisons
  - It is often useful to compare two objects
-    - For example, checking whether a data poinot is above the mean
+    - For example, checking whether a data point is above the mean
  - Python has many special operators for comparison
  - Comparisons return `True` or `False`
     - `True` and `False` are called **Boolean types**
@@ -31,7 +31,7 @@ keypoints:
     ~~~
     3 == 3
     5.0 != 1
-    10.0 > 1.0 
+    10.0 > 1.0
     10 >= 10
     10 <= 10
     1 < 5
@@ -88,7 +88,7 @@ small_primes = [2, 3, 5, 7, 11]
  {: .python}
 
 
-# Conditionals 
+# Conditionals
 
 ## Use `if` statements to control whether or not a block of code is executed.
 
