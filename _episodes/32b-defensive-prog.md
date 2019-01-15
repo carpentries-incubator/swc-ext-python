@@ -42,7 +42,7 @@ command and as a result there is no entry in `sys.argv` where we're telling it t
 this value. We may know all of this because we're the ones who wrote the
 program, but another user of the program without this experience will not.
 
-> ## More on Function Errors
+> ## More on Function Errors/Exceptions
 >
 > Python reports a runtime error when something goes wrong while a program is executing.
 >
