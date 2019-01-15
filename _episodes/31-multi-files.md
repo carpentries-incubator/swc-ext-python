@@ -264,7 +264,7 @@ Let's use bash to generate multiple plots by calling our Python script
 in a bash for-loop. First, let's create a bash file for us to edit.
 
 ~~~
-$ touch gdp_plot.sh
+$ touch gdp_plots.sh
 ~~~
 {: .bash}
 
@@ -274,9 +274,7 @@ backslash `\` and writing the rest on the next line.
 
 ~~~
 #!/bin/bash
-for filename in gapminder_all.csv  gapminder_gdp_africa.csv \
-    gapminder_gdp_americas.csv  gapminder_gdp_asia.csv \
-    gapminder_gdp_europe.csv  gapminder_gdp_oceania.csv
+for filename in gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 do
    python gdp_plots.py $filename
 done
@@ -373,7 +371,7 @@ Let's checkout our python branch and time our script there.
 
 ~~~
 $ git checkout python-multi-files
-$ time python gdp_plots.py *.csv
+$ time python gdp_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 ~~~
 {: .bash}
 
