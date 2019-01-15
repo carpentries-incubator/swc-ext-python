@@ -56,7 +56,7 @@ But we need to be careful: `sys.argv[0]` will always be the name of our program,
 rather than the name of a file.  We also need to handle an unknown number of
 filenames, since our program could be run for any number of files.
 
-The solution is to loop over the contents of `sys.argv[1:]`. The '1' tells
+A solution is to loop over the contents of `sys.argv[1:]`. The '1' tells
 Python to start the slice at location 1, so the program's name isn't included.
 Since we've left off the upper bound, the slice runs to the end of the list, and
 includes all the filenames.
