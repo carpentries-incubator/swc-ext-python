@@ -182,7 +182,7 @@ $ pwd
 {: .bash}
 
 ~~~
-/home/swcuser/Desktop/data/
+/home/swcuser/Desktop/
 ~~~
 {: .output}
 
@@ -299,4 +299,3 @@ $ git add gdp_plots.py
 $ git commit -m "Adding command line arguments"
 ~~~
 {: .bash}
-
