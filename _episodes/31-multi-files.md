@@ -38,7 +38,7 @@ We can check that these two branches were created with `$ git branch -a`.
 ## Handling Multiple Files with Python
 
 First, we'll try using just Python to loop through mutliple files. Let's
-switch to Python branch.
+switch to our Python branch.
 
 ~~~
 $ git checkout python-multi-files
