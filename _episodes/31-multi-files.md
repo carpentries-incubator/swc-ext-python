@@ -38,7 +38,7 @@ We can check that these two branches were created with `$ git branch -a`.
 ## Handling Multiple Files with Python
 
 First, we'll try using just Python to loop through mutliple files. Let's
-switch to Python branch.
+switch to our Python branch.
 
 ~~~
 $ git checkout python-multi-files
@@ -56,7 +56,7 @@ But we need to be careful: `sys.argv[0]` will always be the name of our program,
 rather than the name of a file.  We also need to handle an unknown number of
 filenames, since our program could be run for any number of files.
 
-The solution is to loop over the contents of `sys.argv[1:]`. The '1' tells
+A solution is to loop over the contents of `sys.argv[1:]`. The '1' tells
 Python to start the slice at location 1, so the program's name isn't included.
 Since we've left off the upper bound, the slice runs to the end of the list, and
 includes all the filenames.
@@ -264,7 +264,7 @@ Let's use bash to generate multiple plots by calling our Python script
 in a bash for-loop. First, let's create a bash file for us to edit.
 
 ~~~
-$ touch gdp_plot.sh
+$ touch gdp_plots.sh
 ~~~
 {: .bash}
 
@@ -274,9 +274,7 @@ backslash `\` and writing the rest on the next line.
 
 ~~~
 #!/bin/bash
-for filename in gapminder_all.csv  gapminder_gdp_africa.csv \
-    gapminder_gdp_americas.csv  gapminder_gdp_asia.csv \
-    gapminder_gdp_europe.csv  gapminder_gdp_oceania.csv
+for filename in gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 do
    python gdp_plots.py $filename
 done
@@ -373,9 +371,7 @@ Let's checkout our python branch and time our script there.
 
 ~~~
 $ git checkout python-multi-files
-$ time bash gdp_plots.py gapminder_all.csv  gapminder_gdp_africa.csv \
-    gapminder_gdp_americas.csv  gapminder_gdp_asia.csv \
-    gapminder_gdp_europe.csv  gapminder_gdp_oceania.csv
+$ time python gdp_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 ~~~
 {: .bash}
 

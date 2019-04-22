@@ -103,7 +103,7 @@ arguments to our program.
 ## Changing code under Version Control
 
 As it is, this plot isn't bad but let's add some labels for clarity. We'll use the
-data filename as a title for the plot and indicate what information in on each axis.
+data filename as a title for the plot and indicate what information is in on each axis.
 
 ~~~
 import pandas
@@ -182,7 +182,7 @@ $ pwd
 {: .bash}
 
 ~~~
-/home/swcuser/Desktop/data/
+/home/swcuser/Desktop/
 ~~~
 {: .output}
 
@@ -299,4 +299,3 @@ $ git add gdp_plots.py
 $ git commit -m "Adding command line arguments"
 ~~~
 {: .bash}
-
