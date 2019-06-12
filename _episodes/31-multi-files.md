@@ -121,7 +121,6 @@ new script should like like this:
 
 ~~~
 import sys
-import glob
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
@@ -176,7 +175,6 @@ our file type.
 
 ~~~
 import sys
-import glob
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
