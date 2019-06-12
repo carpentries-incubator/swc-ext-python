@@ -71,18 +71,20 @@ import pandas
 import matplotlib.pyplot as plt
 
 for filename in sys.argv[1:]:
-    # read data into a pandas dataframe and transpose
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
 
-    # create a plot the transposed data
-    ax = data.plot( title = filename )
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
 
     # set some plot attributes
     ax.set_xlabel("Year")
     ax.set_ylabel("GDP Per Capita")
     # set the x locations and labels
-    ax.set_xticks( range(len(data.index)) )
-    ax.set_xticklabels( data.index, rotation = 45 )
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
 
     # display the plot
     plt.show()
@@ -127,18 +129,20 @@ import pandas
 import matplotlib.pyplot as plt
 
 for filename in sys.argv[1:]:
-    # read data into a pandas dataframe and transpose
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
 
-    # create a plot the transposed data
-    ax = data.plot( title = filename )
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
 
     # set some plot attributes
     ax.set_xlabel("Year")
     ax.set_ylabel("GDP Per Capita")
     # set the x locations and labels
-    ax.set_xticks( range(len(data.index)) )
-    ax.set_xticklabels( data.index, rotation = 45 )
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot
     plt.savefig('gdp-plot.png')
@@ -181,21 +185,23 @@ import pandas
 import matplotlib.pyplot as plt
 
 for filename in sys.argv[1:]:
-    # read data into a pandas dataframe and transpose
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
 
-    # create a plot the transposed data
-    ax = data.plot( title = filename )
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
 
     # set some plot attributes
     ax.set_xlabel("Year")
     ax.set_ylabel("GDP Per Capita")
     # set the x locations and labels
-    ax.set_xticks( range(len(data.index)) )
-    ax.set_xticklabels( data.index, rotation = 45 )
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    save_name = filename.split('.')[0] + '.png'
+    split_name = filename.split('.')
+    save_name = split_name[0] + '.png'
     plt.savefig(save_name)
 ~~~
 {: .python}
@@ -240,18 +246,19 @@ import matplotlib.pyplot as plt
 
 filename = sys.argv[1]
 
-# read data into a pandas dataframe and transpose
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
 data = pandas.read_csv(filename, index_col = 'country').T
 
 # create a plot the transposed data
-ax = data.plot( title = filename )
+ax = data.plot(title = filename)
 
 # set some plot attributes
 ax.set_xlabel("Year")
 ax.set_ylabel("GDP Per Capita")
 # set the x locations and labels
-ax.set_xticks( range(len(data.index)) )
-ax.set_xticklabels( data.index, rotation = 45 )
+ax.set_xticks(range(len(data.index)))
+ax.set_xticklabels(data.index, rotation = 45)
 
 # display the plot
 plt.show()
@@ -297,21 +304,23 @@ import matplotlib.pyplot as plt
 
 filename = sys.argv[1]
 
-# read data into a pandas dataframe and transpose
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
 data = pandas.read_csv(filename, index_col = 'country').T
 
 # create a plot the transposed data
-ax = data.plot( title = filename )
+ax = data.plot(title = filename)
 
 # set some plot attributes
 ax.set_xlabel("Year")
 ax.set_ylabel("GDP Per Capita")
 # set the x locations and labels
-ax.set_xticks( range(len(data.index)) )
-ax.set_xticklabels( data.index, rotation = 45 )
+ax.set_xticks(range(len(data.index)))
+ax.set_xticklabels(data.index, rotation = 45)
 
 # save the plot with a unique file name
-save_name = filename.split('.')[0] + '.png'
+split_name = filename.split('.')
+save_name = split_name[0] + '.png'
 plt.savefig(save_name)
 ~~~
 {: .python}
