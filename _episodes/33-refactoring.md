@@ -23,7 +23,7 @@ and where plots are generated?
 It would be nice to break this work into clear chunks of code. This can be
 accomplished by making the argument checking section and the body of the for
 loop their own functions. This requires surprisingly few changes to the code,
-but makes it much more clear. This process is called **refactoring**..
+but makes it much more clear. This process is called **refactoring**.
 
 ### Create a Branch
 
@@ -34,7 +34,7 @@ $ git checkout -b refactor
 ~~~
 {: .bash}
 
-Once this is complete, our program now looks something like this:
+Once the refactoring is complete, our program now looks something like this:
 
 ~~~
 import sys
@@ -147,14 +147,14 @@ main()
 The behavior of the program hasn't changed, but it has been made more modular by
 separating the into different functions with their own purpose.
 
-Why the extra function? Our function main has two main components to it
+Why the extra function? Our function main has two primary components to it
 
   1. parsing arguments handed to the program
   2. generating the desired plots
 
 But we've defined three functions above the `main` function: `parse_arguments`, `create_plot`, and `create_plots`.
 
-If the functions in our file reflected what `main` directly we would only have the `parse_arguments` and `create_plots`
+If the functions in our file directly reflected the components in `main` we would only have the `parse_arguments` and `create_plots`
 functions. If we think about using these functions independently, however, a function which always takes in a list of
 filenames isn't very convenient to use on its own. By defining the `create_plot` function, we have placed most of the
 plot generation work there, while allowing for a very simple definition of the `create_plots` function.
@@ -178,7 +178,7 @@ We haven't changed the behavior of our program, but our *code* has changed, so
 let's update the repository.
 
 ~~~
-$ git add pandas_plots.py
+$ git add gdp_plots.py
 $ git commit -m "Refactoring code."
 ~~~
 {: .bash}
