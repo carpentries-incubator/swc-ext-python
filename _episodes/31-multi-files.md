@@ -9,7 +9,7 @@ objectives:
 - "Compare using different methods to accomplish the same task."
 - "Practice making branches and merging in a Git repository."
 keypoints:
-- "Make different branches in a Git reposityory to try different methods."
+- "Make different branches in a Git repository to try different methods."
 - "Use bash's `time` command to time scripts."
 ---
 
@@ -116,7 +116,7 @@ view all the figures after the script finishes. This function has one
 required argument which is the filename to save the figure as. The filename
 must have a valid image extension (eg. PNG, JPEG, etc.).
 
-Let's replace our `plt.show()` with `plt.savefig('gdp-plot.png)`. Our
+Let's replace our `plt.show()` with `plt.savefig('gdp-plot.png')`. Our
 new script should like like this:
 
 ~~~

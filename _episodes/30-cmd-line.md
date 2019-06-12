@@ -285,7 +285,7 @@ $ python gdp_plots.py gapminder_gdp_oceania.csv
 {: .bash}
 
 And the same plot as before is displayed, but this file is now being read
-from an agrument we've provided on the command line. We can now do this for
+from an argument we've provided on the command line. We can now do this for
 files with similar information and get the same set of plots for that data
 *without any changes to our program's code*. Try this our for yourself now.
 
