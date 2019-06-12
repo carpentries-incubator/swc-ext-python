@@ -273,7 +273,6 @@ on multiple files. We can break up our long list of files by using a
 backslash `\` and writing the rest on the next line.
 
 ~~~
-#!/bin/bash
 for filename in gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
 do
    python gdp_plots.py $filename
