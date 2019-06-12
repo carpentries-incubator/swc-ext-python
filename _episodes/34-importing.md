@@ -67,14 +67,15 @@ import pandas
 import matplotlib.pyplot as plt
 
 
-def parse_arguments():
+def parse_arguments(argv):
     """
-    Parse the argument list and return a list
+    Parse the argument list passed from the command line
+    (after the program filename is removed) and return a list
     of filenames.
 
     Input:
     ------
-        none
+        argument list (normally sys.argv[1:])
 
     Returns:
     --------
@@ -83,7 +84,7 @@ def parse_arguments():
 
     # make sure additional arguments or flags have
     # been provided by the user
-    if len(sys.argv) == 1:
+    if argv == []:
         # why the program will not continue
         print("Not enough arguments have been provided")
         # how this can be corrected
@@ -92,10 +93,10 @@ def parse_arguments():
         print("-a : plot all gdp data sets in current directory")
 
     # check for -a flag in arguments
-    if "-a" in sys.argv:
+    if "-a" in argv:
         filenames = glob.glob("*gdp*.csv")
     else:
-        filenames = sys.argv[1:]
+        filenames = argv
 
     return filenames
 
@@ -114,21 +115,23 @@ def create_plot(filename):
         none
     """
 
-    # read data into a pandas dataframe and transpose
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
 
-    # create a plot the transposed data
-    ax = data.plot( title = filename )
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
 
     # set some plot attributes
     ax.set_xlabel("Year")
     ax.set_ylabel("GDP Per Capita")
     # set the x locations and labels
-    ax.set_xticks( range(len(data.index)) )
-    ax.set_xticklabels( data.index, rotation = 45 )
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    save_name = filename.split('.')[0] + '.png'
+    split_name = filename.split('.')
+    save_name = split_name[0] + '.png'
     plt.savefig(save_name)
 
 
@@ -155,7 +158,7 @@ def main():
     main function - does all the work
     """
     # parse arguments
-    files_to_plot = parse_arguments()
+    files_to_plot = parse_arguments(sys.argv[1:])
 
     #generate plots
     create_plots(files_to_plot)
