@@ -295,7 +295,7 @@ $ bash gdp_plots.sh
 When we run this, we see that it stops to show us each plot like before.
 Let's update our script to save the figure like before.
 
-~~~
+<pre>
 import sys
 import pandas
 # we need to import part of matplotlib
@@ -318,12 +318,12 @@ ax.set_ylabel("GDP Per Capita")
 ax.set_xticks(range(len(data.index)))
 ax.set_xticklabels(data.index, rotation = 45)
 
-# save the plot with a unique file name
+<b># save the plot with a unique file name
 split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
 split_name2 = filename.split('/')[1]
 save_name = 'figs/'+split_name2 + '.png'
-plt.savefig(save_name)
-~~~
+plt.savefig(save_name)</b>
+</pre>
 {: .python}
 
 When we run the script again, we should have new image files generated.
