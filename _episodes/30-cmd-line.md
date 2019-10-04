@@ -47,7 +47,7 @@ import matplotlib.pyplot as plt
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
-data = pandas.read_csv('gapminder_gdp_oceania.csv', index_col = 'country').T
+data = pandas.read_csv('data/gapminder_gdp_oceania.csv', index_col = 'country').T
 
 # create a plot of the transposed data
 ax = data.plot()
@@ -89,7 +89,7 @@ create a .gitignore file for all of the gapminder `.csv` files and any Python no
 files (`.ipynb`) files we have created thus far.
 
 ~~~
-$ echo "*.csv" > .gitignore
+$ echo "data/*.csv" > .gitignore
 $ echo "*.ipynb" >> .gitignore
 $ git add .gitignore
 $ git commit -m "Adding ignore file"
@@ -109,7 +109,7 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-filename = 'gapminder_gdp_oceania.csv'
+filename = 'data/gapminder_gdp_oceania.csv'
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
@@ -171,22 +171,8 @@ These arguments can be accessed in our program by importing the `sys`
 module. The first argument in `sys.argv` is always the name of the program, so
 we'll find any additional arguments right after that in the list.
 
-Let's try this out in a separate location on your machine. The directory above
-our current directory should do nicely
-
-~~~
-$ cd ..
-$ pwd
-~~~
-{: .bash}
-
-~~~
-/home/swcuser/Desktop/
-~~~
-{: .output}
-
-Using the text editor of your choice, let's write a new program called
-`args_list.py` containing the two following lines:
+Let's try this out in a separate script. Using the text editor of your choice, let's write 
+a new program called `args_list.py` containing the two following lines:
 
 ~~~
 import sys
@@ -229,33 +215,21 @@ then Python adds each of those arguments to that magic list.
 Using this new information, let's add command line arguments to our
 `gdp_plots.py` program.
 
-First, we need to move back into our `~/data` directory
-
-~~~
-$ cd data
-$ pwd
-~~~
-{: .bash}
-
-~~~
-/home/swcuser/Desktop/data
-~~~
-{: .output}
-
-To do this we'll make two changes, one is to add the import of the sys module at
-the beginning of the program. The other is to replace the filename
-("gapminder_gdp_oceania.csv") with the the second entry in the `sys.argv` list.
+To do this, we'll make two changes:
+1. add the import of the sys module at the beginning of the program. 
+2. replace the filename ("data/gapminder_gdp_oceania.csv") with the the second entry in the 
+`sys.argv` list.
 
 Now our program should look as follows:
 
-~~~
-import sys
+<pre>
+<b>import sys</b>
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-filename = sys.argv[1]
+<b>filename = sys.argv[1]</b>
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
@@ -273,7 +247,7 @@ ax.set_xticklabels(data.index, rotation = 45)
 
 # display the plot
 plt.show()
-~~~
+<pre>
 {: .python}
 
 Let's take a look at what happens when we provide a gapminder filename
