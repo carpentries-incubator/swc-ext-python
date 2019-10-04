@@ -44,7 +44,7 @@ program, but another user of the program without this experience will not.
 
 > ## More on Function Errors/Exceptions
 >
-> Python reports a runtime error when something goes wrong while a program is executing.
+> Python reports a **runtime error** when something goes wrong while a program is executing.
 >
 > ~~~
 > age = 53
@@ -59,7 +59,7 @@ program, but another user of the program without this experience will not.
 >
 >  * The message indicates a problem with the name of a variable
 >
-> Python also reports a syntax error when it can't understand the source of a program.
+> Python also reports a **syntax error** when it can't understand the source of a program.
 >
 > ~~~
 > print("hello world"
@@ -89,7 +89,7 @@ And if we run the program from another directory:
 
 ~~~
 $ cd ..
-$ python data/gdp_plots.py -a
+$ python Desktop/gdp_plots.py -a
 ~~~
 {: .bash}
 
@@ -108,7 +108,7 @@ program indicates to the user
 Let's add a section to the code which checks the number of incoming arguments to
 the program and returns some information to the user if there is missing information.
 
-~~~
+<pre>
 import sys
 import glob
 import pandas
@@ -118,17 +118,17 @@ import matplotlib.pyplot as plt
 
 # make sure additional arguments or flags have
 # been provided by the user
-if len(sys.argv) == 1:
+<b>if len(sys.argv) == 1:
     # why the program will not continue
     print("Not enough arguments have been provided")
     # how this can be corrected
-    print("Usage: python gdp_plots.py <filenames>")
+    print("Usage: python gdp_plots.py < filenames >")
     print("Options:")
-    print("-a : plot all gdp data sets in current directory")
+    print("-a : plot all gdp data sets in current directory")</b>
 
 # check for -a flag in arguments
 if "-a" in sys.argv:
-    filenames = glob.glob("*gdp*.csv")
+    filenames = glob.glob("data/*gdp*.csv")
 else:
     filenames = sys.argv[1:]
 
@@ -152,7 +152,7 @@ for filename in filenames:
     split_name = filename.split('.')
     save_name = split_name[0] + '.png'
     plt.savefig(save_name)
-~~~
+</pre>
 {: .python}
 
 If we run the program without a filename argument, here's what we'll see
@@ -193,7 +193,7 @@ also doesn't do anything. This is because when we do the `-a` flag here,
 there are no `.csv` files in the directory, so our `filenames` variable is
 empty. Let's add a check to ensure there are files to plot.
 
-~~~
+<pre>
 import sys
 import glob
 import pandas
@@ -207,18 +207,18 @@ if len(sys.argv) == 1:
     # why the program will not continue
     print("Not enough arguments have been provided")
     # how this can be corrected
-    print("Usage: python gdp_plots.py <filenames>")
+    print("Usage: python gdp_plots.py < filenames >")
     print("Options:")
     print("-a : plot all gdp data sets in current directory")
 
 # check for -a flag in arguments
 if "-a" in sys.argv:
-    filenames = glob.glob("*gdp*.csv")
+    filenames = glob.glob("data/*gdp*.csv")
     # check if no files were found and print message.
-    if filenames == []:
+    <b>if filenames == []:
         # file list is empty (no files found)
         print("No files found in this folder.")
-        print("Make sure data is located in current directory.")
+        print("Make sure data is located in current directory.")</b>
 else:
     filenames = sys.argv[1:]
 
@@ -242,7 +242,7 @@ for filename in filenames:
     split_name = filename.split('.')
     save_name = split_name[0] + '.png'
     plt.savefig(save_name)
-~~~
+</pre>
 {: .python}
 
 Now if someone runs this program in a directory with no valid datafiles,
