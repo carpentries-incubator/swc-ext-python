@@ -247,7 +247,7 @@ ax.set_xticklabels(data.index, rotation = 45)
 
 # display the plot
 plt.show()
-<pre>
+</pre>
 {: .python}
 
 Let's take a look at what happens when we provide a gapminder filename
