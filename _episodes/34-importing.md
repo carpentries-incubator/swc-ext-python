@@ -182,7 +182,7 @@ Success! You've just writeen your first Python module. Any of the functions in t
 
 ~~~
 %matplotlib inline
-gdp_plots.create_plot("gapminder_gdp_oceania.csv")
+gdp_plots.create_plot("data/gapminder_gdp_oceania.csv")
 ~~~
 {: .python}
 
