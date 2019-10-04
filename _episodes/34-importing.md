@@ -94,7 +94,7 @@ def parse_arguments(argv):
 
     # check for -a flag in arguments
     if "-a" in argv:
-        filenames = glob.glob("*gdp*.csv")
+        filenames = glob.glob("data/*gdp*.csv")
     else:
         filenames = argv
 
@@ -130,8 +130,9 @@ def create_plot(filename):
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 
 
