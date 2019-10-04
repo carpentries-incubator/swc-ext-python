@@ -25,16 +25,44 @@ accomplished by making the argument checking section and the body of the for
 loop their own functions. This requires surprisingly few changes to the code,
 but makes it much more clear. This process is called **refactoring**.
 
+> ## Exercise: make a refactoring plan
+>
+> Given the guidance above, talk with your neighbors about which parts of the script should be 
+> moved into functions. Try to think of ways to make the functions the most reusable on their own.
+> {: .output}
+>
+> > ## Solution
+> > A possible solution: 
+> > 
+> > 1. A function that parses the arguments
+> > 2. A function that makes the plots
+> > 3. A function that calls the other functions
+> > 
+> > This isn't the only "right" solution, but a reasonable way to split things up
+> > 
+> > {: .python}
+> {: .solution}
+{: .challenge}
+
+## Let's refactor our script
+
 ### Create a Branch
 
-Before we set to work, let's make a new branch to work in.
+Because we're making a major change, let's make a new branch to work in.
 
 ~~~
 $ git checkout -b refactor
 ~~~
 {: .bash}
 
-Once the refactoring is complete, our program now looks something like this:
+Let’s break the code into 4 functions: 
+* `parse_arguments()` - gets the input from argv[], returns a list of file names
+* `create_plot()` - takes one file name as input, creates one plot and writes it to the fig folder
+* `create_plots()` - takes a list of files as input, calls `create_plot()` for each element in the list
+* `main()` - calls `parse_arguments()` and `create_plots()`
+
+Below is a template that will help you write these functions. The `"""` syntax indicates a multi-line comment. 
+If these comments are the first thing in a function, they are known as a `Docstring`.
 
 ~~~
 import sys
@@ -60,24 +88,6 @@ def parse_arguments(argv):
         filenames: list of strings, list of files to plot
     """
 
-    # make sure additional arguments or flags have
-    # been provided by the user
-    if argv == []:
-        # why the program will not continue
-        print("Not enough arguments have been provided")
-        # how this can be corrected
-        print("Usage: python gdp_plots.py <filenames>")
-        print("Options:")
-        print("-a : plot all gdp data sets in current directory")
-
-    # check for -a flag in arguments
-    if "-a" in argv:
-        filenames = glob.glob("*gdp*.csv")
-    else:
-        filenames = argv
-
-    return filenames
-
 
 def create_plot(filename):
     """
@@ -92,25 +102,6 @@ def create_plot(filename):
     --------
         none
     """
-
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
-    data = pandas.read_csv(filename, index_col = 'country').T
-
-    # create a plot of the transposed data
-    ax = data.plot(title = filename)
-
-    # set some plot attributes
-    ax.set_xlabel("Year")
-    ax.set_ylabel("GDP Per Capita")
-    # set the x locations and labels
-    ax.set_xticks(range(len(data.index)))
-    ax.set_xticklabels(data.index, rotation = 45)
-
-    # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
-    plt.savefig(save_name)
 
 
 def create_plots(filenames):
@@ -127,25 +118,148 @@ def create_plots(filenames):
         none
     """
 
-    for filename in filenames:
-        create_plot(filename)
-
 
 def main():
     """
     main function - does all the work
     """
-    # parse arguments
-    files_to_plot = parse_arguments(sys.argv[1:])
 
-    #generate plots
-    create_plots(files_to_plot)
 
 
 # call main
 main()
 ~~~
 {: .python}
+
+> ## Adding Docstrings
+>
+> In an effort to create human-readable code. It is common to include a
+> "docstring" or "Python Documentation String", at the top of each function that clearly lay
+> out three things: the purpose or objective of the function, a description
+> of the inputs and their datatypes, and a description of what is returned
+> and their data types. By including these things, debugging later on is
+> much more efficient because now the developer knows the starting point
+> (inputs), endpoints (returns), and what the intended change is (purpose).
+{: .callout}
+
+> ## Exercise: refactor the code
+> 
+>  Now that we have a plan for refactoring and a template to work from, create a new script called
+> `refactored_gdp_plot.py`. Paste the template from above into the new script. Then copy and paste 
+> the code from `gdp_plot.py` script into the corresponding functions. 
+> 
+> {: .output}
+> > ## Solution 
+> > ~~~
+> > import sys
+> > import glob
+> > import pandas
+> > # we need to import part of matplotlib
+> > # because we are no longer in a notebook
+> > import matplotlib.pyplot as plt
+> > 
+> > 
+> > def parse_arguments(argv):
+> >     """
+> >     Parse the argument list passed from the command line
+> >     (after the program filename is removed) and return a list
+> >     of filenames.
+> > 
+> >     Input:
+> >     ------
+> >         argument list (normally sys.argv[1:])
+> > 
+> >     Returns:
+> >     --------
+> >         filenames: list of strings, list of files to plot
+> >     """
+> > # make sure additional arguments or flags have
+> >     # been provided by the user
+> >     if argv == []:
+> >         # why the program will not continue
+> >         print("Not enough arguments have been provided")
+> >         # how this can be corrected
+> >         print("Usage: python gdp_plots.py <filenames>")
+> >         print("Options:")
+> >         print("-a : plot all gdp data sets in current directory")
+
+> >     # check for -a flag in arguments
+> >     if "-a" in argv:
+> >         filenames = glob.glob("*gdp*.csv")
+> >     else:
+> >         filenames = argv
+> > 
+> >     return filenames
+> > 
+> > def create_plot(filename):
+> >     """
+> >     Creates a plot for the specified
+> >     data file.
+> > 
+> >     Input:
+> >     ------
+> >         filename: string, path to file to plot
+> > 
+> >     Returns:
+> >     --------
+> >         none
+> >     """
+> > 
+> >     # load data and transpose so that country names are
+> >     # the columns and their gdp data becomes the rows
+> >     data = pandas.read_csv(filename, index_col = 'country').T
+> > 
+> >     # create a plot of the transposed data
+> >     ax = data.plot(title = filename)
+> > 
+> >     # set some plot attributes
+> >     ax.set_xlabel("Year")
+> >     ax.set_ylabel("GDP Per Capita")
+> >     # set the x locations and labels
+> >     ax.set_xticks(range(len(data.index)))
+> >     ax.set_xticklabels(data.index, rotation = 45)
+> > 
+> >     # save the plot with a unique file name
+> >     split_name = filename.split('.')
+> >     save_name = split_name[0] + '.png'
+> >     plt.savefig(save_name)
+> > 
+> > def create_plots(filenames):
+> >     """
+> >     Takes in a list of filenames to plot
+> >     and creates a plot for each file.
+> > 
+> >     Input:
+> >     ------
+> >        filenames: list of strings, list of files to plot
+> >
+> >    Returns:
+> >    --------
+> >        none
+> >    """
+> > 
+> >     for filename in filenames:
+> >         create_plot(filename)
+> > 
+> >
+> > def main():
+> >     """
+> >     main function - does all the work
+> >     """
+> > 
+> >     # parse arguments
+> >     files_to_plot = parse_arguments(sys.argv[1:])
+> > 
+> >     #generate plots
+> >     create_plots(files_to_plot)
+> > 
+> > # call main
+> > main()
+> > ~~~
+> > {: .python}
+> {: .solution}
+{: .challenge}
+
 
 The behavior of the program hasn't changed, but it has been made more modular by
 separating the into different functions with their own purpose.
@@ -164,17 +278,6 @@ plot generation work there, while allowing for a very simple definition of the `
 
 The importance of this design decision will be made clear in the next lesson.
 
-> ## Adding Docstrings
->
-> In an effort to create human-readable code. It is common to include a
-> "docstring" or "Python Documentation String", at the top of each function that clearly lay
-> out three things: the purpose or objective of the function, a description
-> of the inputs and their datatypes, and a description of what is returned
-> and their data types. By including these things, debugging later on is
-> much more efficient because now the developer knows the starting point
-> (inputs), endpoints (returns), and what the intended change is (purpose).
-{: .callout}
-
 #### Update the Repository
 
 We haven't changed the behavior of our program, but our *code* has changed, so
@@ -183,14 +286,6 @@ let's update the repository.
 ~~~
 $ git add gdp_plots.py
 $ git commit -m "Refactoring code."
-~~~
-{: .bash}
-
-Now that we're satisfied with our refactor. We can merge this branch into our master branch.
-
-~~~
-$ git checkout master
-$ git merge refactor
 ~~~
 {: .bash}
 
@@ -203,3 +298,10 @@ $ git merge refactor
 >
 {: .challenge}
 
+Now that we're satisfied with our refactor. We can merge this branch into our master branch.
+
+~~~
+$ git checkout master
+$ git merge refactor
+~~~
+{: .bash}
