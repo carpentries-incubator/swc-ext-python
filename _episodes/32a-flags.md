@@ -34,19 +34,19 @@ To explore what files are in the current directory, we'll be using the Python's 
     whose names end with `.txt`.
 *   Result is a (possibly empty) list of character strings.
 
-~~~
+<pre>
 import sys
-import glob
+<b>import glob</b>
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-# check for -a flag in arguments
+<b># check for -a flag in arguments
 if "-a" in sys.argv:
-    filenames = glob.glob("*gdp*.csv")
+    filenames = glob.glob("data/*gdp*.csv")
 else:
-    filenames = sys.argv[1:]
+    filenames = sys.argv[1:]</b>
 
 for filename in filenames:
 
@@ -68,7 +68,7 @@ for filename in filenames:
     split_name = filename.split('.')
     save_name = split_name[0] + '.png'
     plt.savefig(save_name)
-~~~
+</pre>
 {: .python}
 
 ### Updating the repository
