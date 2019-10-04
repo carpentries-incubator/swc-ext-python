@@ -63,14 +63,14 @@ includes all the filenames.
 
 Here is our updated program.
 
-~~~
+<pre>
 import sys
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-for filename in sys.argv[1:]:
+<b>for filename in sys.argv[1:]:</b>
 
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
@@ -88,13 +88,13 @@ for filename in sys.argv[1:]:
 
     # display the plot
     plt.show()
-~~~
+</pre>
 {: .python}
 
 Now when the program is given multiple filenames
 
 ~~~
-$ python gdp_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
+$ python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv
 ~~~
 {: .bash}
 
@@ -118,10 +118,9 @@ view all the figures after the script finishes. This function has one
 required argument which is the filename to save the figure as. The filename
 must have a valid image extension (eg. PNG, JPEG, etc.).
 
-Let's replace our `plt.show()` with `plt.savefig('gdp-plot.png')`. Our
-new script should like like this:
+Let's replace our `plt.show()` with `plt.savefig('fig/gdp-plot.png')`. First, create the `fig` directory using `mkdir` Our new script should like like this:
 
-~~~
+<pre>
 import sys
 import pandas
 # we need to import part of matplotlib
@@ -145,8 +144,8 @@ for filename in sys.argv[1:]:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot
-    plt.savefig('gdp-plot.png')
-~~~
+    <b>plt.savefig('fig/gdp-plot.png')</b>
+</pre>
 {: .python}
 
 If we look at the contents of our folder now, we should have a new
@@ -177,7 +176,7 @@ We'll split the original file name and use the first part to rename
 our plot. And then we will concatenate `.png` to the name to specify
 our file type.
 
-~~~
+<pre>
 import sys
 import pandas
 # we need to import part of matplotlib
@@ -200,10 +199,11 @@ for filename in sys.argv[1:]:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = file.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = file.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
-~~~
+</pre>
 {: .python}
 
 ### Updating the repository
@@ -278,7 +278,7 @@ on multiple files. We can break up our long list of files by using a
 backslash `\` and writing the rest on the next line.
 
 ~~~
-for filename in gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
+for filename in data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv
 do
    python gdp_plots.py $filename
 done

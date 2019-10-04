@@ -254,7 +254,7 @@ Let's take a look at what happens when we provide a gapminder filename
 to the program.
 
 ~~~
-$ python gdp_plots.py gapminder_gdp_oceania.csv
+$ python gdp_plots.py data/gapminder_gdp_oceania.csv
 ~~~
 {: .bash}
 
