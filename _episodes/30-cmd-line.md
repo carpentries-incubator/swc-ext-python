@@ -34,10 +34,16 @@ reads a gapminder data set and plots the gdp of countries over time.
 >
 {: .callout}
 
-To ensure that we're all starting with the same set of code. Please
-copy the text below into a file called `gdp_plots.py` in our working directory
-with the gapminder data (`~/Desktop/data`). Alternatively, you can [download the file
-here](http://christinalk.github.io/python-novice-gapminder-custom/scripts/gdp_plots.py) and move it the `~/Desktop/data` directory.
+## Setting up your project
+
+Up until now, we've been working in the data folder directly. Because we're going to be dealing with more files
+of different types in this lesson, let's do a little rearranging: 
+
+* On your desktop, create a folder called `swc-gapminder`. 
+* Move the `data` folder you've been using into this folder.
+* Inside swc-gapminder, create a folder called `figs`
+* To ensure that we're all starting with the same set of code, copy the text below 
+into a file called `gdp_plots.py` in the `swc-gapminder folder`
 
 ~~~
 import pandas
