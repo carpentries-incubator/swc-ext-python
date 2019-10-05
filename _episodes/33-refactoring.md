@@ -142,12 +142,13 @@ main()
 > (inputs), endpoints (returns), and what the intended change is (purpose).
 {: .callout}
 
+Let's move the code into the functions now:
+
 > ## Exercise: refactor the code
 > 
 >  Now that we have a plan for refactoring and a template to work from, create a new script called
 > `refactored_gdp_plot.py`. Paste the template from above into the new script. Then copy and paste 
 > the code from `gdp_plot.py` script into the corresponding functions. 
-> 
 > {: .output}
 > > ## Solution 
 > > ~~~
@@ -182,7 +183,7 @@ main()
 > >         print("Usage: python gdp_plots.py <filenames>")
 > >         print("Options:")
 > >         print("-a : plot all gdp data sets in current directory")
-
+> > 
 > >     # check for -a flag in arguments
 > >     if "-a" in argv:
 > >         filenames = glob.glob("*gdp*.csv")
