@@ -58,7 +58,7 @@ the file. This is because Python is encountering our call to the function
 Let's add the main function in our script to a section which identifies the program
 as being called from the command line.
 
-~~~
+<pre>
 import sys
 import glob
 import pandas
@@ -88,7 +88,7 @@ def parse_arguments(argv):
         # why the program will not continue
         print("Not enough arguments have been provided")
         # how this can be corrected
-        print("Usage: python gdp_plots.py <filenames>")
+        print("Usage: python gdp_plots.py < filenames >")
         print("Options:")
         print("-a : plot all gdp data sets in current directory")
 
@@ -163,11 +163,11 @@ def main():
 
     #generate plots
     create_plots(files_to_plot)
-
+<b>
 
 if __name__ == "__main__":
     # call main
-    main()
+    main()</b>
 ~~~
 {: .python}
 
@@ -175,7 +175,7 @@ Now let's go back to the Jupyter notebook and try importing the file again.
 
 ~~~
 import gdp_plots
-~~~
+</pre>
 {: .python}
 
 Success! You've just writeen your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
