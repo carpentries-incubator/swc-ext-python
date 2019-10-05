@@ -278,4 +278,18 @@ update our repository with these changes.
 $ git add gdp_plots.py
 $ git commit -m "Adding command line arguments"
 ~~~
+
+> ## Exercise: read multiple files
+> Try to run the gdp_plot.py so that it reads in all the .csv files in the data folder 
+> using the wildcard symbol. Does it work? Why or why not?
+> > ## Solution
+> > 
+> > if you run it with the argument 'data/*.csv' you get an error on the Americas file because it has an extra file.
+> > However, it works if you omit that file.
+> {: .solution}
+{: .challenge}
+Answer: it doesn't works except for americas that has ab extra column.
+
+Is there a reason why americas has the continent column?
+
 {: .bash}
