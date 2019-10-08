@@ -288,8 +288,3 @@ $ git commit -m "Adding command line arguments"
 > > However, it works if you omit that file.
 > {: .solution}
 {: .challenge}
-Answer: it doesn't works except for americas that has ab extra column.
-
-Is there a reason why americas has the continent column?
-
-{: .bash}
