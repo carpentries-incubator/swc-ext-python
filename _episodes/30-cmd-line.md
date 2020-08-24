@@ -43,7 +43,7 @@ of different types in this lesson, let's do a little rearranging:
 * Move the `data` folder you've been using into this folder.
 * Inside swc-gapminder, create a folder called `figs`
 * To ensure that we're all starting with the same set of code, copy the text below 
-into a file called `gdp_plots.py` in the `swc-gapminder folder` or 
+into a file called `gdp_plots.py` in the `swc-gapminder` folder or 
 download the file from (here)[https://uw-madison-datascience.github.io/python-novice-gapminder-custom/scripts/gdp_plots.py].
 
 ~~~
