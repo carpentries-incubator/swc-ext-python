@@ -178,7 +178,7 @@ import gdp_plots
 </pre>
 {: .python}
 
-Success! You've just writeen your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
+Success! You've just written your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
 
 ~~~
 %matplotlib inline
