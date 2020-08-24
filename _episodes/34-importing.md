@@ -58,7 +58,7 @@ the file. This is because Python is encountering our call to the function
 Let's add the main function in our script to a section which identifies the program
 as being called from the command line.
 
-~~~
+<pre>
 import sys
 import glob
 import pandas
@@ -88,13 +88,13 @@ def parse_arguments(argv):
         # why the program will not continue
         print("Not enough arguments have been provided")
         # how this can be corrected
-        print("Usage: python gdp_plots.py <filenames>")
+        print("Usage: python gdp_plots.py < filenames >")
         print("Options:")
         print("-a : plot all gdp data sets in current directory")
 
     # check for -a flag in arguments
     if "-a" in argv:
-        filenames = glob.glob("*gdp*.csv")
+        filenames = glob.glob("data/*gdp*.csv")
     else:
         filenames = argv
 
@@ -130,8 +130,9 @@ def create_plot(filename):
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 
 
@@ -162,11 +163,11 @@ def main():
 
     #generate plots
     create_plots(files_to_plot)
-
+<b>
 
 if __name__ == "__main__":
     # call main
-    main()
+    main()</b>
 ~~~
 {: .python}
 
@@ -174,14 +175,14 @@ Now let's go back to the Jupyter notebook and try importing the file again.
 
 ~~~
 import gdp_plots
-~~~
+</pre>
 {: .python}
 
 Success! You've just writeen your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
 
 ~~~
 %matplotlib inline
-gdp_plots.create_plot("gapminder_gdp_oceania.csv")
+gdp_plots.create_plot("data/gapminder_gdp_oceania.csv")
 ~~~
 {: .python}
 
