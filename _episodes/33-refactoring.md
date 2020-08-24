@@ -29,7 +29,6 @@ but makes it much more clear. This process is called **refactoring**.
 >
 > Given the guidance above, talk with your neighbors about which parts of the script should be 
 > moved into functions. Try to think of ways to make the functions the most reusable on their own.
-> {: .output}
 >
 > > ## Solution
 > > A possible solution: 
@@ -40,7 +39,6 @@ but makes it much more clear. This process is called **refactoring**.
 > > 
 > > This isn't the only "right" solution, but a reasonable way to split things up
 > > 
-> > {: .python}
 > {: .solution}
 {: .challenge}
 
@@ -149,7 +147,7 @@ Let's move the code into the functions now:
 >  Now that we have a plan for refactoring and a template to work from, create a new script called
 > `refactored_gdp_plot.py`. Paste the template from above into the new script. Then copy and paste 
 > the code from `gdp_plot.py` script into the corresponding functions. 
-> {: .output}
+> 
 > > ## Solution 
 > > ~~~
 > > import sys
