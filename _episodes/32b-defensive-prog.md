@@ -89,7 +89,7 @@ And if we run the program from another directory:
 
 ~~~
 $ cd ..
-$ python Desktop/gdp_plots.py -a
+$ python swc-gapminder/gdp_plots.py -a
 ~~~
 {: .bash}
 
