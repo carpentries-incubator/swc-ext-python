@@ -168,14 +168,14 @@ def main():
 if __name__ == "__main__":
     # call main
     main()</b>
-~~~
+</pre>
 {: .python}
 
 Now let's go back to the Jupyter notebook and try importing the file again.
 
 ~~~
 import gdp_plots
-</pre>
+~~~
 {: .python}
 
 Success! You've just written your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
