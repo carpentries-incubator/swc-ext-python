@@ -124,7 +124,8 @@ import matplotlib.pyplot as plt
     # how this can be corrected
     print("Usage: python gdp_plots.py < filenames >")
     print("Options:")
-    print("-a : plot all gdp data sets in current directory")</b>
+    print("-a : plot all gdp data sets in current directory")
+    exit()</b>
 
 # check for -a flag in arguments
 if "-a" in sys.argv:
@@ -149,8 +150,9 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = split_name1.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 {: .python}
@@ -210,6 +212,7 @@ if len(sys.argv) == 1:
     print("Usage: python gdp_plots.py < filenames >")
     print("Options:")
     print("-a : plot all gdp data sets in current directory")
+    exit()
 
 # check for -a flag in arguments
 if "-a" in sys.argv:
@@ -218,7 +221,8 @@ if "-a" in sys.argv:
     <b>if filenames == []:
         # file list is empty (no files found)
         print("No files found in this folder.")
-        print("Make sure data is located in current directory.")</b>
+        print("Make sure data is located in current directory.")
+        exit()</b>
 else:
     filenames = sys.argv[1:]
 
@@ -239,8 +243,9 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = split_name1.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 {: .python}
