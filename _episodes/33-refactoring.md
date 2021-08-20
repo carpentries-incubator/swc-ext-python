@@ -278,6 +278,12 @@ plot generation work there, while allowing for a very simple definition of the `
 
 The importance of this design decision will be made clear in the next lesson.
 
+Before we commit we need to change our `refactored_gdp_plot.py` script to `gdp_plot.py`
+since we don't want to keep two copies of this script around in our repo.
+We only made this as a separate script to make it easier to copy-paste.
+Once you've tested it, you can either rename `refactored_gdp_plot.py` script to `gdp_plot.py`
+or copy the contents of `refactored_gdp_plot.py` script to `gdp_plot.py` and delete `refactored_gdp_plot.py`.
+
 #### Update the Repository
 
 We haven't changed the behavior of our program, but our *code* has changed, so
