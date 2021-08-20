@@ -281,7 +281,7 @@ $ git commit -m "Adding command line arguments"
 ~~~
 
 > ## Exercise: read multiple files
-> Try to run the gdp_plot.py so that it reads in all the .csv files in the data folder 
+> Try to run the gdp_plots.py so that it reads in all the .csv files in the data folder 
 > using the wildcard symbol. Does it work? Why or why not?
 > > ## Solution
 > > 
