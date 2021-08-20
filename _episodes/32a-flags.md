@@ -46,9 +46,9 @@ import matplotlib.pyplot as plt
 if "-a" in sys.argv:
     filenames = glob.glob("data/*gdp*.csv")
 else:
-    filenames = sys.argv[1:]</b>
+    filenames = sys.argv[1:]
 
-for filename in filenames:
+for filename in filenames:</b>
 
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
