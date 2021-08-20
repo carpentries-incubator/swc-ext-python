@@ -378,7 +378,7 @@ Let's checkout our python branch and time our script there.
 
 ~~~
 $ git checkout python-multi-files
-$ time python gdp_plots.py gapminder_gdp_oceania.csv gapminder_gdp_africa.csv
+$ time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv
 ~~~
 {: .bash}
 
