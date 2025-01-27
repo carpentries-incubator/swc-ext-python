@@ -181,7 +181,6 @@ import gdp_plots
 Success! You've just written your first Python module. Any of the functions in that module can now be accessed in our Jupyter notebook session.
 
 ~~~
-%matplotlib inline
 gdp_plots.create_plot("data/gapminder_gdp_oceania.csv")
 ~~~
 {: .python}
