@@ -80,7 +80,7 @@ notebook in the root directory (see [Starting Python](#Starting-Python)).
 
 ## Starting Python
 
-We will teach Python using the [Jupyter notebook][jupyter], a
+We will teach Python using the [Jupyter lab][jupyter], a
 programming environment that runs in a web browser. Jupyter requires a reasonably
 up-to-date browser, preferably a current version of Chrome, Safari, or Firefox
 (note that Internet Explorer version 9 and below are *not* supported). If you
@@ -91,7 +91,7 @@ you did not use Anaconda, use the Python package manager pip
 To start the notebook, open a terminal or git bash and type the command:
 
 ~~~
-$ jupyter notebook
+$ jupyter lab
 ~~~
 {: .bash}
 
