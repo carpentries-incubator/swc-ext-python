@@ -37,6 +37,12 @@
     <loc>https://carpentries-incubator.github.io/swc-ext-python/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/swc-ext-python/index.html</loc>
   </url>
   <url>
@@ -76,10 +82,28 @@
     <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/index.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/key-points.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor/profiles.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/swc-ext-python/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/swc-ext-python/profiles.html</loc>
