@@ -1005,7 +1005,7 @@ not?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>if you run it with the argument ‘data/*.csv’ you get an error on the
 Americas file because it has an extra file. However, it works if you
@@ -1247,7 +1247,7 @@ for filename in sys.argv[1:]:
 
     # save the plot with a unique file name
     split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
-    split_name2 = split_name1.split('/')[1]
+    split_name2 = split_name1.split('/')[1] #gapminder_gdp_XXX
     save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
@@ -1364,7 +1364,7 @@ ax.set_xticklabels(data.index, rotation = 45)
 
 <b># save the plot with a unique file name
 split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
-split_name2 = split_name1.split('/')[1]
+split_name2 = split_name1.split('/')[1] # gapminder_gdp_XXX
 save_name = 'figs/'+split_name2 + '.png'
 plt.savefig(save_name)</b>
 </pre>
@@ -1467,7 +1467,7 @@ particular suffix. A call to this script should look like this:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1514,7 +1514,7 @@ in each, followed by the total number of lines.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
