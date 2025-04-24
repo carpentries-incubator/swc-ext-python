@@ -346,7 +346,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Trying Different Methods</h1>
-        <p>Last updated on 2025-02-10 |
+        <p>Last updated on 2025-04-24 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/31-multi-files.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -392,12 +392,12 @@ for-loop. We will try both methods and compare the two.</p>
 <h3 id="create-new-branches">Create New Branches<a class="anchor" aria-label="anchor" href="#create-new-branches"></a></h3>
 <p>First we will create two new branches where we can develop each of
 these two different methods. We will call these branches
-<code>python-multi-files</code> and <code>bash-multi-files</code></p>
+<code>py-loop</code> and <code>sh-loop</code></p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git branch python-multi-files</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git branch bash-multi-files</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git branch py-loop</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git branch sh-loop</span></code></pre>
 </div>
 <p>We can check that these two branches were created with
 <code>$ git branch -a</code>.</p>
@@ -408,7 +408,7 @@ Let’s switch to our Python branch.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>$ git checkout python<span class="op">-</span>multi<span class="op">-</span>files</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>$ git checkout py<span class="op">-</span>loop</span></code></pre>
 </div>
 <p>To process each file separately, we’ll need a loop that executes our
 plotting statements for each file.</p>
@@ -579,11 +579,11 @@ our data changes.</p>
 </section><section><h2 class="section-heading" id="handling-multiple-files-with-bash">Handling Multiple Files with Bash<a class="anchor" aria-label="anchor" href="#handling-multiple-files-with-bash"></a></h2>
 <hr class="half-width"><p>Now that we’ve created a Python script to save multiple files at
 once, let’s try to do the same thing in Bash. We’ll leave our current
-branch alone and switch to our <code>bash-multi-files</code> branch.</p>
+branch alone and switch to our <code>sh-loop</code> branch.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> git checkout bash-multi-files</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> git checkout sh-loop</span></code></pre>
 </div>
 <p>If we look at our <code>gdp_plots.py</code> file, it is not in a
 for-loop format because it is not up to date with other branch. Our
@@ -697,7 +697,7 @@ before.</p>
 <hr class="half-width"><p>We have successfully developed two different methods for
 accomplishing the same task. This is common to do in software
 development when there is not a clear path forward. Let’s compare our
-two methods and decide which to merge into our <code>master</code>
+two methods and decide which to merge into our <code>main</code>
 branch.</p>
 <p>One comparison we might be interested in is how fast each is. We can
 use bash’s <code>time</code> function to get the time to run the script.
@@ -719,19 +719,19 @@ elapsed time we experience.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">$</span> git checkout python-multi-files</span>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">$</span> git checkout py-loop</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="ex">$</span> time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
 </div>
 <pre><code>real    0m3.163s
 user    0m3.002s
 sys     0m0.132s</code></pre>
 <p>As we can see, our Python method ran faster than the bash method. For
-this reason, we will merge our Python branch into master.</p>
+this reason, we will merge our Python branch into main.</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">$</span> git checkout master</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">$</span> git merge python-multi-files</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">$</span> git checkout main</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">$</span> git merge py-loop</span></code></pre>
 </div>
 <p>Another advantage to the Python method over the bash method is that
 we do not need to change a file and commit it each time we want to
@@ -926,8 +926,8 @@ methods.</li>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/31-multi-files.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/31-multi-files.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2025-02-10",
-  "datePublished": "2025-04-22"
+  "dateModified": "2025-04-24",
+  "datePublished": "2025-04-24"
 }
 
   </script><script>
