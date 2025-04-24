@@ -317,16 +317,16 @@ $ git commit -m "Refactoring code."
 ## Branching and Refactoring
 
 To demonstrate that the behavior of our program hasn't changed,
-try running it a few different ways using both the `master` and
+try running it a few different ways using both the `main` and
 `refactor` branches. Remember that the command for checking out
 a branch is `git checkout <branch_name>`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Now that we're satisfied with our refactor. We can merge this branch into our master branch.
+Now that we're satisfied with our refactor. We can merge this branch into our main branch.
 
 ```bash
-$ git checkout master
+$ git checkout main
 $ git merge refactor
 ```
 

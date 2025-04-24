@@ -29,12 +29,12 @@ We will try both methods and compare the two.
 ### Create New Branches
 
 First we will create two new branches where we can develop each of these
-two different methods. We will call these branches `python-multi-files` and
-`bash-multi-files`
+two different methods. We will call these branches `py-loop` and
+`sh-loop`
 
 ```bash
-$ git branch python-multi-files
-$ git branch bash-multi-files
+$ git branch py-loop
+$ git branch sh-loop
 ```
 
 We can check that these two branches were created with `$ git branch -a`.
@@ -45,7 +45,7 @@ First, we'll try using just Python to loop through mutliple files. Let's
 switch to our Python branch.
 
 ```python
-$ git checkout python-multi-files
+$ git checkout py-loop
 ```
 
 To process each file separately, we'll need a loop that executes our
@@ -221,10 +221,10 @@ $ git commit -m "Saves each figure as a separate file."
 
 Now that we've created a Python script to save multiple files at once,
 let's try to do the same thing in Bash. We'll leave our current branch
-alone and switch to our `bash-multi-files` branch.
+alone and switch to our `sh-loop` branch.
 
 ```bash
-$ git checkout bash-multi-files
+$ git checkout sh-loop
 ```
 
 If we look at our `gdp_plots.py` file, it is not in a for-loop format
@@ -339,7 +339,7 @@ $ git commit -m "ignoring generated images"
 We have successfully developed two different methods for accomplishing
 the same task. This is common to do in software development when there is not
 a clear path forward. Let's compare our two methods and decide which to
-merge into our `master` branch.
+merge into our `main` branch.
 
 One comparison we might be interested in is how fast each is. We can
 use bash's `time` function to get the time to run the script. Let's time
@@ -364,7 +364,7 @@ elapsed time we experience.
 Let's checkout our python branch and time our script there.
 
 ```bash
-$ git checkout python-multi-files
+$ git checkout py-loop
 $ time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv
 ```
 
@@ -375,11 +375,11 @@ sys     0m0.132s
 ```
 
 As we can see, our Python method ran faster than the bash method. For
-this reason, we will merge our Python branch into master.
+this reason, we will merge our Python branch into main.
 
 ```bash
-$ git checkout master
-$ git merge python-multi-files
+$ git checkout main
+$ git merge py-loop
 ```
 
 Another advantage to the Python method over the bash method is that
