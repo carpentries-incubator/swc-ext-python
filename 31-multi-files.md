@@ -197,7 +197,7 @@ for filename in sys.argv[1:]:
 
     # save the plot with a unique file name
     split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
-    split_name2 = split_name1.split('/')[1]
+    split_name2 = split_name1.split('/')[1] #gapminder_gdp_XXX
     save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
@@ -310,7 +310,7 @@ ax.set_xticklabels(data.index, rotation = 45)
 
 <b># save the plot with a unique file name
 split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
-split_name2 = split_name1.split('/')[1]
+split_name2 = split_name1.split('/')[1] # gapminder_gdp_XXX
 save_name = 'figs/'+split_name2 + '.png'
 plt.savefig(save_name)</b>
 </pre>
