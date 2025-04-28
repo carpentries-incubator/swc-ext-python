@@ -77,6 +77,197 @@ for filename in filenames:</b>
     plt.savefig(save_name)
 </pre>
 
+Let's test if our run all flag works by running the script before we commit it.
+It is always good pratice to run your code first so you don't accidently commit broken code.
+
+```bash
+python gdp_plots.py -a
+```
+
+```output
+Traceback (most recent call last):
+  File "gdp_plots.py", line 23, in <module>
+    ax = data.plot(title = filename)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_core.py", line 1031, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 451, in generate
+    self._compute_plot_data()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 636, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot
+```
+
+This error is saying that the data in one or more of our files is non-numeric and it doesn't know how to plot it.
+Lets add a little print statement to our code to check the head of our data file for each time through the loop.
+
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    <b>print(filename)
+    print(data.head())</b>
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+
+Let's run the code again with our print statements
+
+```bash
+python gdp_plots.py -a
+```
+
+```output
+data/gapminder_gdp_americas.csv
+country           Argentina      Bolivia       Brazil  ... United States      Uruguay    Venezuela
+continent          Americas     Americas     Americas  ...      Americas     Americas     Americas
+gdpPercap_1952  5911.315053  2677.326347  2108.944355  ...   13990.48208  5716.766744  7689.799761
+gdpPercap_1957  6856.856212  2127.686326  2487.365989  ...   14847.12712  6150.772969  9802.466526
+gdpPercap_1962  7133.166023  2180.972546  3336.585802  ...   16173.14586  5603.357717  8422.974165
+gdpPercap_1967  8052.953021  2586.886053  3429.864357  ...   19530.36557   5444.61962  9541.474188
+
+[5 rows x 25 columns]
+Traceback (most recent call last):
+  File "gdp_plots.py", line 23, in <module>
+    ax = data.plot(title = filename)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_core.py", line 1031, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 451, in generate
+    self._compute_plot_data()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 636, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot
+```
+
+Now we can see in the America's gdp file there is a row of continent data. There was originally a continent column before we transposed it.
+Because a we need the same type of data within each column, when we include a string row pandas converts all the values in that column into a string. So it isn't seeing any(!) of our number values as numeric data that can be plotted.
+
+We can add a check into our code that drops the continent column if it exists. 
+
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    <b>if "continent" in data.index:
+        data.drop("continent", inplace=True)</b>
+    print(filename)
+    print(data.head())
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+
+Now running the script again works!
+
+```bash
+python gdp_plots.py -a
+```
+
+It sill prints the filenames and head of each data frame though.  We should delete those lines and our final code should be the following script:
+
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+
 ### Updating the repository
 
 Yet another successful update to the code. Let's

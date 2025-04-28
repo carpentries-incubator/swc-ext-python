@@ -225,6 +225,8 @@ def create_plot(filename):
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
