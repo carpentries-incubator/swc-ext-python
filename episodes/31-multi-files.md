@@ -29,7 +29,7 @@ We will try both methods and compare the two.
 ## Saving plot before branching
 
 Our code currently pops up the figure instead of saving it.
-Most of the time we will want to save the figure in any case but it will also help with the flow or our program with loops. With the current configuration, when we write the for loops it will pause each time it pops up a figure and wait for us to close the viewer.
+Most of the time we will want to save the figure as a separate file instead of only viewing it but saving instead of viewing will also help with the flow or our program's for loops. With the current configuration, when we run the for loop it will pause each time it pops up a figure and wait for us to close the viewer.
 
 <pre>
 import sys
@@ -62,7 +62,7 @@ This version of the code overwrites the figure name each time the file is run.
 This won't work well for multiple figure generation so we need to edit the script to write a unique name for each input file.
 
 A simple
-unique name can be used based on the original file name. We can use
+unique name can be generated based on the original file name. We can use
 Python's `split()` function to split `filename`, which is a string,
 by any character. This returns a list like so:
 
