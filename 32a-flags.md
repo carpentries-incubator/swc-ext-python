@@ -178,7 +178,7 @@ TypeError: no numeric data to plot
 Now we can see in the America's gdp file there is a row of continent data. There was originally a continent column before we transposed it.
 Because a we need the same type of data within each column, when we include a string row pandas converts all the values in that column into a string. So it isn't seeing any(!) of our number values as numeric data that can be plotted.
 
-We can add a check into our code that drops the continent column if it exists. 
+We can add a check into our code that drops the continent row if it exists. 
 
 <pre>
 import sys
