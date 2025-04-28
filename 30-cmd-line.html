@@ -504,11 +504,11 @@ information is in on each axis.</p>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co"># set some plot attributes</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="op">&lt;</span>b<span class="op">&gt;</span>ax.set_xlabel(<span class="st">"Year"</span>)</span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co"># set the x locations and labels</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)))</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)<span class="op">&lt;/</span>b<span class="op">&gt;</span></span>
 <span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a></span>
 <span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co"># display the plot</span></span>
 <span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>plt.show()</span></code></pre>

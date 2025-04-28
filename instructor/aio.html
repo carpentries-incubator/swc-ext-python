@@ -845,11 +845,11 @@ information is in on each axis.</p>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co"># set some plot attributes</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="op">&lt;</span>b<span class="op">&gt;</span>ax.set_xlabel(<span class="st">"Year"</span>)</span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co"># set the x locations and labels</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)))</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)<span class="op">&lt;/</span>b<span class="op">&gt;</span></span>
 <span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a></span>
 <span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co"># display the plot</span></span>
 <span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>plt.show()</span></code></pre>
@@ -1449,7 +1449,7 @@ particular suffix. A call to this script should look like this:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1496,7 +1496,7 @@ in each, followed by the total number of lines.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2924,7 +2924,7 @@ What did you do differently, and why?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Here’s one solution.</p>
 <div class="codewrapper sourceCode" id="cb8">
