@@ -341,7 +341,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Defensive Programming</h1>
-        <p>Last updated on 2025-02-10 |
+        <p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/32b-defensive-prog.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -457,10 +457,10 @@ occurred in cell 6 of our Notebook.</li>
 </div>
 <p>And if we run the program from another directory:</p>
 <div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>$ cd ..</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>$ python swc<span class="op">-</span>gapminder<span class="op">/</span>gdp_plots.py <span class="op">-</span>a</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> cd ..</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> python swc-gapminder/gdp_plots.py <span class="at">-a</span></span></code></pre>
 </div>
 <p>We see no output from the program at all. This is what is referred to
 as a “silent failure”. The program has failed to produce a plot, but has
@@ -504,6 +504,8 @@ for filename in filenames:
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -516,16 +518,17 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 <p>If we run the program without a filename argument, here’s what we’ll
 see</p>
 <div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>$ python gdp_plots.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -593,6 +596,8 @@ for filename in filenames:
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -605,8 +610,9 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 <p>Now if someone runs this program in a directory with no valid
@@ -694,7 +700,7 @@ add a commit to the repo.</p>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/instructor/32b-defensive-prog.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/instructor/32b-defensive-prog.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2025-02-10",
+  "dateModified": "2025-04-28",
   "datePublished": "2025-04-28"
 }
 

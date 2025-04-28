@@ -334,7 +334,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Running Scripts and Importing</h1>
-        <p>Last updated on 2025-02-10 |
+        <p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/34-importing.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -476,6 +476,8 @@ def create_plot(filename):
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -657,7 +659,7 @@ file is being imported or run as a script.</li>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/instructor/34-importing.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/instructor/34-importing.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2025-02-10",
+  "dateModified": "2025-04-28",
   "datePublished": "2025-04-28"
 }
 

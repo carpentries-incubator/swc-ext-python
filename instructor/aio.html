@@ -1554,7 +1554,7 @@ methods.</li>
 </div>
 </section></section><section id="aio-32a-flags"><p>Content from <a href="32a-flags.html">Program Flags</a></p>
 <hr>
-<p>Last updated on 2025-02-10 |
+<p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/32a-flags.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
@@ -1657,16 +1657,212 @@ for filename in filenames:</b>
     save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
+<p>Let’s test if our run all flag works by running the script before we
+commit it. It is always good pratice to run your code first so you don’t
+accidently commit broken code.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Traceback (most recent call last):
+  File "gdp_plots.py", line 23, in &lt;module&gt;
+    ax = data.plot(title = filename)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_core.py", line 1031, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 451, in generate
+    self._compute_plot_data()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 636, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot</code></pre>
+</div>
+<p>This error is saying that the data in one or more of our files is
+non-numeric and it doesn’t know how to plot it. Lets add a little print
+statement to our code to check the head of our data file for each time
+through the loop.</p>
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    <b>print(filename)
+    print(data.head())</b>
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+<p>Let’s run the code again with our print statements</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>data/gapminder_gdp_americas.csv
+country           Argentina      Bolivia       Brazil  ... United States      Uruguay    Venezuela
+continent          Americas     Americas     Americas  ...      Americas     Americas     Americas
+gdpPercap_1952  5911.315053  2677.326347  2108.944355  ...   13990.48208  5716.766744  7689.799761
+gdpPercap_1957  6856.856212  2127.686326  2487.365989  ...   14847.12712  6150.772969  9802.466526
+gdpPercap_1962  7133.166023  2180.972546  3336.585802  ...   16173.14586  5603.357717  8422.974165
+gdpPercap_1967  8052.953021  2586.886053  3429.864357  ...   19530.36557   5444.61962  9541.474188
+
+[5 rows x 25 columns]
+Traceback (most recent call last):
+  File "gdp_plots.py", line 23, in &lt;module&gt;
+    ax = data.plot(title = filename)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_core.py", line 1031, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 451, in generate
+    self._compute_plot_data()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 636, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot</code></pre>
+</div>
+<p>Now we can see in the America’s gdp file there is a row of continent
+data. There was originally a continent column before we transposed it.
+Because a we need the same type of data within each column, when we
+include a string row pandas converts all the values in that column into
+a string. So it isn’t seeing any(!) of our number values as numeric data
+that can be plotted.</p>
+<p>We can add a check into our code that drops the continent column if
+it exists.</p>
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    <b>if "continent" in data.index:
+        data.drop("continent", inplace=True)</b>
+    print(filename)
+    print(data.head())
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+<p>Now running the script again works!</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+</div>
+<p>It sill prints the filenames and head of each data frame though. We
+should delete those lines and our final code should be the following
+script:</p>
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
 <div class="section level3">
 <h3 id="updating-the-repository">Updating the repository<a class="anchor" aria-label="anchor" href="#updating-the-repository"></a>
 </h3>
 <p>Yet another successful update to the code. Let’s commit our
 changes.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Adding a flag to run script for all gdp data sets."</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Adding a flag to run script for all gdp data sets."</span></span></code></pre>
 </div>
 <div id="the-right-way-to-do-it" class="callout">
 <div class="callout-square">
@@ -1702,7 +1898,7 @@ common tasks.</li>
 </div>
 </section></section><section id="aio-32b-defensive-prog"><p>Content from <a href="32b-defensive-prog.html">Defensive Programming</a></p>
 <hr>
-<p>Last updated on 2025-02-10 |
+<p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/32b-defensive-prog.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 15 minutes</p>
@@ -1825,10 +2021,10 @@ occurred in cell 6 of our Notebook.</li>
 </div>
 <p>And if we run the program from another directory:</p>
 <div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>$ cd ..</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>$ python swc<span class="op">-</span>gapminder<span class="op">/</span>gdp_plots.py <span class="op">-</span>a</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> cd ..</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> python swc-gapminder/gdp_plots.py <span class="at">-a</span></span></code></pre>
 </div>
 <p>We see no output from the program at all. This is what is referred to
 as a “silent failure”. The program has failed to produce a plot, but has
@@ -1875,6 +2071,8 @@ for filename in filenames:
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -1887,16 +2085,17 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 <p>If we run the program without a filename argument, here’s what we’ll
 see</p>
 <div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>$ python gdp_plots.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1966,6 +2165,8 @@ for filename in filenames:
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -1978,8 +2179,9 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 <p>Now if someone runs this program in a directory with no valid
@@ -2014,7 +2216,7 @@ add a commit to the repo.</p>
 </div>
 </section></section><section id="aio-33-refactoring"><p>Content from <a href="33-refactoring.html">Refactoring</a></p>
 <hr>
-<p>Last updated on 2025-04-24 |
+<p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/33-refactoring.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
@@ -2081,7 +2283,7 @@ make the functions the most reusable on their own.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A possible solution:</p>
 <ol style="list-style-type: decimal">
@@ -2234,7 +2436,7 @@ functions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2296,54 +2498,56 @@ functions.</p>
 <span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a>    <span class="co"># load data and transpose so that country names are</span></span>
 <span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a>    <span class="co"># the columns and their gdp data becomes the rows</span></span>
 <span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a>    data <span class="op">=</span> pandas.read_csv(filename, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
-<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a>    <span class="co"># create a plot of the transposed data</span></span>
-<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a>    ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
-<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a></span>
-<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a>    <span class="co"># set some plot attributes</span></span>
-<span id="cb3-63"><a href="#cb3-63" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Year"</span>)</span>
-<span id="cb3-64"><a href="#cb3-64" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
-<span id="cb3-65"><a href="#cb3-65" tabindex="-1"></a>    <span class="co"># set the x locations and labels</span></span>
-<span id="cb3-66"><a href="#cb3-66" tabindex="-1"></a>    ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)))</span>
-<span id="cb3-67"><a href="#cb3-67" tabindex="-1"></a>    ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
-<span id="cb3-68"><a href="#cb3-68" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" tabindex="-1"></a>    <span class="co"># save the plot with a unique file name</span></span>
-<span id="cb3-70"><a href="#cb3-70" tabindex="-1"></a>    split_name1 <span class="op">=</span> filename.split(<span class="st">'.'</span>)[<span class="dv">0</span>] <span class="co">#data/gapminder_gdp_XXX</span></span>
-<span id="cb3-71"><a href="#cb3-71" tabindex="-1"></a>    split_name2 <span class="op">=</span> filename.split(<span class="st">'/'</span>)[<span class="dv">1</span>]</span>
-<span id="cb3-72"><a href="#cb3-72" tabindex="-1"></a>    save_name <span class="op">=</span> <span class="st">'figs/'</span><span class="op">+</span>split_name2 <span class="op">+</span> <span class="st">'.png'</span></span>
-<span id="cb3-73"><a href="#cb3-73" tabindex="-1"></a>    plt.savefig(save_name)</span>
-<span id="cb3-74"><a href="#cb3-74" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" tabindex="-1"></a><span class="kw">def</span> create_plots(filenames):</span>
-<span id="cb3-76"><a href="#cb3-76" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb3-77"><a href="#cb3-77" tabindex="-1"></a><span class="co">    Takes in a list of filenames to plot</span></span>
-<span id="cb3-78"><a href="#cb3-78" tabindex="-1"></a><span class="co">    and creates a plot for each file.</span></span>
-<span id="cb3-79"><a href="#cb3-79" tabindex="-1"></a></span>
-<span id="cb3-80"><a href="#cb3-80" tabindex="-1"></a><span class="co">    Input:</span></span>
-<span id="cb3-81"><a href="#cb3-81" tabindex="-1"></a><span class="co">    ------</span></span>
-<span id="cb3-82"><a href="#cb3-82" tabindex="-1"></a><span class="co">       filenames: list of strings, list of files to plot</span></span>
-<span id="cb3-83"><a href="#cb3-83" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" tabindex="-1"></a><span class="co">   Returns:</span></span>
-<span id="cb3-85"><a href="#cb3-85" tabindex="-1"></a><span class="co">   --------</span></span>
-<span id="cb3-86"><a href="#cb3-86" tabindex="-1"></a><span class="co">       none</span></span>
-<span id="cb3-87"><a href="#cb3-87" tabindex="-1"></a><span class="co">   """</span></span>
-<span id="cb3-88"><a href="#cb3-88" tabindex="-1"></a></span>
-<span id="cb3-89"><a href="#cb3-89" tabindex="-1"></a>    <span class="cf">for</span> filename <span class="kw">in</span> filenames:</span>
-<span id="cb3-90"><a href="#cb3-90" tabindex="-1"></a>        create_plot(filename)</span>
-<span id="cb3-91"><a href="#cb3-91" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="#cb3-92" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb3-94"><a href="#cb3-94" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb3-95"><a href="#cb3-95" tabindex="-1"></a><span class="co">    main function - does all the work</span></span>
-<span id="cb3-96"><a href="#cb3-96" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb3-97"><a href="#cb3-97" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" tabindex="-1"></a>    <span class="co"># parse arguments</span></span>
-<span id="cb3-99"><a href="#cb3-99" tabindex="-1"></a>    files_to_plot <span class="op">=</span> parse_arguments(sys.argv[<span class="dv">1</span>:])</span>
-<span id="cb3-100"><a href="#cb3-100" tabindex="-1"></a></span>
-<span id="cb3-101"><a href="#cb3-101" tabindex="-1"></a>    <span class="co">#generate plots</span></span>
-<span id="cb3-102"><a href="#cb3-102" tabindex="-1"></a>    create_plots(files_to_plot)</span>
-<span id="cb3-103"><a href="#cb3-103" tabindex="-1"></a></span>
-<span id="cb3-104"><a href="#cb3-104" tabindex="-1"></a><span class="co"># call main</span></span>
-<span id="cb3-105"><a href="#cb3-105" tabindex="-1"></a>main()</span></code></pre>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"continent"</span> <span class="kw">in</span> data.index:</span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a>        data.drop(<span class="st">"continent"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a>    <span class="co"># create a plot of the transposed data</span></span>
+<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a>    ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
+<span id="cb3-63"><a href="#cb3-63" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" tabindex="-1"></a>    <span class="co"># set some plot attributes</span></span>
+<span id="cb3-65"><a href="#cb3-65" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb3-66"><a href="#cb3-66" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
+<span id="cb3-67"><a href="#cb3-67" tabindex="-1"></a>    <span class="co"># set the x locations and labels</span></span>
+<span id="cb3-68"><a href="#cb3-68" tabindex="-1"></a>    ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)))</span>
+<span id="cb3-69"><a href="#cb3-69" tabindex="-1"></a>    ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
+<span id="cb3-70"><a href="#cb3-70" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" tabindex="-1"></a>    <span class="co"># save the plot with a unique file name</span></span>
+<span id="cb3-72"><a href="#cb3-72" tabindex="-1"></a>    split_name1 <span class="op">=</span> filename.split(<span class="st">'.'</span>)[<span class="dv">0</span>] <span class="co">#data/gapminder_gdp_XXX</span></span>
+<span id="cb3-73"><a href="#cb3-73" tabindex="-1"></a>    split_name2 <span class="op">=</span> filename.split(<span class="st">'/'</span>)[<span class="dv">1</span>]</span>
+<span id="cb3-74"><a href="#cb3-74" tabindex="-1"></a>    save_name <span class="op">=</span> <span class="st">'figs/'</span><span class="op">+</span>split_name2 <span class="op">+</span> <span class="st">'.png'</span></span>
+<span id="cb3-75"><a href="#cb3-75" tabindex="-1"></a>    plt.savefig(save_name)</span>
+<span id="cb3-76"><a href="#cb3-76" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" tabindex="-1"></a><span class="kw">def</span> create_plots(filenames):</span>
+<span id="cb3-78"><a href="#cb3-78" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-79"><a href="#cb3-79" tabindex="-1"></a><span class="co">    Takes in a list of filenames to plot</span></span>
+<span id="cb3-80"><a href="#cb3-80" tabindex="-1"></a><span class="co">    and creates a plot for each file.</span></span>
+<span id="cb3-81"><a href="#cb3-81" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" tabindex="-1"></a><span class="co">    Input:</span></span>
+<span id="cb3-83"><a href="#cb3-83" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb3-84"><a href="#cb3-84" tabindex="-1"></a><span class="co">       filenames: list of strings, list of files to plot</span></span>
+<span id="cb3-85"><a href="#cb3-85" tabindex="-1"></a></span>
+<span id="cb3-86"><a href="#cb3-86" tabindex="-1"></a><span class="co">   Returns:</span></span>
+<span id="cb3-87"><a href="#cb3-87" tabindex="-1"></a><span class="co">   --------</span></span>
+<span id="cb3-88"><a href="#cb3-88" tabindex="-1"></a><span class="co">       none</span></span>
+<span id="cb3-89"><a href="#cb3-89" tabindex="-1"></a><span class="co">   """</span></span>
+<span id="cb3-90"><a href="#cb3-90" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" tabindex="-1"></a>    <span class="cf">for</span> filename <span class="kw">in</span> filenames:</span>
+<span id="cb3-92"><a href="#cb3-92" tabindex="-1"></a>        create_plot(filename)</span>
+<span id="cb3-93"><a href="#cb3-93" tabindex="-1"></a></span>
+<span id="cb3-94"><a href="#cb3-94" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb3-96"><a href="#cb3-96" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-97"><a href="#cb3-97" tabindex="-1"></a><span class="co">    main function - does all the work</span></span>
+<span id="cb3-98"><a href="#cb3-98" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-99"><a href="#cb3-99" tabindex="-1"></a></span>
+<span id="cb3-100"><a href="#cb3-100" tabindex="-1"></a>    <span class="co"># parse arguments</span></span>
+<span id="cb3-101"><a href="#cb3-101" tabindex="-1"></a>    files_to_plot <span class="op">=</span> parse_arguments(sys.argv[<span class="dv">1</span>:])</span>
+<span id="cb3-102"><a href="#cb3-102" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" tabindex="-1"></a>    <span class="co">#generate plots</span></span>
+<span id="cb3-104"><a href="#cb3-104" tabindex="-1"></a>    create_plots(files_to_plot)</span>
+<span id="cb3-105"><a href="#cb3-105" tabindex="-1"></a></span>
+<span id="cb3-106"><a href="#cb3-106" tabindex="-1"></a><span class="co"># call main</span></span>
+<span id="cb3-107"><a href="#cb3-107" tabindex="-1"></a>main()</span></code></pre>
 </div>
 </div>
 </div>
@@ -2433,7 +2637,7 @@ generally enables others to use your code more easily.</li>
 </div>
 </section></section><section id="aio-34-importing"><p>Content from <a href="34-importing.html">Running Scripts and Importing</a></p>
 <hr>
-<p>Last updated on 2025-02-10 |
+<p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/34-importing.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
@@ -2572,6 +2776,8 @@ def create_plot(filename):
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)

@@ -341,7 +341,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Program Flags</h1>
-        <p>Last updated on 2025-02-10 |
+        <p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/32a-flags.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -441,15 +441,211 @@ for filename in filenames:</b>
     save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
+<p>Let’s test if our run all flag works by running the script before we
+commit it. It is always good pratice to run your code first so you don’t
+accidently commit broken code.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Traceback (most recent call last):
+  File "gdp_plots.py", line 23, in &lt;module&gt;
+    ax = data.plot(title = filename)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_core.py", line 1031, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 451, in generate
+    self._compute_plot_data()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 636, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot</code></pre>
+</div>
+<p>This error is saying that the data in one or more of our files is
+non-numeric and it doesn’t know how to plot it. Lets add a little print
+statement to our code to check the head of our data file for each time
+through the loop.</p>
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    <b>print(filename)
+    print(data.head())</b>
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+<p>Let’s run the code again with our print statements</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>data/gapminder_gdp_americas.csv
+country           Argentina      Bolivia       Brazil  ... United States      Uruguay    Venezuela
+continent          Americas     Americas     Americas  ...      Americas     Americas     Americas
+gdpPercap_1952  5911.315053  2677.326347  2108.944355  ...   13990.48208  5716.766744  7689.799761
+gdpPercap_1957  6856.856212  2127.686326  2487.365989  ...   14847.12712  6150.772969  9802.466526
+gdpPercap_1962  7133.166023  2180.972546  3336.585802  ...   16173.14586  5603.357717  8422.974165
+gdpPercap_1967  8052.953021  2586.886053  3429.864357  ...   19530.36557   5444.61962  9541.474188
+
+[5 rows x 25 columns]
+Traceback (most recent call last):
+  File "gdp_plots.py", line 23, in &lt;module&gt;
+    ax = data.plot(title = filename)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_core.py", line 1031, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 451, in generate
+    self._compute_plot_data()
+  File "/opt/anaconda3/lib/python3.11/site-packages/pandas/plotting/_matplotlib/core.py", line 636, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot</code></pre>
+</div>
+<p>Now we can see in the America’s gdp file there is a row of continent
+data. There was originally a continent column before we transposed it.
+Because a we need the same type of data within each column, when we
+include a string row pandas converts all the values in that column into
+a string. So it isn’t seeing any(!) of our number values as numeric data
+that can be plotted.</p>
+<p>We can add a check into our code that drops the continent column if
+it exists.</p>
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    <b>if "continent" in data.index:
+        data.drop("continent", inplace=True)</b>
+    print(filename)
+    print(data.head())
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
+<p>Now running the script again works!</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+</div>
+<p>It sill prints the filenames and head of each data frame though. We
+should delete those lines and our final code should be the following
+script:</p>
+<pre>
+import sys
+import glob
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+# check for -a flag in arguments
+if "-a" in sys.argv:
+    filenames = glob.glob("data/*gdp*.csv")
+else:
+    filenames = sys.argv[1:]
+
+for filename in filenames:
+
+    # load data and transpose so that country names are
+    # the columns and their gdp data becomes the rows
+    data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
+
+    # create a plot of the transposed data
+    ax = data.plot(title = filename)
+
+    # set some plot attributes
+    ax.set_xlabel("Year")
+    ax.set_ylabel("GDP Per Capita")
+    # set the x locations and labels
+    ax.set_xticks(range(len(data.index)))
+    ax.set_xticklabels(data.index, rotation = 45)
+
+    # save the plot with a unique file name
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
+    plt.savefig(save_name)
+</pre>
 <div class="section level3">
 <h3 id="updating-the-repository">Updating the repository<a class="anchor" aria-label="anchor" href="#updating-the-repository"></a></h3>
 <p>Yet another successful update to the code. Let’s commit our
 changes.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Adding a flag to run script for all gdp data sets."</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Adding a flag to run script for all gdp data sets."</span></span></code></pre>
 </div>
 <div id="the-right-way-to-do-it" class="callout">
 <div class="callout-square">
@@ -539,7 +735,7 @@ common tasks.</li>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/instructor/32a-flags.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/instructor/32a-flags.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2025-02-10",
+  "dateModified": "2025-04-28",
   "datePublished": "2025-04-28"
 }
 
