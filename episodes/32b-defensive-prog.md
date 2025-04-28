@@ -87,7 +87,7 @@ SyntaxError: unexpected EOF while parsing
 
 And if we run the program from another directory:
 
-```python
+```bash
 $ cd ..
 $ python swc-gapminder/gdp_plots.py -a
 ```
@@ -136,6 +136,8 @@ for filename in filenames:
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -148,14 +150,15 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 
 If we run the program without a filename argument, here's what we'll see
 
-```python
+```bash
 $ python gdp_plots.py
 ```
 
@@ -222,6 +225,8 @@ for filename in filenames:
     # load data and transpose so that country names are
     # the columns and their gdp data becomes the rows
     data = pandas.read_csv(filename, index_col = 'country').T
+    if "continent" in data.index:
+        data.drop("continent", inplace=True)
 
     # create a plot of the transposed data
     ax = data.plot(title = filename)
@@ -234,8 +239,9 @@ for filename in filenames:
     ax.set_xticklabels(data.index, rotation = 45)
 
     # save the plot with a unique file name
-    split_name = filename.split('.')
-    save_name = split_name[0] + '.png'
+    split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+    split_name2 = filename.split('/')[1]
+    save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
 
