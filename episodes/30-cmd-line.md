@@ -55,7 +55,7 @@ of different types in this lesson, let's do a little rearranging:
 - Inside swc-gapminder, create a folder called `figs`
 - To ensure that we're all starting with the same set of code, copy the text below
   into a file called `gdp_plots.py` in the `swc-gapminder` folder or
-  download the file from [here](https://uw-madison-datascience.github.io/python-novice-gapminder-custom/scripts/gdp_plots.py).
+  [download the starting script file from the lesson](https://github.com/carpentries-incubator/swc-ext-python/blob/sstevens2-patch-1/scripts/gdp_plots.py).
 
 ```python
 import pandas
