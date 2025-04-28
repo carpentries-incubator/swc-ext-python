@@ -117,7 +117,7 @@ arguments to our program.
 As it is, this plot isn't bad but let's add some labels for clarity. We'll use the
 data filename as a title for the plot and indicate what information is in on each axis.
 
-```python
+<pre>
 import pandas
 # we need to import part of matplotlib
 # because we are no longer in a notebook
@@ -130,7 +130,7 @@ filename = 'data/gapminder_gdp_oceania.csv'
 data = pandas.read_csv(filename, index_col = 'country').T
 
 # create a plot of the transposed data
-<b>ax = data.plot(title = filename) </b>
+<b>ax = data.plot(title = filename)</b>
 
 # set some plot attributes
 <b>ax.set_xlabel("Year")
@@ -141,7 +141,7 @@ ax.set_xticklabels(data.index, rotation = 45)</b>
 
 # display the plot
 plt.show()
-```
+</pre>
 
 Now when we run this, our plot looks a little bit nicer.
 
