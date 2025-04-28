@@ -224,6 +224,7 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#handling-multiple-files">Handling Multiple Files</a></li>
+<li><a href="#saving-plot-before-branching">Saving plot before branching</a></li>
 <li><a href="#handling-multiple-files-with-python">Handling Multiple Files with Python</a></li>
 <li><a href="#handling-multiple-files-with-bash">Handling Multiple Files with Bash</a></li>
 <li><a href="#comparing-methods">Comparing Methods</a></li>
@@ -346,7 +347,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Trying Different Methods</h1>
-        <p>Last updated on 2025-04-24 |
+        <p>Last updated on 2025-04-28 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/31-multi-files.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -388,16 +389,110 @@ files at once. This can actually be done in two different ways: (1)
 writing a bash script that calls our already-existing Python script in a
 for-loop, or (2) modifying our Python script to read multiple files in a
 for-loop. We will try both methods and compare the two.</p>
+</section><section><h2 class="section-heading" id="saving-plot-before-branching">Saving plot before branching<a class="anchor" aria-label="anchor" href="#saving-plot-before-branching"></a></h2>
+<hr class="half-width"><p>Our code currently pops up the figure instead of saving it. Most of
+the time we will want to save the figure as a separate file instead of
+only viewing it but saving instead of viewing will also help with the
+flow or our program’s for loops. With the current configuration, when we
+run the for loop it will pause each time it pops up a figure and wait
+for us to close the viewer.</p>
+<pre>
+import sys
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+filename = sys.argv[1]
+
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+data = pandas.read_csv(filename, index_col = 'country').T
+
+# create a plot of the transposed data
+ax = data.plot(title = filename)
+
+# set some plot attributes
+ax.set_xlabel("Year")
+ax.set_ylabel("GDP Per Capita")
+# set the x locations and labels
+ax.set_xticks(range(len(data.index)) )
+ax.set_xticklabels(data.index, rotation = 45)
+
+# display the plot
+<b>plt.savefig('fig/gdp-plot.png')</b>
+</pre>
+<p>This version of the code overwrites the figure name each time the
+file is run. This won’t work well for multiple figure generation so we
+need to edit the script to write a unique name for each input file.</p>
+<p>A simple unique name can be generated based on the original file
+name. We can use Python’s <code>split()</code> function to split
+<code>filename</code>, which is a string, by any character. This returns
+a list like so:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>name <span class="op">=</span> <span class="st">'my-data.csv'</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>split_name <span class="op">=</span> name.split(<span class="st">'.'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="bu">print</span>(split_name)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="bu">print</span>(split_name[<span class="dv">0</span>])</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>[<span class="st">'my-data'</span>, <span class="st">'csv'</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">'my-data'</span></span></code></pre>
+</div>
+<p>We’ll split the original file name and use the first part to rename
+our plot. And then we will concatenate <code>.png</code> to the name to
+specify our file type.</p>
+<pre>
+import sys
+import pandas
+# we need to import part of matplotlib
+# because we are no longer in a notebook
+import matplotlib.pyplot as plt
+
+filename = sys.argv[1]
+
+# load data and transpose so that country names are
+# the columns and their gdp data becomes the rows
+data = pandas.read_csv(filename, index_col = 'country').T
+
+# create a plot of the transposed data
+ax = data.plot(title = filename)
+
+# set some plot attributes
+ax.set_xlabel("Year")
+ax.set_ylabel("GDP Per Capita")
+# set the x locations and labels
+ax.set_xticks(range(len(data.index)) )
+ax.set_xticklabels(data.index, rotation = 45)
+
+<b># save the plot with a unique file name
+split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
+split_name2 = split_name1.split('/')[1] #gapminder_gdp_XXX
+save_name = 'figs/'+split_name2 + '.png'
+plt.savefig(save_name)</b>
+</pre>
+<p>Lets commit the version of the code that saves unique names for each
+plot</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Saving plots to a unique name"</span></span></code></pre>
+</div>
 <div class="section level3">
 <h3 id="create-new-branches">Create New Branches<a class="anchor" aria-label="anchor" href="#create-new-branches"></a></h3>
 <p>First we will create two new branches where we can develop each of
 these two different methods. We will call these branches
 <code>py-loop</code> and <code>sh-loop</code></p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git branch py-loop</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git branch sh-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> git branch py-loop</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> git branch sh-loop</span></code></pre>
 </div>
 <p>We can check that these two branches were created with
 <code>$ git branch -a</code>.</p>
@@ -405,10 +500,10 @@ these two different methods. We will call these branches
 </section><section><h2 class="section-heading" id="handling-multiple-files-with-python">Handling Multiple Files with Python<a class="anchor" aria-label="anchor" href="#handling-multiple-files-with-python"></a></h2>
 <hr class="half-width"><p>First, we’ll try using just Python to loop through mutliple files.
 Let’s switch to our Python branch.</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>$ git checkout py<span class="op">-</span>loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> git checkout py-loop</span></code></pre>
 </div>
 <p>To process each file separately, we’ll need a loop that executes our
 plotting statements for each file.</p>
@@ -447,118 +542,28 @@ import matplotlib.pyplot as plt
     ax.set_xticks(range(len(data.index)))
     ax.set_xticklabels(data.index, rotation = 45)
 
-    # display the plot
-    plt.show()
-</pre>
-<p>Now when the program is given multiple filenames</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
-</div>
-<p>one plot for each filename is generated.</p>
-<div class="section level4">
-<h4 id="update-the-repository">Update the Repository<a class="anchor" aria-label="anchor" href="#update-the-repository"></a></h4>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>$ git add gdp_plots.py</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>$ git commit <span class="op">-</span>m <span class="st">"Allowing plot generation for multiple files at once"</span></span></code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="saving-figures">Saving Figures<a class="anchor" aria-label="anchor" href="#saving-figures"></a></h3>
-<p>By using <code>plt.show()</code> with multiple files, the program
-stops each time a figure is generated and the user must exit it to
-continue. To avoid this slow down, we can replace this with
-<code>plt.savefig()</code> and view all the figures after the script
-finishes. This function has one required argument which is the filename
-to save the figure as. The filename must have a valid image extension
-(eg. PNG, JPEG, etc.).</p>
-<p>Let’s replace our <code>plt.show()</code> with
-<code>plt.savefig('fig/gdp-plot.png')</code>. First, create the
-<code>fig</code> directory using <code>mkdir</code> Our new script
-should like like this:</p>
-<pre>
-import sys
-import pandas
-# we need to import part of matplotlib
-# because we are no longer in a notebook
-import matplotlib.pyplot as plt
-
-for filename in sys.argv[1:]:
-
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
-    data = pandas.read_csv(filename, index_col = 'country').T
-
-    # create a plot of the transposed data
-    ax = data.plot(title = filename)
-
-    # set some plot attributes
-    ax.set_xlabel("Year")
-    ax.set_ylabel("GDP Per Capita")
-    # set the x locations and labels
-    ax.set_xticks(range(len(data.index)))
-    ax.set_xticklabels(data.index, rotation = 45)
-
-    # save the plot
-    <b>plt.savefig('fig/gdp-plot.png')</b>
-</pre>
-<p>If we look at the contents of our folder now, we should have a new
-file called <code>gdp-plot.png</code>. But why is there only one when we
-supplied multiple data files? This is because each time the plot is
-created, it is being saved as the same file name and overwriting the
-previous plot.</p>
-<p>We can fix this by creating a unique file name each time. A simple
-unique name can be used based on the original file name. We can use
-Python’s <code>split()</code> function to split <code>filename</code>,
-which is a string, by any character. This returns a list like so:</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>name <span class="op">=</span> <span class="st">'my-data.csv'</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>split_name <span class="op">=</span> name.split(<span class="st">'.'</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="bu">print</span>(split_name)</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="bu">print</span>(split_name[<span class="dv">0</span>])</span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>[<span class="st">'my-data'</span>, <span class="st">'csv'</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">'my-data'</span></span></code></pre>
-</div>
-<p>We’ll split the original file name and use the first part to rename
-our plot. And then we will concatenate <code>.png</code> to the name to
-specify our file type.</p>
-<pre>
-import sys
-import pandas
-# we need to import part of matplotlib
-# because we are no longer in a notebook
-import matplotlib.pyplot as plt
-
-for filename in sys.argv[1:]:
-    # load data and transpose so that country names are
-    # the columns and their gdp data becomes the rows
-    data = pandas.read_csv(filename, index_col = 'country').T
-
-    # create a plot of the transposed data
-    ax = data.plot(title = filename)
-
-    # set some plot attributes
-    ax.set_xlabel("Year")
-    ax.set_ylabel("GDP Per Capita")
-    # set the x locations and labels
-    ax.set_xticks(range(len(data.index)))
-    ax.set_xticklabels(data.index, rotation = 45)
-
     # save the plot with a unique file name
     split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
     split_name2 = split_name1.split('/')[1] #gapminder_gdp_XXX
     save_name = 'figs/'+split_name2 + '.png'
     plt.savefig(save_name)
 </pre>
+<p>Now when the program is given multiple filenames</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
+</div>
+<p>one plot for each filename is generated.</p>
+<div class="section level4">
+<h4 id="update-the-repository">Update the Repository<a class="anchor" aria-label="anchor" href="#update-the-repository"></a></h4>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> git status <span class="co"># always check the branch before you commit</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Allowing plot generation for multiple files at once"</span></span></code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="updating-the-repository">Updating the repository<a class="anchor" aria-label="anchor" href="#updating-the-repository"></a></h3>
@@ -566,131 +571,104 @@ for filename in sys.argv[1:]:
 If we do <code>git status</code> we see we also have image files
 untracked. Let’s ignore those files because they will likely change as
 our data changes.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> git add .gitignore</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Saves each figure as a separate file."</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="ex">$</span> git add .gitignore</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="handling-multiple-files-with-bash">Handling Multiple Files with Bash<a class="anchor" aria-label="anchor" href="#handling-multiple-files-with-bash"></a></h2>
 <hr class="half-width"><p>Now that we’ve created a Python script to save multiple files at
 once, let’s try to do the same thing in Bash. We’ll leave our current
 branch alone and switch to our <code>sh-loop</code> branch.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> git checkout sh-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> git checkout sh-loop</span></code></pre>
 </div>
 <p>If we look at our <code>gdp_plots.py</code> file, it is not in a
 for-loop format because it is not up to date with other branch. Our
 script should look like this:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co"># we need to import part of matplotlib</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># because we are no longer in a notebook</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>filename <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co"># load data and transpose so that country names are</span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co"># the columns and their gdp data becomes the rows</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>data <span class="op">=</span> pandas.read_csv(filename, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co"># create a plot the transposed data</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co"># set some plot attributes</span></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co"># set the x locations and labels</span></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)))</span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co"># display the plot</span></span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co"># we need to import part of matplotlib</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># because we are no longer in a notebook</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>filename <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co"># load data and transpose so that country names are</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co"># the columns and their gdp data becomes the rows</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>data <span class="op">=</span> pandas.read_csv(filename, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co"># create a plot of the transposed data</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co"># set some plot attributes</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co"># set the x locations and labels</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)) )</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co"># save the plot with a unique file name</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>split_name1 <span class="op">=</span> filename.split(<span class="st">'.'</span>)[<span class="dv">0</span>] <span class="co">#data/gapminder_gdp_XXX</span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>split_name2 <span class="op">=</span> split_name1.split(<span class="st">'/'</span>)[<span class="dv">1</span>] <span class="co">#gapminder_gdp_XXX</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>save_name <span class="op">=</span> <span class="st">'figs/'</span><span class="op">+</span>split_name2 <span class="op">+</span> <span class="st">'.png'</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>plt.savefig(save_name)</span></code></pre>
 </div>
 <p>Let’s use bash to generate multiple plots by calling our Python
 script in a bash for-loop. First, let’s create a bash file for us to
 edit.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> touch gdp_plots.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> touch gdp_plots.sh</span></code></pre>
 </div>
 <p>In this script, we’ll write a for-loop will call our
 <code>gdp_plots.py</code> script on multiple files. We can break up our
 long list of files by using a backslash <code>\</code> and writing the
 rest on the next line.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>   <span class="ex">python</span> gdp_plots.py <span class="va">$filename</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>   <span class="ex">python</span> gdp_plots.py <span class="va">$filename</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
 </div>
 <p>We can run our script to see if it works:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>$ bash gdp_plots.sh</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>$ bash gdp_plots.sh</span></code></pre>
 </div>
-<p>When we run this, we see that it stops to show us each plot like
-before. Let’s update our script to save the figure like before.</p>
-<pre>
-import sys
-import pandas
-# we need to import part of matplotlib
-# because we are no longer in a notebook
-import matplotlib.pyplot as plt
-
-filename = sys.argv[1]
-
-# load data and transpose so that country names are
-# the columns and their gdp data becomes the rows
-data = pandas.read_csv(filename, index_col = 'country').T
-
-# create a plot the transposed data
-ax = data.plot(title = filename)
-
-# set some plot attributes
-ax.set_xlabel("Year")
-ax.set_ylabel("GDP Per Capita")
-# set the x locations and labels
-ax.set_xticks(range(len(data.index)))
-ax.set_xticklabels(data.index, rotation = 45)
-
-<b># save the plot with a unique file name
-split_name1 = filename.split('.')[0] #data/gapminder_gdp_XXX
-split_name2 = split_name1.split('/')[1] # gapminder_gdp_XXX
-save_name = 'figs/'+split_name2 + '.png'
-plt.savefig(save_name)</b>
-</pre>
-<p>When we run the script again, we should have new image files
-generated.</p>
+<p>This script now generates a plot for each file. We can check by
+checking the time each plot was created.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> figs/</span></code></pre>
+</div>
 <div class="section level3">
 <h3 id="updating-the-repository-1">Updating the repository<a class="anchor" aria-label="anchor" href="#updating-the-repository-1"></a></h3>
 <p>Yet another successful update to the code. Let’s commit our changes.
 Since our Python and bash scripts had somewhat unrelated changes, let’s
 make two separate commits. We will also ignore our images like
 before.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.sh</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Wrote bash script to call python plotter."</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Saves figures with unique name."</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="ex">$</span> git add .gitignore</span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.sh</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Wrote bash script to call python plotter."</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="ex">$</span> git add .gitignore</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="comparing-methods">Comparing Methods<a class="anchor" aria-label="anchor" href="#comparing-methods"></a></h2>
@@ -705,10 +683,10 @@ Let’s time each script. To do this, we just add <code>time</code> before
 each command when we run a script or command and it will give us timing
 information when it is completed.</p>
 <p>While we are on our bash branch, we’ll time that script first.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> time bash gdp_plots.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">$</span> time bash gdp_plots.sh</span></code></pre>
 </div>
 <pre><code>real    0m6.031s
 user    0m5.535s
@@ -716,22 +694,22 @@ sys     0m0.388s</code></pre>
 <p>We are most interested in the “real” time in the output, which is the
 elapsed time we experience.</p>
 <p>Let’s checkout our python branch and time our script there.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">$</span> git checkout py-loop</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="ex">$</span> time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">$</span> git checkout py-loop</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">$</span> time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
 </div>
 <pre><code>real    0m3.163s
 user    0m3.002s
 sys     0m0.132s</code></pre>
 <p>As we can see, our Python method ran faster than the bash method. For
 this reason, we will merge our Python branch into main.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">$</span> git checkout main</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">$</span> git merge py-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">$</span> git checkout main</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="ex">$</span> git merge py-loop</span></code></pre>
 </div>
 <p>Another advantage to the Python method over the bash method is that
 we do not need to change a file and commit it each time we want to
@@ -747,10 +725,10 @@ create plots from different data.</p>
 <p>Using the <code>glob</code> module, write a simple version of
 <code>ls</code> that shows files in the current directory with a
 particular suffix. A call to this script should look like this:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>$ python my_ls.py py</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>$ python my_ls.py py</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -769,23 +747,23 @@ particular suffix. A call to this script should look like this:</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="im">import</span> glob</span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>    <span class="co">'''prints names of all files with sys.argv as suffix'''</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(sys.argv) <span class="op">&gt;=</span> <span class="dv">2</span>, <span class="st">'Argument list cannot be empty'</span></span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>    suffix <span class="op">=</span> sys.argv[<span class="dv">1</span>] <span class="co"># NB: behaviour is not as you'd expect if sys.argv[1] is *</span></span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>    glob_input <span class="op">=</span> <span class="st">'*.'</span> <span class="op">+</span> suffix <span class="co"># construct the input</span></span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>    glob_output <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(glob_input)) <span class="co"># call the glob function</span></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> glob_output: <span class="co"># print the output</span></span>
-<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a>        <span class="bu">print</span>(item)</span>
-<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>    <span class="cf">return</span></span>
-<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a>main()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="im">import</span> glob</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="co">'''prints names of all files with sys.argv as suffix'''</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(sys.argv) <span class="op">&gt;=</span> <span class="dv">2</span>, <span class="st">'Argument list cannot be empty'</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>    suffix <span class="op">=</span> sys.argv[<span class="dv">1</span>] <span class="co"># NB: behaviour is not as you'd expect if sys.argv[1] is *</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>    glob_input <span class="op">=</span> <span class="st">'*.'</span> <span class="op">+</span> suffix <span class="co"># construct the input</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>    glob_output <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(glob_input)) <span class="co"># call the glob function</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> glob_output: <span class="co"># print the output</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>        <span class="bu">print</span>(item)</span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>    <span class="cf">return</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>main()</span></code></pre>
 </div>
 </div>
 </div>
@@ -814,42 +792,42 @@ in each, followed by the total number of lines.</li>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>    <span class="co">'''print each input filename and the number of lines in it,</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="co">       and print the sum of the number of lines'''</span></span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>    filenames <span class="op">=</span> sys.argv[<span class="dv">1</span>:]</span>
-<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>    sum_nlines <span class="op">=</span> <span class="dv">0</span> <span class="co">#initialize counting variable</span></span>
-<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(filenames) <span class="op">==</span> <span class="dv">0</span>: <span class="co"># no filenames, just stdin</span></span>
-<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>        sum_nlines <span class="op">=</span> count_file_like(sys.stdin)</span>
-<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'stdin: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
-<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a>        <span class="cf">for</span> f <span class="kw">in</span> filenames:</span>
-<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a>            n <span class="op">=</span> count_file(f)</span>
-<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (f, n))</span>
-<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a>            sum_nlines <span class="op">+=</span> n</span>
-<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'total: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
-<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a></span>
-<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a><span class="kw">def</span> count_file(filename):</span>
-<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>    <span class="co">'''count the number of lines in a file'''</span></span>
-<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">open</span>(filename,<span class="st">'r'</span>)</span>
-<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a>    nlines <span class="op">=</span> <span class="bu">len</span>(f.readlines())</span>
-<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>    f.close()</span>
-<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a>    <span class="cf">return</span>(nlines)</span>
-<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a></span>
-<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a><span class="kw">def</span> count_file_like(file_like):</span>
-<span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a>    <span class="co">'''count the number of lines in a file-like object (eg stdin)'''</span></span>
-<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> file_like:</span>
-<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a>        n <span class="op">=</span> n<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb22-31"><a href="#cb22-31" tabindex="-1"></a>    <span class="cf">return</span> n</span>
-<span id="cb22-32"><a href="#cb22-32" tabindex="-1"></a></span>
-<span id="cb22-33"><a href="#cb22-33" tabindex="-1"></a>main()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    <span class="co">'''print each input filename and the number of lines in it,</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="co">       and print the sum of the number of lines'''</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>    filenames <span class="op">=</span> sys.argv[<span class="dv">1</span>:]</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>    sum_nlines <span class="op">=</span> <span class="dv">0</span> <span class="co">#initialize counting variable</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(filenames) <span class="op">==</span> <span class="dv">0</span>: <span class="co"># no filenames, just stdin</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>        sum_nlines <span class="op">=</span> count_file_like(sys.stdin)</span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'stdin: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a>        <span class="cf">for</span> f <span class="kw">in</span> filenames:</span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>            n <span class="op">=</span> count_file(f)</span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (f, n))</span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a>            sum_nlines <span class="op">+=</span> n</span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'total: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="kw">def</span> count_file(filename):</span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a>    <span class="co">'''count the number of lines in a file'''</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">open</span>(filename,<span class="st">'r'</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a>    nlines <span class="op">=</span> <span class="bu">len</span>(f.readlines())</span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a>    f.close()</span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a>    <span class="cf">return</span>(nlines)</span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="kw">def</span> count_file_like(file_like):</span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a>    <span class="co">'''count the number of lines in a file-like object (eg stdin)'''</span></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> file_like:</span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a>        n <span class="op">=</span> n<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a>    <span class="cf">return</span> n</span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a></span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a>main()</span></code></pre>
 </div>
 </div>
 </div>
@@ -926,8 +904,8 @@ methods.</li>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/31-multi-files.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/31-multi-files.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2025-04-24",
-  "datePublished": "2025-04-24"
+  "dateModified": "2025-04-28",
+  "datePublished": "2025-04-28"
 }
 
   </script><script>
