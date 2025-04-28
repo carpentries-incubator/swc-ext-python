@@ -133,11 +133,11 @@ data = pandas.read_csv(filename, index_col = 'country').T
 ax = data.plot(title = filename)
 
 # set some plot attributes
-ax.set_xlabel("Year")
+<b>ax.set_xlabel("Year")
 ax.set_ylabel("GDP Per Capita")
 # set the x locations and labels
 ax.set_xticks(range(len(data.index)))
-ax.set_xticklabels(data.index, rotation = 45)
+ax.set_xticklabels(data.index, rotation = 45)</b>
 
 # display the plot
 plt.show()
