@@ -130,7 +130,7 @@ filename = 'data/gapminder_gdp_oceania.csv'
 data = pandas.read_csv(filename, index_col = 'country').T
 
 # create a plot of the transposed data
-ax = data.plot(title = filename)
+<b>ax = data.plot(title = filename) </b>
 
 # set some plot attributes
 <b>ax.set_xlabel("Year")
