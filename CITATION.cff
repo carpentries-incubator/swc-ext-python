@@ -10,6 +10,8 @@ type: dataset
 authors:
   - given-names: Christopher
     family-names: Endemann
+    affiliation: University of Wisconsin-Madison
+    orcid: 'https://orcid.org/0000-0002-7357-6129'
   - given-names: Kalin
     family-names: Kiesling
   - given-names: Christina
