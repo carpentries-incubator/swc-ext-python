@@ -77,12 +77,17 @@ for year in year_list:
 
 ## Review From Yesterday - Step by Step Breakdown
 
-First, try to determine how to use the mod operator `%` to determine
-if a year is divisible by 4 (and thus a leap year or not).
+- First, try to determine how to use the mod operator `%` to determine
+if a year is divisible by 4 (and thus a leap year or not). *See Modular Arthimetic hint for help*
+- Then, create a conditional statement to use this information, and put
+it into a function. *See Conditional Statment hint for help*
+- Then, create a list of the years given in the exercise.  Use a for loop
+and your function to evaluate these years. *See Function hint for help*
+- Finally, use a for loop and your function to evaluate these years. *See Loop hint for help*
 
 ::::::: hint 
 
-### Modular Arthimetic
+### Modular Arthimetic hint
 
 If a year in the range specified is divisible by four, it is a leap year.
 If a number is divisible by 4, then the arithmetic expression "number mod four" (or
@@ -90,12 +95,9 @@ If a number is divisible by 4, then the arithmetic expression "number mod four" 
 
 ::::::::::::::
 
-Then, create a conditional statement to use this information, and put
-it into a function.
-
 ::::::: hint 
 
-### Conditional Statement
+### Conditional Statement hint
 
 Fill in the blanks:
 
@@ -109,12 +111,9 @@ ______:
 
 ::::::::::::::
 
-Then, create a list of the years given in the exercise.  Use a for loop
-and your function to evaluate these years.
-
 ::::::: hint 
 
-### Function
+### Function hint
 
 Fill in the blanks:
 
@@ -125,11 +124,9 @@ def leap_year(year):
 
 ::::::::::::::
 
-Finally, use a for loop and your function to evaluate these years.
-
 ::::::: hint
 
-### Loop
+### Loop hint
 
 Fill in the blanks:
 
