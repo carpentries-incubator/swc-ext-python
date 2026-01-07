@@ -51,8 +51,8 @@ Up until now, we've been working in the data folder directly. Because we're goin
 of different types in this lesson, let's do a little rearranging:
 
 - On your desktop, create a folder called `swc-gapminder`.
-- Move the `data` folder you've been using into this folder.
-- Inside swc-gapminder, create a folder called `figs`
+- Move/copy the `data` folder you've been using into this folder.
+- Inside `swc-gapminder`, create a folder called `figs`
 - To ensure that we're all starting with the same set of code, copy the text below
   into a file called `gdp_plots.py` in the `swc-gapminder` folder or
   [download the starting script file from the lesson](https://github.com/carpentries-incubator/swc-ext-python/blob/main/scripts/gdp_plots.py).
