@@ -335,6 +335,16 @@ sys     0m0.388s
 We are most interested in the "real" time in the output, which is the
 elapsed time we experience.
 
+::::: callout
+
+### What do the times mean?
+
+- "real" time is the elapsed for the user
+- "user" time is the time spent by the CPU on executing the program
+- "sys" time is the time spent by the kernal on behalf of the process, so the time working with the system outside of the writen code execution
+
+:::::
+
 Let's switch to our python branch and time our script there.
 
 ```bash
