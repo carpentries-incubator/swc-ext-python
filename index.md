@@ -8,7 +8,6 @@ For a review challenge of of the python needed for this lesson, please see (lear
 This lesson also requires knowledge of the [Unix Shell](https://swcarpentry.github.io/shell-novice/) and [version control with Git](https://swcarpentry.github.io/git-novice/).
 This lesson works with both Jupyter Notebooks and writing scripts with a
 text editor to be run in the shell.
-Please note that this lesson uses Python 3 rather than Python 2.
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
