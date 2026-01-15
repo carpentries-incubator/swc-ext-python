@@ -5,7 +5,7 @@ site: sandpaper::sandpaper_site
 This lesson build on the [Plotting and Programming in Python](https://swcarpentry.github.io/python-novice-gapminder/) lesson developed by [Software Carpentry](https://software-carpentry.org/).
 For a review challenge of of the python needed for this lesson, please see the [extra review episode](learners/21-review.md).
 
-This lesson also requires knowledge of the [Unix Shell](https://swcarpentry.github.io/shell-novice/) and [version control with Git](https://swcarpentry.github.io/git-novice/).
+This lesson also requires knowledge of the [Unix Shell](https://swcarpentry.github.io/shell-novice/) and [Version Control with Git - incubator version with branches](https://uw-madison-datascience.github.io/git-novice-custom/).
 This lesson works with both Jupyter Notebooks and writing scripts with a
 text editor to be run in the shell.
 
@@ -13,7 +13,7 @@ text editor to be run in the shell.
 
 ## Prerequisites
 
-1. Learners are expected to have been introduced to the material from the [Unix Shell lesson](https://swcarpentry.github.io/shell-novice/), the [Plotting and Programming in Python lesson](https://swcarpentry.github.io/python-novice-gapminder/), and the [Version control with Git lesson](https://swcarpentry.github.io/git-novice/).
+1. Learners are expected to have been introduced to the material from the [Unix Shell lesson](https://swcarpentry.github.io/shell-novice/), the [Plotting and Programming in Python lesson](https://swcarpentry.github.io/python-novice-gapminder/), and the [Version Control with Git - incubator version with branches](https://uw-madison-datascience.github.io/git-novice-custom/).
 
 2. Learners must install Python before the workshop starts.
 
