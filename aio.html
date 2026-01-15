@@ -1689,10 +1689,7 @@ or flags.</p>
 <div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
-  <h3 class="accordion-header" id="headingSpoiler1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  More on Function Errors/Exceptions
-  </h3>
+  <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> More on Function Errors/Exceptions </h3>
 </button>
 <div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
@@ -1847,16 +1844,30 @@ add a commit to the repo.</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>$ git add gdp_plots.py</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>$ git commit <span class="op">-</span>m <span class="st">"Handling case for missing filename argument"</span></span></code></pre>
 </div>
+<div id="silent-errors-challenge" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<div class="section level3">
-<h3 id="check-for-silent-errors">Check for silent errors<a class="anchor" aria-label="anchor" href="#check-for-silent-errors"></a>
-</h3>
+<span class="callout-header">Challenge</span>
+<div id="silent-errors-challenge" class="callout-inner">
+<h3 class="callout-title">Silent Errors Challenge</h3>
+<div class="callout-content">
 <p>Silent errors can be difficult to anticipate. If we try to run our
-program from another directory with the <code>-a</code> flag, we don’t
-see any errors, but it also doesn’t do anything. This is because when we
-do the <code>-a</code> flag here, there are no <code>.csv</code> files
-in the directory, so our <code>filenames</code> variable is empty. Let’s
-add a check to ensure there are files to plot.</p>
+program from another directory with the <code>-a</code> flag, we still
+don’t see any errors, but it also doesn’t do anything. This is because
+when we do the <code>-a</code> flag here, there are no <code>.csv</code>
+files in the directory, so our <code>filenames</code> list is empty. Add
+a check for this case and an error message when the issue arises.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
 <pre>
 import sys
 import glob
@@ -1912,6 +1923,10 @@ for filename in filenames:
 </pre>
 <p>Now if someone runs this program in a directory with no valid
 datafiles, a message appears.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="update-the-repository-1">Update the Repository<a class="anchor" aria-label="anchor" href="#update-the-repository-1"></a>
@@ -2009,7 +2024,7 @@ make the functions the most reusable on their own.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A possible solution:</p>
 <ol style="list-style-type: decimal">
@@ -2164,7 +2179,7 @@ functions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2861,7 +2876,7 @@ What did you do differently, and why?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Here’s one solution.</p>
 <div class="codewrapper sourceCode" id="cb8">
