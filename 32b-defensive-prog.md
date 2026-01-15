@@ -176,13 +176,17 @@ $ git add gdp_plots.py
 $ git commit -m "Handling case for missing filename argument"
 ```
 
-### Check for silent errors
+::::: challenge
+
+### Silent Errors Challenge
 
 Silent errors can be difficult to anticipate. If we try to run our program
-from another directory with the `-a` flag, we don't see any errors, but it
+from another directory with the `-a` flag, we still don't see any errors, but it
 also doesn't do anything. This is because when we do the `-a` flag here,
-there are no `.csv` files in the directory, so our `filenames` variable is
-empty. Let's add a check to ensure there are files to plot.
+there are no `.csv` files in the directory, so our `filenames` list is
+empty. Add a check for this case and an error message when the issue arises.
+
+::::::::::::: solution 
 
 <pre>
 import sys
@@ -240,6 +244,10 @@ for filename in filenames:
 
 Now if someone runs this program in a directory with no valid datafiles,
 a message appears.
+
+:::::::::::::::::::::::::::::::
+
+::::::::::::::::::
 
 ### Update the Repository
 
