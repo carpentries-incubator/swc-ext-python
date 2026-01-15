@@ -303,7 +303,7 @@ let's update the repository.
 
 ```bash
 $ git add gdp_plots.py
-$ git commit -m "Refactoring code."
+$ git commit -m "Refactoring code into functions."
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
