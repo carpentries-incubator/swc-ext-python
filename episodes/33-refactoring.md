@@ -165,7 +165,7 @@ Now that we have a plan for refactoring and a template to work from, edit the `g
 
 ## Solution
 
-```python
+<pre>
 import sys
 import glob
 import pandas
@@ -190,7 +190,7 @@ def parse_arguments(argv):
     """
 # make sure additional arguments or flags have
     # been provided by the user
-    if argv == []:
+    if <b>argv</b> == []:
         # why the program will not continue
         print("Not enough arguments have been provided")
         # how this can be corrected
@@ -199,12 +199,12 @@ def parse_arguments(argv):
         print("-a : plot all gdp data sets in current directory")
 
     # check for -a flag in arguments
-    if "-a" in argv:
+    if "-a" in <b>argv</b>:
         filenames = glob.glob("*gdp*.csv")
     else:
-        filenames = argv
+        filenames = <b>argv</b>
 
-    return filenames
+    <b>return filenames</b>
 
 def create_plot(filename):
     """
@@ -257,7 +257,7 @@ def create_plots(filenames):
    """
 
     for filename in filenames:
-        create_plot(filename)
+        <b>create_plot(filename)</b>
 
 
 def main():
@@ -265,15 +265,15 @@ def main():
     main function - does all the work
     """
 
-    # parse arguments
+    <b># parse arguments
     files_to_plot = parse_arguments(sys.argv[1:])
 
     #generate plots
     create_plots(files_to_plot)
 
 # call main
-main()
-```
+main()</b>
+</pre>
 
 :::::::::::::::::::::::::
 
