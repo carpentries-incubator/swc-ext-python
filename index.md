@@ -13,7 +13,7 @@ text editor to be run in the shell.
 
 ## Prerequisites
 
-1. Learners are expected to have been introduced to the material from the [Unix Shell lesson](https://swcarpentry.github.io/shell-novice/), the [Plotting and Programming in Python lesson](https://swcarpentry.github.io/python-novice-gapminder/), and the [Version control with Git lesson](https://uw-madison-datascience.github.io/git-novice-custom/).
+1. Learners are expected to have been introduced to the material from the [Unix Shell lesson](https://swcarpentry.github.io/shell-novice/), the [Plotting and Programming in Python lesson](https://swcarpentry.github.io/python-novice-gapminder/), and the [Version control with Git lesson](https://swcarpentry.github.io/git-novice/).
 
 2. Learners must install Python before the workshop starts.
 
