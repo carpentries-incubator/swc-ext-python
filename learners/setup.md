@@ -3,11 +3,13 @@ title: Setup
 permalink: /setup/
 ---
 
-## Installing Python 
+## Setup
+
+### Installing Python 
 
 Follow the directions listed in the [python installation section of Carpentries workshop website template](https://carpentries.github.io/workshop-template/#python) for your operating system.
 
-## Getting the Data
+### Getting the Data
 
 The data we will be using is taken from the [gapminder] dataset.
 To obtain it, download and unzip the file
@@ -15,7 +17,7 @@ To obtain it, download and unzip the file
 In order to follow the presented material, you should launch a Jupyter
 notebook in the root directory (see Starting Python section below).
 
-## Starting Python
+### Starting Python
 
 We will teach Python using the [Jupyter lab][jupyter], a
 programming environment that runs in a web browser. Jupyter requires a reasonably
