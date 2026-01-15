@@ -190,7 +190,7 @@ def parse_arguments(argv):
     """
 # make sure additional arguments or flags have
     # been provided by the user
-    if <b>argv</b> == []:
+    if <b>argv == []</b>:
         # why the program will not continue
         print("Not enough arguments have been provided")
         # how this can be corrected
@@ -201,6 +201,10 @@ def parse_arguments(argv):
     # check for -a flag in arguments
     if "-a" in <b>argv</b>:
         filenames = glob.glob("*gdp*.csv")
+        if filenames == []:
+            # file list is empty (no files found)
+            print("No files found in this folder.")
+            print("Make sure data is located within the data folder of the current directory.")
     else:
         filenames = <b>argv</b>
 
