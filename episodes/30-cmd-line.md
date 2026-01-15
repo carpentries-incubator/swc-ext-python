@@ -127,7 +127,7 @@ import matplotlib.pyplot as plt
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
-data = pandas.read_csv(filename, index_col = 'country').T
+data = pandas.read_csv(<b>filename</b>, index_col = 'country').T
 
 # create a plot of the transposed data
 <b>ax = data.plot(title = filename)</b>
