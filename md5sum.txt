@@ -13,5 +13,5 @@
 "episodes/48-style.md" "2d0468aac5201ef8b6c50936aa214b53" "site/built/48-style.md" "2025-02-10"
 "episodes/49-wrap.md" "2821bd76ea7c99c79e35713c4f2b5cf9" "site/built/49-wrap.md" "2025-02-10"
 "instructors/instructor-notes.md" "d3101c142eb2ce0001d66f37e6e02ff2" "site/built/instructor-notes.md" "2025-02-10"
-"learners/setup.md" "3cdbee045296b2557250f4536602597e" "site/built/setup.md" "2025-04-28"
+"learners/setup.md" "8868f171bb65d42b0adf1fd77ff49ae2" "site/built/setup.md" "2026-01-15"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2025-02-10"
