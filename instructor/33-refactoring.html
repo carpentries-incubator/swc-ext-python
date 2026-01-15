@@ -335,7 +335,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Refactoring</h1>
-        <p>Last updated on 2025-04-28 |
+        <p>Last updated on 2026-01-15 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/33-refactoring.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -406,7 +406,7 @@ make the functions the most reusable on their own.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A possible solution:</p>
 <ol style="list-style-type: decimal"><li>A function that parses the arguments</li>
@@ -426,7 +426,7 @@ in.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git checkout <span class="at">-b</span> refactor</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git switch <span class="at">-c</span> refactor</span></code></pre>
 </div>
 <p>Let’s break the code into 4 functions:</p>
 <ul><li>
@@ -554,7 +554,7 @@ functions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -720,8 +720,8 @@ has changed, so let’s update the repository.</p>
 <div class="callout-content">
 <p>To demonstrate that the behavior of our program hasn’t changed, try
 running it a few different ways using both the <code>main</code> and
-<code>refactor</code> branches. Remember that the command for checking
-out a branch is <code>git checkout &lt;branch_name&gt;</code>.</p>
+<code>refactor</code> branches. Remember that the command for switching
+to a branch is <code>git switch &lt;branch_name&gt;</code>.</p>
 </div>
 </div>
 </div>
@@ -730,7 +730,7 @@ into our main branch.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> git checkout main</span>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> git switch main</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> git merge refactor</span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
@@ -809,7 +809,7 @@ generally enables others to use your code more easily.</li>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/instructor/33-refactoring.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/instructor/33-refactoring.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2025-04-28",
+  "dateModified": "2026-01-15",
   "datePublished": "2026-01-15"
 }
 
