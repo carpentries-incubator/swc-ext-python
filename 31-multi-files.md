@@ -138,7 +138,7 @@ First, we'll try using just Python to loop through mutliple files. Let's
 switch to our Python branch.
 
 ```bash
-$ git checkout py-loop
+$ git switch py-loop
 ```
 
 To process each file separately, we'll need a loop that executes our
@@ -225,7 +225,7 @@ let's try to do the same thing in Bash. We'll leave our current branch
 alone and switch to our `sh-loop` branch.
 
 ```bash
-$ git checkout sh-loop
+$ git switch sh-loop
 ```
 
 If we look at our `gdp_plots.py` file, it is not in a for-loop format
@@ -335,10 +335,10 @@ sys     0m0.388s
 We are most interested in the "real" time in the output, which is the
 elapsed time we experience.
 
-Let's checkout our python branch and time our script there.
+Let's switch to our python branch and time our script there.
 
 ```bash
-$ git checkout py-loop
+$ git switch py-loop
 $ time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv
 ```
 
@@ -352,7 +352,7 @@ As we can see, our Python method ran faster than the bash method. For
 this reason, we will merge our Python branch into main.
 
 ```bash
-$ git checkout main
+$ git switch main
 $ git merge py-loop
 ```
 
