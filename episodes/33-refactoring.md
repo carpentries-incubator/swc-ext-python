@@ -159,9 +159,7 @@ Let's move the code into the functions now:
 
 ## Exercise: refactor the code
 
-Now that we have a plan for refactoring and a template to work from, create a new script called
-`refactored_gdp_plot.py`. Paste the template from above into the new script. Then copy and paste
-the code from `gdp_plot.py` script into the corresponding functions.
+Now that we have a plan for refactoring and a template to work from, edit the `gdp_plot.py` script into the corresponding functions.
 
 :::::::::::::::  solution
 
@@ -296,13 +294,7 @@ functions. If we think about using these functions independently, however, a fun
 filenames isn't very convenient to use on its own. By defining the `create_plot` function, we have placed most of the
 plot generation work there, while allowing for a very simple definition of the `create_plots` function.
 
-The importance of this design decision will be made clear in the next lesson.
-
-Before we commit we need to change our `refactored_gdp_plot.py` script to `gdp_plot.py`
-since we don't want to keep two copies of this script around in our repo.
-We only made this as a separate script to make it easier to copy-paste.
-Once you've tested it, you can either rename `refactored_gdp_plot.py` script to `gdp_plot.py`
-or copy the contents of `refactored_gdp_plot.py` script to `gdp_plot.py` and delete `refactored_gdp_plot.py`.
+The importance of this design decision will be made clear in the next section.
 
 #### Update the Repository
 
