@@ -5,7 +5,7 @@ permalink: /setup/
 
 ## Installing Python 
 
-Follow the directions for your operating system that are listed in the [python installation section of Carpentries workshop website template ](https://carpentries.github.io/workshop-template/#python)
+Follow the directions listed in the [python installation section of Carpentries workshop website template](https://carpentries.github.io/workshop-template/#python) for your operating system.
 
 ## Getting the Data
 
