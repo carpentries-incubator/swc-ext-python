@@ -65,7 +65,6 @@ contact: 'lessons@software-carpentry.org'
 
 # Order of episodes in your lesson
 episodes: 
-- 21-review.md
 - 30-cmd-line.md
 - 31-multi-files.md
 - 32a-flags.md
@@ -77,6 +76,7 @@ episodes:
 
 # Information for Learners
 learners: 
+- 21-review.md
 
 # Information for Instructors
 instructors: 
