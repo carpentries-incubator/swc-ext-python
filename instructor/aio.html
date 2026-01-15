@@ -308,19 +308,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="48-style.html">7. Programming Style</a>
-    </div>
-<!--/div.accordion-header-->
-
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush9">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading9">
-        <a href="49-wrap.html">8. Wrap-Up</a>
+        <a href="49-wrap.html">7. Wrap-Up</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -717,7 +705,7 @@ not?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>It tries to run but gets an error if you run it with the argument
 ‘data/*.csv’. It is only trying to run on the first argument listed
@@ -1697,7 +1685,7 @@ or flags.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> More on Function Errors/Exceptions </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Python reports a <strong>runtime error</strong> when something goes
 wrong while a program is executing.</p>
@@ -1872,7 +1860,7 @@ a check for this case and an error message when the issue arises.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre>
 import sys
@@ -2646,286 +2634,7 @@ file is being imported or run as a script.</li>
 </div>
 </div>
 </div>
-</div></section><section id="aio-48-style"><p>Content from <a href="48-style.html">Programming Style</a></p>
-<hr>
-<p>Last updated on 2025-02-10 |
-
-        <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/48-style.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
-<div class="text-end">
-          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
-        </div>
-<div class="overview card">
-<h2 class="card-header">Overview</h2>
-<div class="row g-0">
-<div class="col-md-4">
-<div class="card-body">
-<div class="inner">
-<h3 class="card-title">Questions</h3>
-<ul>
-<li>How can I make my programs more readable?</li>
-<li>How do most programmers format their code?</li>
-<li>How can programs check their own operation?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-md-8">
-<div class="card-body">
-<div class="inner bordered">
-<h3 class="card-title">Objectives</h3>
-<ul>
-<li>Provide sound justifications for basic rules of coding style.</li>
-<li>Refactor one-page programs to make them more readable and justify
-the changes.</li>
-<li>Use Python community coding standards (PEP-8).</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<section><h2 class="section-heading" id="follow-standard-python-style-in-your-code-">Follow standard Python style in your code.<a class="anchor" aria-label="anchor" href="#follow-standard-python-style-in-your-code-"></a>
-</h2>
-<hr class="half-width">
-<ul>
-<li>
-<a href="https://www.python.org/dev/peps/pep-0008" class="external-link">PEP8</a>: a style
-guide for Python that discusses topics such as how you should name
-variables, how you should use indentation in your code, how you should
-structure your <code>import</code> statements, etc. Adhering to PEP8
-makes it easier for other Python developers to read and understand your
-code, and to understand what their contributions should look like. The
-<a href="https://pypi.python.org/pypi/pep8" class="external-link">PEP8 application and Python
-library</a> can check your code for compliance with PEP8.</li>
-</ul>
-<p><strong>Best Practice: Write programs for people and not for
-computers!</strong></p>
-</section><section><h2 class="section-heading" id="use-assertions-to-check-for-internal-errors-">Use assertions to check for internal errors.<a class="anchor" aria-label="anchor" href="#use-assertions-to-check-for-internal-errors-"></a>
-</h2>
-<hr class="half-width">
-<p>Assertions are a simple, but powerful method for making sure that the
-context in which your code is executing is as you expect.</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> calc_bulk_density(mass, volume):</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="co">'''Return dry bulk density = powder mass / powder volume.'''</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="cf">assert</span> volume <span class="op">&gt;</span> <span class="dv">0</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="cf">return</span> mass <span class="op">/</span> volume</span></code></pre>
-</div>
-<p>If the assertion is <code>False</code>, the Python interpreter raises
-an <code>AssertionError</code> runtime exception. The source code for
-the expression that failed will be displayed as part of the error
-message. To ignore assertions in your code run the interpreter with the
-‘-O’ (optimize) switch. Assertions should contain only simple checks and
-never change the state of the program. For example, an assertion should
-never contain an assignment.</p>
-<p><strong>Best Practice: Plan for mistakes</strong></p>
-</section><section><h2 class="section-heading" id="use-docstrings-to-provide-online-help-">Use docstrings to provide online help.<a class="anchor" aria-label="anchor" href="#use-docstrings-to-provide-online-help-"></a>
-</h2>
-<hr class="half-width">
-<p><strong>Best Practice: Document design &amp; purpose, not just
-mechanics</strong></p>
-<ul>
-<li>If the first thing in a function is a character string that is not
-assigned to a variable, Python attaches it to the function as the online
-help.</li>
-<li>Called a <em>docstring</em> (short for “documentation string”).</li>
-</ul>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="kw">def</span> average(values):</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="co">"Return average of values, or None if no values are supplied."</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(values) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(values) <span class="op">/</span> average(values)</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="bu">help</span>(average)</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Help on function average in module __main__:
-
-average(values)
-    Return average of values, or None if no values are supplied.</code></pre>
-</div>
-<div id="multiline-strings" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div id="multiline-strings" class="callout-inner">
-<h3 class="callout-title">Multiline Strings</h3>
-<div class="callout-content">
-<p>Often use <em>multiline strings</em> for documentation. These start
-and end with three quote characters (either single or double) and end
-with three matching characters.</p>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">"""This string spans</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">multiple lines.</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">Blank lines are allowed."""</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="what-will-be-shown" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="what-will-be-shown" class="callout-inner">
-<h3 class="callout-title">What Will Be Shown?</h3>
-<div class="callout-content">
-<p>Highlight the lines in the code below that will be available as
-online help. Are there lines that should be made available, but won’t
-be? Will any lines produce a syntax error or a runtime error?</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">"Find maximum edit distance between multiple sequences."</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># This finds the maximum distance between all sequences.</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="kw">def</span> overall_max(sequences):</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="co">'''Determine overall maximum edit distance.'''</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    highest <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="cf">for</span> left <span class="kw">in</span> sequences:</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>        <span class="cf">for</span> right <span class="kw">in</span> sequences:</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>            <span class="co">'''Avoid checking sequence against itself.'''</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>            <span class="cf">if</span> left <span class="op">!=</span> right:</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>                this <span class="op">=</span> edit_distance(left, right)</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>                highest <span class="op">=</span> <span class="bu">max</span>(highest, this)</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="co"># Report.</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    <span class="cf">return</span> highest</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="document-this" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="document-this" class="callout-inner">
-<h3 class="callout-title">Document This</h3>
-<div class="callout-content">
-<p>Turn the comment on the following function into a docstring and check
-that <code>help</code> displays it properly.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> middle(a, b, c):</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="co"># Return the middle value of three.</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="co"># Assumes the values can actually be compared.</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    values <span class="op">=</span> [a, b, c]</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    values.sort()</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="cf">return</span> values[<span class="dv">1</span>]</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="clean-up-this-code" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<span class="callout-header">Challenge</span>
-<div id="clean-up-this-code" class="callout-inner">
-<h3 class="callout-title">Clean Up This Code</h3>
-<div class="callout-content">
-<ol style="list-style-type: decimal">
-<li>Read this short program and try to predict what it does.</li>
-<li>Run it: how accurate was your prediction?</li>
-<li>Refactor the program to make it more readable. Remember to run it
-after each change to ensure its behavior hasn’t changed.</li>
-<li>Compare your rewrite with your neighbor’s. What did you do the same?
-What did you do differently, and why?</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>s <span class="op">=</span> sys.argv[<span class="dv">2</span>]</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="bu">print</span>(s)</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;</span> n:</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="co"># print('at', j)</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    new <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)):</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>        left <span class="op">=</span> j<span class="op">-</span><span class="dv">1</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>        right <span class="op">=</span> (j<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span><span class="bu">len</span>(s)</span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>        <span class="cf">if</span> s[left]<span class="op">==</span>s[right]: new <span class="op">+=</span> <span class="st">'-'</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>        <span class="cf">else</span>: new <span class="op">+=</span> <span class="st">'*'</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    s<span class="op">=</span><span class="st">''</span>.join(new)</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="bu">print</span>(s)</span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
-<div class="accordion-body">
-<p>Here’s one solution.</p>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> string_machine(input_string, iterations):</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">    Takes input_string and generates a new string with -'s and *'s</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">    corresponding to characters that have identical adjacent characters</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">    or not, respectively.  Iterates through this procedure with the resultant</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">    strings for the supplied number of iterations.</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>    <span class="bu">print</span>(input_string)</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>    old <span class="op">=</span> input_string</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(iterations):</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>        new <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        <span class="co"># iterate through characters in previous string</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(s)):</span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>            left <span class="op">=</span> j<span class="op">-</span><span class="dv">1</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>            right <span class="op">=</span> (j<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span><span class="bu">len</span>(s) <span class="co"># ensure right index wraps around</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>            <span class="cf">if</span> old[left]<span class="op">==</span>old[right]:</span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>                new <span class="op">+=</span> <span class="st">'-'</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>                new <span class="op">+=</span> <span class="st">'*'</span></span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>        <span class="bu">print</span>(new)</span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>        <span class="co"># store new string as old</span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>        old <span class="op">=</span> new</span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>string_machine(<span class="st">'et cetera'</span>, <span class="dv">10</span>)</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="keypoints1" class="callout keypoints">
-<div class="callout-square">
-<i class="callout-icon" data-feather="key"></i>
-</div>
-<span class="callout-header">Key Points</span>
-<div class="callout-inner">
-<div class="callout-content">
-<ul>
-<li>Follow standard Python style in your code.</li>
-<li>Use docstrings to provide online help.</li>
-</ul>
-</div>
-</div>
-</div>
-</section></section><section id="aio-49-wrap"><p>Content from <a href="49-wrap.html">Wrap-Up</a></p>
+</div></section><section id="aio-49-wrap"><p>Content from <a href="49-wrap.html">Wrap-Up</a></p>
 <hr>
 <p>Last updated on 2025-02-10 |
 
