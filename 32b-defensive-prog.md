@@ -31,7 +31,7 @@ First, let's try running our program without any additional arguments or flags.
 $ python gdp_plots.py
 ```
 
-It gives no output at all but if we check the figs folder
+It gives no output at all and if we check the figs folder
 ```bash
 $ ls -la figs/
 ```
