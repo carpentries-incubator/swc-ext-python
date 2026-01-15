@@ -55,7 +55,7 @@ ax.set_xticks(range(len(data.index)) )
 ax.set_xticklabels(data.index, rotation = 45)
 
 # display the plot
-<b>plt.savefig('fig/gdp-plot.png')</b>
+<b>plt.savefig('figs/gdp-plot.png')</b>
 </pre>
 
 This version of the code overwrites the figure name each time the file is run.
