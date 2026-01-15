@@ -114,7 +114,7 @@ import matplotlib.pyplot as plt
     # why the program will not continue
     print("Not enough arguments have been provided")
     # how this can be corrected
-    print("Usage: python gdp_plots.py < filenames >")
+    print("Usage: python gdp_plots.py \< filenames \>")
     print("Options:")
     print("-a : plot all gdp data sets in current directory")</b>
 
@@ -202,7 +202,7 @@ if len(sys.argv) == 1:
     # why the program will not continue
     print("Not enough arguments have been provided")
     # how this can be corrected
-    print("Usage: python gdp_plots.py < filenames >")
+    print("Usage: python gdp_plots.py \< filenames \>")
     print("Options:")
     print("-a : plot all gdp data sets in current directory")
 
