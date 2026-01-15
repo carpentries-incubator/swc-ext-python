@@ -31,20 +31,13 @@ First, let's try running our program without any additional arguments or flags.
 $ python gdp_plots.py
 ```
 
-```output
-Traceback (most recent call last):
-  File "gdp_plot.py", line 12, in <module>
-    filenames = sys.argv[1:]
-IndexError: list index out of range
+It gives no output at all but if we check the figs folder
+```bash
+$ ls -la figs/
 ```
+None of the files have been overwritten this time.
 
-Python returns an error when trying to find the command line argument in
-`sys.argv`. It cannot find that argument because we haven't provided it to the
-command and as a result there is no entry in `sys.argv` where we're telling it to look for
-this value. We may know all of this because we're the ones who wrote the
-program, but another user of the program without this experience will not.
-
-:::::::::::::::::::::::::::::::::::::::::  callout
+:::::::::::::::::::::::::::::::::::::::::  spoiler
 
 ## More on Function Errors/Exceptions
 
@@ -88,12 +81,12 @@ SyntaxError: unexpected EOF while parsing
 And if we run the program from another directory:
 
 ```bash
-$ cd ..
+$ cd data/
 $ python swc-gapminder/gdp_plots.py -a
 ```
 
-We see no output from the program at all. This is what is referred to as a "silent
-failure". The program has failed to produce a plot, but has reported no reason why.
+We see no output from the program at all for either of these cases. This is what is referred to as a "silent failure".
+The program has failed to produce a plot, but has reported no reason why.
 These kind of failures are difficult to debug and should be avoided.
 
 It is important to employ "defensive programming" in this scenario so that our
