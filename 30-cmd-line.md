@@ -123,7 +123,7 @@ import pandas
 # because we are no longer in a notebook
 import matplotlib.pyplot as plt
 
-filename = 'data/gapminder_gdp_oceania.csv'
+<b>filename = 'data/gapminder_gdp_oceania.csv'</b>
 
 # load data and transpose so that country names are
 # the columns and their gdp data becomes the rows
