@@ -406,7 +406,7 @@ make the functions the most reusable on their own.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A possible solution:</p>
 <ol style="list-style-type: decimal"><li>A function that parses the arguments</li>
@@ -552,7 +552,7 @@ functions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <pre>
 import sys
@@ -579,7 +579,7 @@ def parse_arguments(argv):
     """
 # make sure additional arguments or flags have
     # been provided by the user
-    if <b>argv</b> == []:
+    if <b>argv == []</b>:
         # why the program will not continue
         print("Not enough arguments have been provided")
         # how this can be corrected
@@ -590,6 +590,10 @@ def parse_arguments(argv):
     # check for -a flag in arguments
     if "-a" in <b>argv</b>:
         filenames = glob.glob("*gdp*.csv")
+        if filenames == []:
+            # file list is empty (no files found)
+            print("No files found in this folder.")
+            print("Make sure data is located within the data folder of the current directory.")
     else:
         filenames = <b>argv</b>
 
