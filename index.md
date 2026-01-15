@@ -3,7 +3,7 @@ site: sandpaper::sandpaper_site
 ---
 
 This lesson build on the [Plotting and Programming in Python](https://swcarpentry.github.io/python-novice-gapminder/) lesson developed by [Software Carpentry](https://software-carpentry.org/).
-For a review challenge of of the python needed for this lesson, please see (learners/21-review.md).
+For a review challenge of of the python needed for this lesson, please see the [extra review episode](learners/21-review.md).
 
 This lesson also requires knowledge of the [Unix Shell](https://swcarpentry.github.io/shell-novice/) and [version control with Git](https://swcarpentry.github.io/git-novice/).
 This lesson works with both Jupyter Notebooks and writing scripts with a
