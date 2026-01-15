@@ -59,7 +59,7 @@ This isn't the only "right" solution, but a reasonable way to split things up
 Because we're making a major change, let's make a new branch to work in.
 
 ```bash
-$ git checkout -b refactor
+$ git switch -c refactor
 ```
 
 Let's break the code into 4 functions:
@@ -320,15 +320,15 @@ $ git commit -m "Refactoring code."
 
 To demonstrate that the behavior of our program hasn't changed,
 try running it a few different ways using both the `main` and
-`refactor` branches. Remember that the command for checking out
-a branch is `git checkout <branch_name>`.
+`refactor` branches. Remember that the command for switching to
+a branch is `git switch <branch_name>`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Now that we're satisfied with our refactor. We can merge this branch into our main branch.
 
 ```bash
-$ git checkout main
+$ git switch main
 $ git merge refactor
 ```
 
