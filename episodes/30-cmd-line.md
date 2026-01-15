@@ -288,8 +288,8 @@ using the wildcard symbol. Does it work? Why or why not?
 
 ## Solution
 
-if you run it with the argument 'data/\*.csv' you get an error on the Americas file because it has an extra file.
-However, it works if you omit that file.
+It tries to run but gets an error if you run it with the argument 'data/\*.csv'.
+It is only trying to run on the first argument listed (because the code isn't yet written to work on multiple files) and you get an error on the Americas file because it has an extra column, 'continent' which isn't numeric data.
 
 
 
