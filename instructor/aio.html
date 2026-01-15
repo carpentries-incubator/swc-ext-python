@@ -2174,9 +2174,7 @@ what the intended change is (purpose).</p>
 <h3 class="callout-title">Exercise: refactor the code</h3>
 <div class="callout-content">
 <p>Now that we have a plan for refactoring and a template to work from,
-create a new script called <code>refactored_gdp_plot.py</code>. Paste
-the template from above into the new script. Then copy and paste the
-code from <code>gdp_plot.py</code> script into the corresponding
+edit the <code>gdp_plot.py</code> script into the corresponding
 functions.</p>
 </div>
 </div>
@@ -2324,16 +2322,7 @@ the <code>create_plot</code> function, we have placed most of the plot
 generation work there, while allowing for a very simple definition of
 the <code>create_plots</code> function.</p>
 <p>The importance of this design decision will be made clear in the next
-lesson.</p>
-<p>Before we commit we need to change our
-<code>refactored_gdp_plot.py</code> script to <code>gdp_plot.py</code>
-since we don’t want to keep two copies of this script around in our
-repo. We only made this as a separate script to make it easier to
-copy-paste. Once you’ve tested it, you can either rename
-<code>refactored_gdp_plot.py</code> script to <code>gdp_plot.py</code>
-or copy the contents of <code>refactored_gdp_plot.py</code> script to
-<code>gdp_plot.py</code> and delete
-<code>refactored_gdp_plot.py</code>.</p>
+section.</p>
 <div class="section level4">
 <h4 id="update-the-repository">Update the Repository<a class="anchor" aria-label="anchor" href="#update-the-repository"></a>
 </h4>
@@ -2343,7 +2332,7 @@ has changed, so let’s update the repository.</p>
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Refactoring code."</span></span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Refactoring code into functions."</span></span></code></pre>
 </div>
 <div id="branching-and-refactoring" class="callout discussion">
 <div class="callout-square">
@@ -2885,7 +2874,7 @@ What did you do differently, and why?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Here’s one solution.</p>
 <div class="codewrapper sourceCode" id="cb8">
