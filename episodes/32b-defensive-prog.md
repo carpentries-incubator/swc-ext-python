@@ -166,6 +166,17 @@ Now if someone runs this program without having used it before (or written it
 themselves) the user will know how change their command to get the program
 running properly, rather than seeing an esoteric Python error.
 
+::::::::::::: callout
+
+### Adding early exits
+
+While the addition of these print statements works for this particular script because it is a silent error, if the error was not silent we would have needed to include an `exit()` function.
+The `exit()` function will end the program early and we could include it in our `if` statement.
+Then if the `if` condition is met and the usage statement runs, the program will end early.
+This will prevent users from having to see a potentially confusing error message in addition to the usage message.
+
+::::::::::::::::::::
+
 ### Update the Repository
 
 We've just made another successful change to our repository. Let's add a commit
