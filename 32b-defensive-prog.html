@@ -326,7 +326,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Defensive Programming</h1>
-        <p>Last updated on 2026-01-15 |
+        <p>Last updated on 2026-01-16 |
 
         <a href="https://github.com/carpentries-incubator/swc-ext-python/edit/main/episodes/32b-defensive-prog.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -519,6 +519,25 @@ Options:
 written it themselves) the user will know how change their command to
 get the program running properly, rather than seeing an esoteric Python
 error.</p>
+<div id="adding-early-exits" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="adding-early-exits" class="callout-inner">
+<h3 class="callout-title">Adding early exits</h3>
+<div class="callout-content">
+<p>While the addition of these print statements works for this
+particular script because it is a silent error, if the error was not
+silent we would have needed to include an <code>exit()</code> function.
+The <code>exit()</code> function will end the program early and we could
+include it in our <code>if</code> statement. Then if the <code>if</code>
+condition is met and the usage statement runs, the program will end
+early. This will prevent users from having to see a potentially
+confusing error message in addition to the usage message.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="update-the-repository">Update the Repository<a class="anchor" aria-label="anchor" href="#update-the-repository"></a></h3>
@@ -698,8 +717,8 @@ add a commit to the repo.</p>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/32b-defensive-prog.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/32b-defensive-prog.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2026-01-15",
-  "datePublished": "2026-01-15"
+  "dateModified": "2026-01-16",
+  "datePublished": "2026-01-16"
 }
 
   </script><script>
