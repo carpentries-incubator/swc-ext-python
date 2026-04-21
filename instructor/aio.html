@@ -6,21 +6,27 @@
 <title>Workflows with Python and Git: All in One View</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../assets/themetoggle.js"></script><link rel="stylesheet" type="text/css" href="../assets/styles.css">
-<script src="../assets/scripts.js" type="text/javascript"></script><!-- mathjax --><script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      config: ["MMLorHTML.js"],
-      jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
-      TeX: {
-        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-      },
-      tex2jax: {
-        inlineMath: [['\\(', '\\)']],
-        displayMath: [ ['$$','$$'], ['\\[', '\\]'] ],
-        processEscapes: true
-      }
-    });
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><!-- Responsive Favicon for The Carpentries --><link rel="apple-touch-icon" sizes="180x180" href="../favicons/incubator/apple-touch-icon.png">
+<script src="../assets/scripts.js" type="text/javascript"></script><!-- mathjax --><!-- NOTE: https://docs.mathjax.org/en/latest/output/mathml.html#mathml-support --><!-- Changes from V2 to V4: https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        Jax output/NativeMML is not yet implemented
+        Jax output/PreviewHTML is not yet implemented
+        Extension fast-preview is not yet implemented (but may be in a future release)
+    --><script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [ ['$$','$$'], ['\\[', '\\]'] ],
+            processEscapes: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+        },
+        options: {
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+        },
+        loader: {
+            load: ['a11y/assistive-mml', '[tex]/noerrors']
+        }
+    };
+    </script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><!-- Responsive Favicon for The Carpentries --><link rel="apple-touch-icon" sizes="180x180" href="../favicons/incubator/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicons/incubator/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../favicons/incubator/favicon-16x16.png">
 <link rel="manifest" href="../favicons/incubator/site.webmanifest">
@@ -38,8 +44,8 @@
 </div>
     </div>
     <div class="selector-container">
-      <div id="theme-selector">
-        <li class="nav-item dropdown" id="theme-button-list">
+      <menu class="theme-selector" id="theme-selector-menu">
+<li class="nav-item dropdown theme-button-list" id="theme-button-list-menu">
           <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
             <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg><i data-feather="chevron-down"></i>
           </button>
@@ -64,10 +70,8 @@
             </li>
           </ul>
 </li>
-      </div>
-
-
-      <div class="dropdown" id="instructor-dropdown">
+    </menu>
+<div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
           <i aria-hidden="true" class="icon" data-feather="eye"></i> Instructor View <i data-feather="chevron-down"></i>
         </button>
@@ -133,29 +137,18 @@
     <a id="search-button" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div>
 <!--/div.container-fluid -->
-</nav><div class="col-md-12 mobile-title">
-  Workflows with Python and Git
-</div>
-
-<aside class="col-md-12 lesson-progress"><div style="width: %" class="percentage">
-    %
-  </div>
-  <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: %" aria-valuenow="" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
-    </div>
-  </div>
-</aside><div class="container">
+</nav><div class="container">
       <div class="row">
         <!-- START: inst/pkgdown/templates/navbar.html -->
 <div id="sidebar-col" class="col-lg-4">
   <div id="sidebar" class="sidebar">
-      <nav aria-labelledby="flush-headingEleven"><button role="button" aria-label="close menu" alt="close menu" aria-expanded="true" aria-controls="sidebar" class="collapse-toggle" data-collapse="Collapse " data-episodes="Episodes ">
+      <nav aria-labelledby="flush-collapse-chapters-toggle"><button role="button" aria-label="Collapse" alt="Collapse" aria-expanded="true" aria-controls="sidebar" class="collapse-toggle" data-collapse="Collapse " data-episodes="Episodes ">
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
           <div class="row mobile-row" id="theme-row-mobile">
-            <div class="col" id="theme-selector">
-              <li class="nav-item dropdown" id="theme-button-list">
+            <menu class="col theme-selector" id="theme-selector-sidebar">
+<li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
                 <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
                   <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg><span class="d-lg-none ms-1" id="bd-theme-text">Toggle Theme</span>
                 </button>
@@ -180,19 +173,19 @@
                   </li>
                 </ul>
 </li>
-            </div>
-          </div>
+            </menu>
+</div>
           <div class="row mobile-row">
             <div class="col">
               <div class="sidenav-view-selector">
-                <div class="accordion accordion-flush" id="accordionFlush9">
+                <div class="accordion accordion-flush" id="accordion-instructor-toggle">
                   <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingNine">
-                      <button class="accordion-button collapsed" id="instructor" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                    <h2 class="accordion-header" id="flush-heading-instructor-toggle">
+                      <button class="accordion-button collapsed" id="instructor" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-instructor-toggle" aria-expanded="false" aria-controls="flush-collapse-instructor-toggle">
                         <i id="eye" aria-hidden="true" class="icon" data-feather="eye"></i> Instructor View
                       </button>
                     </h2>
-                    <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlush2">
+                    <div id="flush-collapse-instructor-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-instructor-toggle">
                       <div class="accordion-body">
                         <a href="../aio.html">Learner View</a>
                       </div>
@@ -210,15 +203,15 @@
 </div>
 <!--/div.mobile-row -->
 
-          <div class="accordion accordion-flush" id="accordionFlush11">
+          <div class="accordion accordion-flush" id="accordion-chapters-toggle">
             <div class="accordion-item">
 
-              <button id="chapters" class="accordion-button show" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
-                <h2 class="accordion-header chapters" id="flush-headingEleven">
+              <button id="chapters" class="accordion-button show" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-chapters-toggle" aria-expanded="false" aria-controls="flush-collapse-chapters-toggle">
+                <h2 class="accordion-header chapters" id="flush-heading-chapters-toggle">
                   EPISODES
                 </h2>
               </button>
-              <div id="flush-collapseEleven" class="accordion-collapse show collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlush11">
+              <div id="flush-collapse-chapters-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-chapters-toggle">
 
                 <div class="accordion-body">
                   <div class="accordion accordion-flush" id="accordionFlush1">
@@ -322,14 +315,14 @@
             </div>
 
             <hr class="half-width">
-<div class="accordion accordion-flush lesson-resources" id="accordionFlush12">
+<div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                <h2 class="accordion-header" id="flush-heading-resources-toggle">
+                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-resources-toggle" aria-expanded="false" aria-controls="flush-collapse-resources-toggle">
                     RESOURCES
                   </button>
                 </h2>
-                <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlush12">
+                <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
                     <ul>
 <li>
@@ -370,7 +363,7 @@
         <!-- START: inst/pkgdown/templates/content-extra.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <main id="main-content" class="main-content"><div class="container lesson-content">
-        
+        <h1>All in One View</h1>
         
 <section id="aio-30-cmd-line"><p>Content from <a href="30-cmd-line.html">Command-Line Programs</a></p>
 <hr>
@@ -468,20 +461,20 @@ the starting script file from the lesson</a>.</li>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># we need to import part of matplotlib</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># because we are no longer in a notebook</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># load data and transpose so that country names are</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># the columns and their gdp data becomes the rows</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>data <span class="op">=</span> pandas.read_csv(<span class="st">'data/gapminder_gdp_oceania.csv'</span>, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># create a plot of the transposed data</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>ax <span class="op">=</span> data.plot()</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># display the plot</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">import</span> pandas</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a><span class="co"># we need to import part of matplotlib</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="co"># because we are no longer in a notebook</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a><span class="co"># load data and transpose so that country names are</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a><span class="co"># the columns and their gdp data becomes the rows</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a>data <span class="op">=</span> pandas.read_csv(<span class="st">'data/gapminder_gdp_oceania.csv'</span>, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a><span class="co"># create a plot of the transposed data</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a>ax <span class="op">=</span> data.plot()</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1" aria-label="code-block-1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1" aria-label="code-block-1-13"></a><span class="co"># display the plot</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1" aria-label="code-block-1-14"></a>plt.show()</span></code></pre>
 </div>
 <p>This program imports the <code>pandas</code> and
 <code>matplotlib</code> Python modules, reads some of the gapminder data
@@ -491,7 +484,7 @@ into a <code>pandas</code> dataframe, and plots that data using
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
 </div>
 <p>This is much easier than starting a notebook, going to the browser,
 and running each cell in the notebook to get the same result.</p>
@@ -504,9 +497,9 @@ as we go through this lesson.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> git init</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"First commit of analysis script"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">$</span> git init</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"First commit of analysis script"</span></span></code></pre>
 </div>
 <p>Because we’re only concerned with changes to our analysis script, we
 are going to create a .gitignore file for all of the gapminder
@@ -554,7 +547,7 @@ plt.show()
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="updating-the-repository">Updating the Repository<a class="anchor" aria-label="anchor" href="#updating-the-repository"></a>
@@ -562,8 +555,8 @@ plt.show()
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Improving plot format"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Improving plot format"</span></span></code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="command-line-arguments">Command-Line Arguments<a class="anchor" aria-label="anchor" href="#command-line-arguments"></a>
@@ -579,7 +572,7 @@ following manner.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> python <span class="op">&lt;</span>program<span class="op">&gt;</span> <span class="op">&lt;</span>argument1<span class="op">&gt;</span> <span class="op">&lt;</span>argument2<span class="op">&gt;</span> <span class="op">&lt;</span>other_arguments<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="ex">$</span> python <span class="op">&lt;</span>program<span class="op">&gt;</span> <span class="op">&lt;</span>argument1<span class="op">&gt;</span> <span class="op">&lt;</span>argument2<span class="op">&gt;</span> <span class="op">&lt;</span>other_arguments<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>The program can then use these arguments to alter its behavior based
 on those arguments. In this case, we’ll be using arguments to tell our
@@ -599,8 +592,8 @@ containing the two following lines:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sys.argv is'</span>, sys.argv)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="im">import</span> sys</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="bu">print</span>(<span class="st">'sys.argv is'</span>, sys.argv)</span></code></pre>
 </div>
 <p>The strange name <code>argv</code> stands for “argument values”.
 Whenever Python runs a program, it takes all of the values given on the
@@ -610,7 +603,7 @@ arguments:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> python argv_list.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="ex">$</span> python argv_list.py</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -623,12 +616,12 @@ always <code>sys.argv[0]</code>.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> python argv_list.py first second third</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="ex">$</span> python argv_list.py first second third</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>sys.argv <span class="kw">is</span> [<span class="st">'argv_list.py'</span>, <span class="st">'first'</span>, <span class="st">'second'</span>, <span class="st">'third'</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a>sys.argv <span class="kw">is</span> [<span class="st">'argv_list.py'</span>, <span class="st">'first'</span>, <span class="st">'second'</span>, <span class="st">'third'</span>]</span></code></pre>
 </div>
 <p>then Python adds each of those arguments to that magic list.</p>
 <p>Using this new information, let’s add command line arguments to our
@@ -672,7 +665,7 @@ filename to the program.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py data/gapminder_gdp_oceania.csv</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="ex">$</span> python gdp_plots.py data/gapminder_gdp_oceania.csv</span></code></pre>
 </div>
 <p>And the same plot as before is displayed, but this file is now being
 read from an argument we’ve provided on the command line. We can now do
@@ -823,16 +816,16 @@ a list like so:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>name <span class="op">=</span> <span class="st">'my-data.csv'</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>split_name <span class="op">=</span> name.split(<span class="st">'.'</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="bu">print</span>(split_name)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="bu">print</span>(split_name[<span class="dv">0</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>name <span class="op">=</span> <span class="st">'my-data.csv'</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>split_name <span class="op">=</span> name.split(<span class="st">'.'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="bu">print</span>(split_name)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a><span class="bu">print</span>(split_name[<span class="dv">0</span>])</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>[<span class="st">'my-data'</span>, <span class="st">'csv'</span>]</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">'my-data'</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>[<span class="st">'my-data'</span>, <span class="st">'csv'</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="co">'my-data'</span></span></code></pre>
 </div>
 <p>We’ll split the original file name and use the first part to rename
 our plot. And then we will concatenate <code>.png</code> to the name to
@@ -871,8 +864,8 @@ plot</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Saving plots to a unique name"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Saving plots to a unique name"</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="create-new-branches">Create New Branches<a class="anchor" aria-label="anchor" href="#create-new-branches"></a>
@@ -883,8 +876,8 @@ these two different methods. We will call these branches
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> git branch py-loop</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> git branch sh-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="ex">$</span> git branch py-loop</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="ex">$</span> git branch sh-loop</span></code></pre>
 </div>
 <p>We can check that these two branches were created with
 <code>$ git branch -a</code>.</p>
@@ -897,7 +890,7 @@ Let’s switch to our Python branch.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> git switch py-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="ex">$</span> git switch py-loop</span></code></pre>
 </div>
 <p>To process each file separately, we’ll need a loop that executes our
 plotting statements for each file.</p>
@@ -946,7 +939,7 @@ import matplotlib.pyplot as plt
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="ex">$</span> python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
 </div>
 <p>one plot for each filename is generated.</p>
 <div class="section level4">
@@ -955,9 +948,9 @@ import matplotlib.pyplot as plt
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> git status <span class="co"># always check the branch before you commit</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Allowing plot generation for multiple files at once"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="ex">$</span> git status <span class="co"># always check the branch before you commit</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Allowing plot generation for multiple files at once"</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -970,9 +963,9 @@ our data changes.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="ex">$</span> git add .gitignore</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="ex">$</span> git add .gitignore</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="handling-multiple-files-with-bash">Handling Multiple Files with Bash<a class="anchor" aria-label="anchor" href="#handling-multiple-files-with-bash"></a>
@@ -984,7 +977,7 @@ branch alone and switch to our <code>sh-loop</code> branch.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> git switch sh-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="ex">$</span> git switch sh-loop</span></code></pre>
 </div>
 <p>If we look at our <code>gdp_plots.py</code> file, it is not in a
 for-loop format because it is not up to date with other branch. Our
@@ -992,33 +985,33 @@ script should look like this:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co"># we need to import part of matplotlib</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># because we are no longer in a notebook</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>filename <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co"># load data and transpose so that country names are</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co"># the columns and their gdp data becomes the rows</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>data <span class="op">=</span> pandas.read_csv(filename, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co"># create a plot of the transposed data</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co"># set some plot attributes</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co"># set the x locations and labels</span></span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)) )</span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co"># save the plot with a unique file name</span></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>split_name1 <span class="op">=</span> filename.split(<span class="st">'.'</span>)[<span class="dv">0</span>] <span class="co">#data/gapminder_gdp_XXX</span></span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>split_name2 <span class="op">=</span> split_name1.split(<span class="st">'/'</span>)[<span class="dv">1</span>] <span class="co">#gapminder_gdp_XXX</span></span>
-<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>save_name <span class="op">=</span> <span class="st">'figs/'</span><span class="op">+</span>split_name2 <span class="op">+</span> <span class="st">'.png'</span></span>
-<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>plt.savefig(save_name)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="im">import</span> sys</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a><span class="im">import</span> pandas</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a><span class="co"># we need to import part of matplotlib</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a><span class="co"># because we are no longer in a notebook</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1" aria-label="code-block-10-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1" aria-label="code-block-10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1" aria-label="code-block-10-7"></a>filename <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1" aria-label="code-block-10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1" aria-label="code-block-10-9"></a><span class="co"># load data and transpose so that country names are</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1" aria-label="code-block-10-10"></a><span class="co"># the columns and their gdp data becomes the rows</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1" aria-label="code-block-10-11"></a>data <span class="op">=</span> pandas.read_csv(filename, index_col <span class="op">=</span> <span class="st">'country'</span>).T</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1" aria-label="code-block-10-12"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1" aria-label="code-block-10-13"></a><span class="co"># create a plot of the transposed data</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1" aria-label="code-block-10-14"></a>ax <span class="op">=</span> data.plot(title <span class="op">=</span> filename)</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1" aria-label="code-block-10-15"></a></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1" aria-label="code-block-10-16"></a><span class="co"># set some plot attributes</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1" aria-label="code-block-10-17"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1" aria-label="code-block-10-18"></a>ax.set_ylabel(<span class="st">"GDP Per Capita"</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1" aria-label="code-block-10-19"></a><span class="co"># set the x locations and labels</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1" aria-label="code-block-10-20"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(data.index)) )</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1" aria-label="code-block-10-21"></a>ax.set_xticklabels(data.index, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1" aria-label="code-block-10-22"></a></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1" aria-label="code-block-10-23"></a><span class="co"># save the plot with a unique file name</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1" aria-label="code-block-10-24"></a>split_name1 <span class="op">=</span> filename.split(<span class="st">'.'</span>)[<span class="dv">0</span>] <span class="co">#data/gapminder_gdp_XXX</span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1" aria-label="code-block-10-25"></a>split_name2 <span class="op">=</span> split_name1.split(<span class="st">'/'</span>)[<span class="dv">1</span>] <span class="co">#gapminder_gdp_XXX</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1" aria-label="code-block-10-26"></a>save_name <span class="op">=</span> <span class="st">'figs/'</span><span class="op">+</span>split_name2 <span class="op">+</span> <span class="st">'.png'</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1" aria-label="code-block-10-27"></a>plt.savefig(save_name)</span></code></pre>
 </div>
 <p>Let’s use bash to generate multiple plots by calling our Python
 script in a bash for-loop. First, let’s create a bash file for us to
@@ -1026,7 +1019,7 @@ edit.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> touch gdp_plots.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="ex">$</span> touch gdp_plots.sh</span></code></pre>
 </div>
 <p>In this script, we’ll write a for-loop will call our
 <code>gdp_plots.py</code> script on multiple files. We can break up our
@@ -1035,23 +1028,23 @@ rest on the next line.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>   <span class="ex">python</span> gdp_plots.py <span class="va">$filename</span></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="cf">for</span> filename <span class="kw">in</span> data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a><span class="cf">do</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>   <span class="ex">python</span> gdp_plots.py <span class="va">$filename</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a><span class="cf">done</span></span></code></pre>
 </div>
 <p>We can run our script to see if it works:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>$ bash gdp_plots.sh</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a>$ bash gdp_plots.sh</span></code></pre>
 </div>
 <p>This script now generates a plot for each file. We can check by
 checking the time each plot was created.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> figs/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a><span class="fu">ls</span> <span class="at">-lh</span> figs/</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="updating-the-repository-1">Updating the repository<a class="anchor" aria-label="anchor" href="#updating-the-repository-1"></a>
@@ -1063,11 +1056,11 @@ before.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.sh</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Wrote bash script to call python plotter."</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="ex">$</span> git add .gitignore</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a><span class="ex">$</span> git add gdp_plots.sh</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Wrote bash script to call python plotter."</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1" aria-label="code-block-15-3"></a><span class="ex">$</span> echo <span class="st">"*.png"</span> <span class="op">&gt;&gt;</span> .gitignore</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1" aria-label="code-block-15-4"></a><span class="ex">$</span> git add .gitignore</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1" aria-label="code-block-15-5"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"ignoring generated images"</span></span></code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="comparing-methods">Comparing Methods<a class="anchor" aria-label="anchor" href="#comparing-methods"></a>
@@ -1087,7 +1080,7 @@ information when it is completed.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">$</span> time bash gdp_plots.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1" aria-label="code-block-16-1"></a><span class="ex">$</span> time bash gdp_plots.sh</span></code></pre>
 </div>
 <pre><code>real    0m6.031s
 user    0m5.535s
@@ -1117,8 +1110,8 @@ execution</li>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">$</span> git switch py-loop</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">$</span> time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1" aria-label="code-block-18-1"></a><span class="ex">$</span> git switch py-loop</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1" aria-label="code-block-18-2"></a><span class="ex">$</span> time python gdp_plots.py data/gapminder_gdp_oceania.csv data/gapminder_gdp_africa.csv</span></code></pre>
 </div>
 <pre><code>real    0m3.163s
 user    0m3.002s
@@ -1128,8 +1121,8 @@ this reason, we will merge our Python branch into main.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">$</span> git switch main</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="ex">$</span> git merge py-loop</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1" aria-label="code-block-20-1"></a><span class="ex">$</span> git switch main</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1" aria-label="code-block-20-2"></a><span class="ex">$</span> git merge py-loop</span></code></pre>
 </div>
 <p>Another advantage to the Python method over the bash method is that
 we do not need to change a file and commit it each time we want to
@@ -1151,7 +1144,7 @@ particular suffix. A call to this script should look like this:</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>$ python my_ls.py py</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1" aria-label="code-block-21-1"></a>$ python my_ls.py py</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1173,20 +1166,20 @@ particular suffix. A call to this script should look like this:</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="im">import</span> glob</span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="co">'''prints names of all files with sys.argv as suffix'''</span></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(sys.argv) <span class="op">&gt;=</span> <span class="dv">2</span>, <span class="st">'Argument list cannot be empty'</span></span>
-<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>    suffix <span class="op">=</span> sys.argv[<span class="dv">1</span>] <span class="co"># NB: behaviour is not as you'd expect if sys.argv[1] is *</span></span>
-<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>    glob_input <span class="op">=</span> <span class="st">'*.'</span> <span class="op">+</span> suffix <span class="co"># construct the input</span></span>
-<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>    glob_output <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(glob_input)) <span class="co"># call the glob function</span></span>
-<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> glob_output: <span class="co"># print the output</span></span>
-<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>        <span class="bu">print</span>(item)</span>
-<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>    <span class="cf">return</span></span>
-<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a></span>
-<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>main()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1" aria-label="code-block-23-1"></a><span class="im">import</span> sys</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1" aria-label="code-block-23-2"></a><span class="im">import</span> glob</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1" aria-label="code-block-23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1" aria-label="code-block-23-4"></a><span class="kw">def</span> main():</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1" aria-label="code-block-23-5"></a>    <span class="co">'''prints names of all files with sys.argv as suffix'''</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1" aria-label="code-block-23-6"></a>    <span class="cf">assert</span> <span class="bu">len</span>(sys.argv) <span class="op">&gt;=</span> <span class="dv">2</span>, <span class="st">'Argument list cannot be empty'</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1" aria-label="code-block-23-7"></a>    suffix <span class="op">=</span> sys.argv[<span class="dv">1</span>] <span class="co"># NB: behaviour is not as you'd expect if sys.argv[1] is *</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1" aria-label="code-block-23-8"></a>    glob_input <span class="op">=</span> <span class="st">'*.'</span> <span class="op">+</span> suffix <span class="co"># construct the input</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1" aria-label="code-block-23-9"></a>    glob_output <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(glob_input)) <span class="co"># call the glob function</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1" aria-label="code-block-23-10"></a>    <span class="cf">for</span> item <span class="kw">in</span> glob_output: <span class="co"># print the output</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1" aria-label="code-block-23-11"></a>        <span class="bu">print</span>(item)</span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1" aria-label="code-block-23-12"></a>    <span class="cf">return</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1" aria-label="code-block-23-13"></a></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1" aria-label="code-block-23-14"></a>main()</span></code></pre>
 </div>
 </div>
 </div>
@@ -1221,39 +1214,39 @@ in each, followed by the total number of lines.</li>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    <span class="co">'''print each input filename and the number of lines in it,</span></span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="co">       and print the sum of the number of lines'''</span></span>
-<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>    filenames <span class="op">=</span> sys.argv[<span class="dv">1</span>:]</span>
-<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>    sum_nlines <span class="op">=</span> <span class="dv">0</span> <span class="co">#initialize counting variable</span></span>
-<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a></span>
-<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(filenames) <span class="op">==</span> <span class="dv">0</span>: <span class="co"># no filenames, just stdin</span></span>
-<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>        sum_nlines <span class="op">=</span> count_file_like(sys.stdin)</span>
-<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'stdin: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
-<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a>        <span class="cf">for</span> f <span class="kw">in</span> filenames:</span>
-<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>            n <span class="op">=</span> count_file(f)</span>
-<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (f, n))</span>
-<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a>            sum_nlines <span class="op">+=</span> n</span>
-<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'total: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
-<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="kw">def</span> count_file(filename):</span>
-<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a>    <span class="co">'''count the number of lines in a file'''</span></span>
-<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">open</span>(filename,<span class="st">'r'</span>)</span>
-<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a>    nlines <span class="op">=</span> <span class="bu">len</span>(f.readlines())</span>
-<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a>    f.close()</span>
-<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a>    <span class="cf">return</span>(nlines)</span>
-<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a></span>
-<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="kw">def</span> count_file_like(file_like):</span>
-<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a>    <span class="co">'''count the number of lines in a file-like object (eg stdin)'''</span></span>
-<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> file_like:</span>
-<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a>        n <span class="op">=</span> n<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a>    <span class="cf">return</span> n</span>
-<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a></span>
-<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a>main()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1" aria-label="code-block-24-1"></a><span class="im">import</span> sys</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1" aria-label="code-block-24-2"></a></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1" aria-label="code-block-24-3"></a><span class="kw">def</span> main():</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1" aria-label="code-block-24-4"></a>    <span class="co">'''print each input filename and the number of lines in it,</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1" aria-label="code-block-24-5"></a><span class="co">       and print the sum of the number of lines'''</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1" aria-label="code-block-24-6"></a>    filenames <span class="op">=</span> sys.argv[<span class="dv">1</span>:]</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1" aria-label="code-block-24-7"></a>    sum_nlines <span class="op">=</span> <span class="dv">0</span> <span class="co">#initialize counting variable</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1" aria-label="code-block-24-8"></a></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1" aria-label="code-block-24-9"></a>    <span class="cf">if</span> <span class="bu">len</span>(filenames) <span class="op">==</span> <span class="dv">0</span>: <span class="co"># no filenames, just stdin</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1" aria-label="code-block-24-10"></a>        sum_nlines <span class="op">=</span> count_file_like(sys.stdin)</span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1" aria-label="code-block-24-11"></a>        <span class="bu">print</span>(<span class="st">'stdin: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1" aria-label="code-block-24-12"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1" aria-label="code-block-24-13"></a>        <span class="cf">for</span> f <span class="kw">in</span> filenames:</span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1" aria-label="code-block-24-14"></a>            n <span class="op">=</span> count_file(f)</span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1" aria-label="code-block-24-15"></a>            <span class="bu">print</span>(<span class="st">'</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (f, n))</span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1" aria-label="code-block-24-16"></a>            sum_nlines <span class="op">+=</span> n</span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1" aria-label="code-block-24-17"></a>        <span class="bu">print</span>(<span class="st">'total: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> sum_nlines)</span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1" aria-label="code-block-24-18"></a></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1" aria-label="code-block-24-19"></a><span class="kw">def</span> count_file(filename):</span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1" aria-label="code-block-24-20"></a>    <span class="co">'''count the number of lines in a file'''</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1" aria-label="code-block-24-21"></a>    f <span class="op">=</span> <span class="bu">open</span>(filename,<span class="st">'r'</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1" aria-label="code-block-24-22"></a>    nlines <span class="op">=</span> <span class="bu">len</span>(f.readlines())</span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1" aria-label="code-block-24-23"></a>    f.close()</span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1" aria-label="code-block-24-24"></a>    <span class="cf">return</span>(nlines)</span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1" aria-label="code-block-24-25"></a></span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1" aria-label="code-block-24-26"></a><span class="kw">def</span> count_file_like(file_like):</span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1" aria-label="code-block-24-27"></a>    <span class="co">'''count the number of lines in a file-like object (eg stdin)'''</span></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1" aria-label="code-block-24-28"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1" aria-label="code-block-24-29"></a>    <span class="cf">for</span> line <span class="kw">in</span> file_like:</span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1" aria-label="code-block-24-30"></a>        n <span class="op">=</span> n<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1" aria-label="code-block-24-31"></a>    <span class="cf">return</span> n</span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1" aria-label="code-block-24-32"></a></span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1" aria-label="code-block-24-33"></a>main()</span></code></pre>
 </div>
 </div>
 </div>
@@ -1385,7 +1378,7 @@ accidently commit broken code.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1451,7 +1444,7 @@ for filename in filenames:
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1532,7 +1525,7 @@ for filename in filenames:
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="ex">python</span> gdp_plots.py <span class="at">-a</span></span></code></pre>
 </div>
 <p>It sill prints the filenames and head of each data frame though. We
 should delete those lines and our final code should be the following
@@ -1583,8 +1576,8 @@ changes.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Adding a flag to run script for all gdp data sets."</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Adding a flag to run script for all gdp data sets."</span></span></code></pre>
 </div>
 <div id="the-right-way-to-do-it" class="callout">
 <div class="callout-square">
@@ -1671,13 +1664,13 @@ or flags.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
 </div>
 <p>It gives no output at all and if we check the figs folder</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-la</span> figs/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="ex">$</span> ls <span class="at">-la</span> figs/</span></code></pre>
 </div>
 <p>None of the files have been overwritten this time.</p>
 <div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
@@ -1685,15 +1678,15 @@ or flags.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> More on Function Errors/Exceptions </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Python reports a <strong>runtime error</strong> when something goes
 wrong while a program is executing.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">53</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>remaining <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> aege <span class="co"># mis-spelled 'age'</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>age <span class="op">=</span> <span class="dv">53</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>remaining <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> aege <span class="co"># mis-spelled 'age'</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1708,7 +1701,7 @@ understand the source of a program.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"hello world"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="bu">print</span>(<span class="st">"hello world"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1740,8 +1733,8 @@ occurred in cell 6 of our Notebook.</li>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> cd data/</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> python swc-gapminder/gdp_plots.py <span class="at">-a</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="ex">$</span> cd data/</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="ex">$</span> python swc-gapminder/gdp_plots.py <span class="at">-a</span></span></code></pre>
 </div>
 <p>We see no output from the program at all for either of these cases.
 This is what is referred to as a “silent failure”. The program has
@@ -1812,7 +1805,7 @@ see</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="ex">$</span> python gdp_plots.py</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1854,8 +1847,8 @@ add a commit to the repo.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>$ git add gdp_plots.py</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>$ git commit <span class="op">-</span>m <span class="st">"Handling case for missing filename argument"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a>$ git add gdp_plots.py</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>$ git commit <span class="op">-</span>m <span class="st">"Handling case for missing filename argument"</span></span></code></pre>
 </div>
 <div id="silent-errors-challenge" class="callout challenge">
 <div class="callout-square">
@@ -1879,7 +1872,7 @@ a check for this case and an error message when the issue arises.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre>
 import sys
@@ -1949,8 +1942,8 @@ add a commit to the repo.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Handling case if no files present in directory"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Handling case if no files present in directory"</span></span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -2063,7 +2056,7 @@ in.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git switch <span class="at">-c</span> refactor</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="ex">$</span> git switch <span class="at">-c</span> refactor</span></code></pre>
 </div>
 <p>Let’s break the code into 4 functions:</p>
 <ul>
@@ -2088,69 +2081,69 @@ comments are the first thing in a function, they are known as a
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> glob</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># we need to import part of matplotlib</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># because we are no longer in a notebook</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="kw">def</span> parse_arguments(argv):</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">    Parse the argument list passed from the command line</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">    (after the program filename is removed) and return a list</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">    of filenames.</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">    Input:</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">    ------</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">        argument list (normally sys.argv[1:])</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">    --------</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">        filenames: list of strings, list of files to plot</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="kw">def</span> create_plot(filename):</span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">    Creates a plot for the specified</span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">    data file.</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">    Input:</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">    ------</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">        filename: string, path to file to plot</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">    --------</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">        none</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="kw">def</span> create_plots(filenames):</span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">    Takes in a list of filenames to plot</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">    and creates a plot for each file.</span></span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">    Input:</span></span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">    ------</span></span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">        filenames: list of strings, list of files to plot</span></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">    --------</span></span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">        none</span></span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">    main function - does all the work</span></span>
-<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a></span>
-<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co"># call main</span></span>
-<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a>main()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="im">import</span> sys</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="im">import</span> glob</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a><span class="im">import</span> pandas</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a><span class="co"># we need to import part of matplotlib</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a><span class="co"># because we are no longer in a notebook</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1" aria-label="code-block-2-9"></a><span class="kw">def</span> parse_arguments(argv):</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1" aria-label="code-block-2-10"></a>    <span class="co">"""</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1" aria-label="code-block-2-11"></a><span class="co">    Parse the argument list passed from the command line</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1" aria-label="code-block-2-12"></a><span class="co">    (after the program filename is removed) and return a list</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1" aria-label="code-block-2-13"></a><span class="co">    of filenames.</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1" aria-label="code-block-2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1" aria-label="code-block-2-15"></a><span class="co">    Input:</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1" aria-label="code-block-2-16"></a><span class="co">    ------</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1" aria-label="code-block-2-17"></a><span class="co">        argument list (normally sys.argv[1:])</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1" aria-label="code-block-2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1" aria-label="code-block-2-19"></a><span class="co">    Returns:</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1" aria-label="code-block-2-20"></a><span class="co">    --------</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1" aria-label="code-block-2-21"></a><span class="co">        filenames: list of strings, list of files to plot</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1" aria-label="code-block-2-22"></a><span class="co">    """</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1" aria-label="code-block-2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1" aria-label="code-block-2-24"></a></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1" aria-label="code-block-2-25"></a><span class="kw">def</span> create_plot(filename):</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1" aria-label="code-block-2-26"></a>    <span class="co">"""</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1" aria-label="code-block-2-27"></a><span class="co">    Creates a plot for the specified</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1" aria-label="code-block-2-28"></a><span class="co">    data file.</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1" aria-label="code-block-2-29"></a></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1" aria-label="code-block-2-30"></a><span class="co">    Input:</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1" aria-label="code-block-2-31"></a><span class="co">    ------</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1" aria-label="code-block-2-32"></a><span class="co">        filename: string, path to file to plot</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1" aria-label="code-block-2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1" aria-label="code-block-2-34"></a><span class="co">    Returns:</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1" aria-label="code-block-2-35"></a><span class="co">    --------</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1" aria-label="code-block-2-36"></a><span class="co">        none</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1" aria-label="code-block-2-37"></a><span class="co">    """</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1" aria-label="code-block-2-38"></a></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1" aria-label="code-block-2-39"></a></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1" aria-label="code-block-2-40"></a><span class="kw">def</span> create_plots(filenames):</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1" aria-label="code-block-2-41"></a>    <span class="co">"""</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1" aria-label="code-block-2-42"></a><span class="co">    Takes in a list of filenames to plot</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1" aria-label="code-block-2-43"></a><span class="co">    and creates a plot for each file.</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1" aria-label="code-block-2-44"></a></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1" aria-label="code-block-2-45"></a><span class="co">    Input:</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1" aria-label="code-block-2-46"></a><span class="co">    ------</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1" aria-label="code-block-2-47"></a><span class="co">        filenames: list of strings, list of files to plot</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1" aria-label="code-block-2-48"></a></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1" aria-label="code-block-2-49"></a><span class="co">    Returns:</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1" aria-label="code-block-2-50"></a><span class="co">    --------</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1" aria-label="code-block-2-51"></a><span class="co">        none</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1" aria-label="code-block-2-52"></a><span class="co">    """</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1" aria-label="code-block-2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1" aria-label="code-block-2-54"></a></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1" aria-label="code-block-2-55"></a><span class="kw">def</span> main():</span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1" aria-label="code-block-2-56"></a>    <span class="co">"""</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1" aria-label="code-block-2-57"></a><span class="co">    main function - does all the work</span></span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1" aria-label="code-block-2-58"></a><span class="co">    """</span></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1" aria-label="code-block-2-59"></a></span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1" aria-label="code-block-2-60"></a></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1" aria-label="code-block-2-61"></a></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1" aria-label="code-block-2-62"></a><span class="co"># call main</span></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1" aria-label="code-block-2-63"></a>main()</span></code></pre>
 </div>
 <div id="adding-docstrings" class="callout">
 <div class="callout-square">
@@ -2340,8 +2333,8 @@ has changed, so let’s update the repository.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Refactoring code into functions."</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Refactoring code into functions."</span></span></code></pre>
 </div>
 <div id="branching-and-refactoring" class="callout discussion">
 <div class="callout-square">
@@ -2363,8 +2356,8 @@ into our main branch.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> git switch main</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> git merge refactor</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="ex">$</span> git switch main</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="ex">$</span> git merge refactor</span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -2429,7 +2422,7 @@ see what happens if we try to import our file as it is.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> gdp_plots</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">import</span> gdp_plots</span></code></pre>
 </div>
 <p>The result is an error related to how Python is attempting to
 interpret the file. This is because Python is encountering our call to
@@ -2452,8 +2445,8 @@ produces output in the following if statement:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    main()  <span class="co"># Or whatever function produces output</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>    main()  <span class="co"># Or whatever function produces output</span></span></code></pre>
 </div>
 <p>When you import a Python file, <code>__name__</code> is the name of
 that file (e.g., when importing <code>pandas_plots.py</code>,
@@ -2584,7 +2577,7 @@ again.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> gdp_plots</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="im">import</span> gdp_plots</span></code></pre>
 </div>
 <p>Success! You’ve just written your first Python module. Any of the
 functions in that module can now be accessed in our Jupyter notebook
@@ -2592,7 +2585,7 @@ session.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>gdp_plots.create_plot(<span class="st">"data/gapminder_gdp_oceania.csv"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>gdp_plots.create_plot(<span class="st">"data/gapminder_gdp_oceania.csv"</span>)</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="update-the-repository">Update the repository<a class="anchor" aria-label="anchor" href="#update-the-repository"></a>
@@ -2602,8 +2595,8 @@ repository.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Moving call to the main function."</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="ex">$</span> git add gdp_plots.py</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"Moving call to the main function."</span></span></code></pre>
 </div>
 <div id="writing-modular-code" class="callout">
 <div class="callout-square">
@@ -2753,7 +2746,7 @@ other topics.</p></li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.0)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -2776,8 +2769,8 @@ other topics.</p></li>
   "url": "https://carpentries-incubator.github.io/swc-ext-python/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/swc-ext-python/instructor/aio.html",
   "dateCreated": "2014-10-21",
-  "dateModified": "2026-04-14",
-  "datePublished": "2026-04-14"
+  "dateModified": "2026-04-21",
+  "datePublished": "2026-04-21"
 }
 
   </script><script>
